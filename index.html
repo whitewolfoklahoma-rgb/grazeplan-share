@@ -505,7 +505,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">About this app</h3>
-      <p class="small">FarmerHelp <b>v2.2</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
+      <p class="small">FarmerHelp <b>v2.2.1</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
     </div>
   </section>
 
@@ -610,7 +610,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">About &amp; legal</h3>
-      <p class="small">FarmerHelp <b>v2.2</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
+      <p class="small">FarmerHelp <b>v2.2.1</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
       <div class="btnrow"><button type="button" class="btn-ghost" id="openLegalBtn">View Legal — Terms, Disclaimer &amp; Privacy</button></div>
       <p class="small muted" id="legalRecordLine"></p>
     </div>
@@ -3820,7 +3820,7 @@ function printExtraSections(){
 
 
 /* ================= v2: glue — map view dispatch, Today extras, settings extras, grid water tools ================= */
-var APP_VERSION = "2.2";
+var APP_VERSION = "2.2.1";
 function renderMapV2(){
   var view = state.map.view || "sat";
   $$("#mapViewToggle button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-mapview")===view); });
@@ -4466,7 +4466,7 @@ function tellResolveNumber(n){
 }
 function tellPaddockRefs(seg){
   var refs = [];
-  var re1 = /paddock\s+(\d+)/g, m;
+  var re1 = /paddock\s+(?:(?:number|no\.?|#)\s*)?(\d+)/g, m;
   while ((m = re1.exec(seg)) !== null){ var r = tellResolveNumber(parseInt(m[1],10)); refs.push({ index: m.index, end: m.index + m[0].length, res: r, raw: m[0] }); }
   var re2 = /([a-z][a-z'-]*)\s+paddock/g;
   while ((m = re2.exec(seg)) !== null){
@@ -4538,7 +4538,25 @@ function tellClassify(segRaw){
     var toRef = refs.filter(function(r){ return r.role === "to"; })[0] || null;
     var fromRef = refs.filter(function(r){ return r.role === "from"; })[0] || null;
     var mens = tellSpeciesMentions(seg);
-    if (!mens.length){ items.push({ type:"note", text: segRaw.trim(), problem:"I heard a move but couldn't tell which animals." }); return items; }
+    if (!mens.length){
+      /* v2.2.1: generic group references — "moved the herd / the animals / them from
+         paddock 1 to paddock 2" names no species word, but the animals are still
+         identifiable: the group(s) standing in the source paddock (or, when no
+         source resolves, the farm's groups, left for the confirm-screen picker).
+         Resolve by location instead of burying the sentence as a field note. */
+      var gm = seg.match(/\b(herd|flock|animals|livestock|group|them)\b/);
+      if (!gm){ items.push({ type:"note", text: segRaw.trim(), problem:"I heard a move but couldn't tell which animals." }); return items; }
+      var gFromId = fromRef && fromRef.res && fromRef.res.paddock ? fromRef.res.paddock.id : null;
+      var gCands = gFromId ? state.groups.filter(function(g){ return g.paddockId === gFromId; }) : [];
+      if (!gCands.length) gCands = state.groups.slice();
+      var gCountM = seg.match(/(\d+(?:\.\d+)?)\s+(?:of\s+)?(?:the\s+)?(herd|flock|animals|livestock|group)\b/);
+      items.push({ type:"move", sp: gCands.length === 1 ? gCands[0].species : null, hint: "", word: gm[1] === "them" ? "animals" : gm[1], count: gCountM ? parseFloat(gCountM[1]) : null, est: /\b(maybe|about|around|roughly)\b/.test(seg),
+        groupId: gCands.length === 1 ? gCands[0].id : null, candidates: gCands.map(function(g){ return g.id; }),
+        fromId: gFromId,
+        toId: toRef && toRef.res && toRef.res.paddock ? toRef.res.paddock.id : null,
+        toAmbiguous: toRef && toRef.res && toRef.res.ambiguous ? toRef.res.ambiguous.map(function(p){ return p.name; }).join(" or ") : null });
+      return items;
+    }
     mens.forEach(function(mn){
       var cands = tellGroupCandidates(mn.sp, mn.hint, fromRef && fromRef.res && fromRef.res.paddock ? fromRef.res.paddock.id : null);
       items.push({ type:"move", sp: mn.sp, hint: mn.hint, word: mn.word, count: mn.count, est: mn.est,
@@ -4693,6 +4711,7 @@ function openTellConfirm(items, originalText){
     if (it.type === "move"){
       if (it.candidates && it.candidates.length > 1) extra += "<label>Which group?</label><select id='tgroup" + i + "'>" + it.candidates.map(function(id){ var g = findGroup(id); return "<option value='" + id + "'" + (id === it.groupId ? " selected" : "") + ">" + esc(g ? g.name + " (" + g.head + " head" + (g.paddockId ? ", on " + ((findPaddock(g.paddockId) || {}).name || "?") : "") + ")" : id) + "</option>"; }).join("") + "</select>";
       var g = it.groupId ? findGroup(it.groupId) : null;
+      if (g && it.count && it.count > num(g.head, 0)) extra += "<p class='small' style='color:#a33'>You said " + it.count + ", but " + esc(g.name) + " only has " + num(g.head, 0) + " head — the whole group will move.</p>";
       if (g && it.count && it.count < num(g.head, 0)) extra += "<div class='row'><label class='checkline'><input type='radio' name='tsplit" + i + "' value='split' checked> <span>Split — move " + it.count + " of " + g.head + " head as their own group</span></label><label class='checkline'><input type='radio' name='tsplit" + i + "' value='whole'> <span>Move the whole group (" + g.head + " head)</span></label></div>";
       if (!it.toId) extra += "<p class='small' style='color:#a33'>No destination understood — uncheck this one and use Quick Log → Move, or re-say it with the paddock name.</p>";
     }
