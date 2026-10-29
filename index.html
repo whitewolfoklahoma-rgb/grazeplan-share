@@ -242,6 +242,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">Needs attention — recommended moves</h3>
+      <div id="todayNotices"></div>
       <div id="moveRecs"></div>
     </div>
     <div class="card" id="todayBreedingCard" style="display:none">
@@ -379,6 +380,7 @@
       <button type="button" data-rectab="rain">Rainfall</button>
       <button type="button" data-rectab="forage">Forage</button>
       <button type="button" data-rectab="soil">Soil health</button>
+      <button type="button" data-rectab="amendments">Amendments</button>
       <button type="button" data-rectab="tasks">Tasks</button>
       <button type="button" data-rectab="feed">Feed &amp; hay</button>
       <button type="button" data-rectab="water">Water</button>
@@ -460,6 +462,32 @@
   </section>
 
   <!-- MORE -->
+  <!-- REMINDERS (v2.2) -->
+  <section class="view" id="view-reminders">
+    <h2>Reminders</h2>
+    <div class="helpblock" data-helpblock="reminders"><button type="button" class="helpToggle" data-helptoggle="reminders">How this page works <span class="hchev">▾</span></button><div class="helpBody"><p><b>Everything coming up, in one list.</b> Most of these build themselves from your records — breeding dates, sale plans, tasks, water checks, planting windows, harvest times — so this page and the Today page always agree. Add your own at the bottom; repeating ones roll forward when you mark them done.</p></div></div>
+    <div class="alert info" style="margin-bottom:12px">Reminders show here when you open FarmerHelp. Phone notifications that reach you with the app closed arrive with the connected edition.</div>
+    <div id="remindersBody"></div>
+    <div class="card">
+      <h3 style="margin-top:0">+ New reminder</h3>
+      <label for="remText">What to remember</label>
+      <input type="text" id="remText" placeholder="e.g., Order chick feed">
+      <div class="row">
+        <div><label for="remDate">Date</label><input type="date" id="remDate"></div>
+        <div><label for="remRepeat">Repeat</label><select id="remRepeat"><option value="none">Doesn't repeat</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></div>
+      </div>
+      <div class="btnrow"><button type="button" id="remAddBtn">Add reminder</button></div>
+    </div>
+  </section>
+
+  <!-- GARDENS (v2.2) -->
+  <section class="view" id="view-gardens">
+    <h2>Gardens</h2>
+    <div class="helpblock" data-helpblock="gardens"><button type="button" class="helpToggle" data-helptoggle="gardens">How this page works <span class="hchev">▾</span></button><div class="helpBody"><p><b>Garden plots and what you planted in them.</b> 1) Add a plot with its size. 2) Log each planting — FarmerHelp figures the harvest window from the crop's own days and your frost dates in Settings. 3) When you pick, log the harvest. Garden plots are never grazed — the grazing advice ignores them.</p></div></div>
+    <div id="gardensBody"></div>
+    <div class="btnrow"><button type="button" id="gardenAddBtn">+ New garden</button></div>
+  </section>
+
   <section class="view" id="view-more">
     <h2>More</h2>
     <div class="helpblock" data-helpblock="more"><button type="button" class="helpToggle" data-helptoggle="more">How this page works <span class="hchev">▾</span></button><div class="helpBody"><p><b>Everything else in FarmerHelp lives here</b> — paddocks, breeding, records, water &amp; building planning, the grazing chart, reports, and settings. The five tabs at the bottom (Today, Map, Animals, Money, More) are the whole app.</p></div></div>
@@ -471,11 +499,13 @@
       <button type="button" data-morego="records"><b>📋 Records</b><span class="right">Moves, rain, feed, water, trips, field notes</span></button>
       <button type="button" data-morego="plan"><b>💧 Water &amp; structures</b><span class="right">Water lines, hoop coops, materials &amp; costs</span></button>
       <button type="button" data-morego="reports"><b>📋 Reports</b><span class="right">Farm statistics — land, livestock, feed, money, sales</span></button>
+      <button type="button" data-morego="reminders"><b>🔔 Reminders</b><span class="right">Everything coming up, in one list</span></button>
+      <button type="button" data-morego="gardens"><b>🌱 Gardens</b><span class="right">Garden plots, plantings &amp; harvests</span></button>
       <button type="button" data-morego="settings"><b>⚙️ Settings</b><span class="right">Farm setup, vehicles, legal</span></button>
     </div>
     <div class="card">
       <h3 style="margin-top:0">About this app</h3>
-      <p class="small">FarmerHelp <b>v2.1</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, farm reports, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
+      <p class="small">FarmerHelp <b>v2.2</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
     </div>
   </section>
 
@@ -530,6 +560,17 @@
       <div class="btnrow"><button type="button" id="saveEngineBtn">Save engine settings</button></div>
     </div>
     <div class="card">
+      <h3 style="margin-top:0">Forage library &amp; planting</h3>
+      <p class="muted">The planting planner's seed library — windows, rates, and prices are yours to tune. Planting windows follow your frost dates below.</p>
+      <div class="row">
+        <div><label for="setFrostLast">Last spring frost (average)</label><input type="text" id="setFrostLast" inputmode="numeric" placeholder="MM-DD" maxlength="5"></div>
+        <div><label for="setFrostFirst">First fall frost (average)</label><input type="text" id="setFrostFirst" inputmode="numeric" placeholder="MM-DD" maxlength="5"></div>
+      </div>
+      <div class="btnrow"><button type="button" id="saveFrostBtn">Save frost dates</button></div>
+      <p class="muted small">Defaults (Apr 10 / Nov 1) are southern Great Plains estimates — set yours from your own records or your county extension.</p>
+      <div id="forageLibBody"></div>
+    </div>
+    <div class="card">
       <h3 style="margin-top:0">Your data</h3>
       <p class="muted">Everything lives in this browser on this device — nothing is uploaded. Back up regularly; an export is the only way to move your farm to a new device.</p>
       <div class="btnrow">
@@ -569,7 +610,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">About &amp; legal</h3>
-      <p class="small">FarmerHelp <b>v2.1</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
+      <p class="small">FarmerHelp <b>v2.2</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
       <div class="btnrow"><button type="button" class="btn-ghost" id="openLegalBtn">View Legal — Terms, Disclaimer &amp; Privacy</button></div>
       <p class="small muted" id="legalRecordLine"></p>
     </div>
@@ -640,6 +681,7 @@
 <div id="toast" role="status"></div>
 
 <script>
+
 "use strict";
 /* ================= FarmerHelp ================= */
 var TERMS_VERSION = "1.0";
@@ -724,7 +766,9 @@ function defaultState(){
     waterSys: { sources: [], lines: [], troughs: [], defaults: { depthIn:18, pricePerFt:1.2, fittingPrice:6 } },
     structures: [], vehicles: [], trips: [], tripLast: { vehicleId:"", fuelPrice:"", purpose:"feed run" },
     finance: [], proj: { years:5, growthPct:5, pricePoultry:25, priceCattle:1800, pricePig:350, priceSheepGoat:200, otherIncome:0, otherExpense:0 },
-    demoLoaded: false
+    demoLoaded: false,
+    /* v2.2 */ amendments: [], forageLibrary: null, cropLibrary: null, gardens: [], gardenPlantings: [], reminders: [],
+    settings: { frostLast: "04-10", frostFirst: "11-01" }
   };
 }
 var state = defaultState();
@@ -752,7 +796,12 @@ function normalizeState(s){
   if (s.farm) { out.farm.name=String(s.farm.name||""); out.farm.totalAcres=num(s.farm.totalAcres,0); out.farm.lat=(s.farm.lat===null||s.farm.lat===""||s.farm.lat===undefined)?null:num(s.farm.lat,0); out.farm.lon=(s.farm.lon===null||s.farm.lon===""||s.farm.lon===undefined)?null:num(s.farm.lon,0); out.farm.seasonStart=String(s.farm.seasonStart||""); out.farm.seasonEnd=String(s.farm.seasonEnd||""); if (Array.isArray(s.farm.speciesKept)) out.farm.speciesKept=s.farm.speciesKept.filter(function(x){ return SPECIES.some(function(sp){return sp.id===x;}); }); }
   if (s.map) { out.map.bg = (typeof s.map.bg==="string" && s.map.bg.indexOf("data:image")===0) ? s.map.bg : null; out.map.bgOpacity = Math.min(100, Math.max(10, num(s.map.bgOpacity,85))); out.map.ftPerPx = num(s.map.ftPerPx, 1.97) || 1.97; }
   if (s.engine) { ["spring","summer","fall","dormant"].forEach(function(k){ if (s.engine.rest && s.engine.rest[k]) out.engine.rest[k]=Math.max(1, Math.round(num(s.engine.rest[k], out.engine.rest[k]))); }); out.engine.forageLbPerInch = num(s.engine.forageLbPerInch, 220) || 220; out.engine.residualIn = num(s.engine.residualIn, 3); out.engine.finishDays = Math.max(1, Math.round(num(s.engine.finishDays, 30))); }
-  ["paddocks","groups","grazings","moves","rainfall","forageObs","soilObs","tasks","manualWx","fieldNotes","breeding","cohorts","plans","feedLog","feedInv","hayBuys","waterChecks","photos","structures","vehicles","trips","finance"].forEach(function(k){ if (Array.isArray(s[k])) out[k]=s[k]; });
+  ["paddocks","groups","grazings","moves","rainfall","forageObs","soilObs","tasks","manualWx","fieldNotes","breeding","cohorts","plans","feedLog","feedInv","hayBuys","waterChecks","photos","structures","vehicles","trips","finance","amendments","gardens","gardenPlantings","reminders"].forEach(function(k){ if (Array.isArray(s[k])) out[k]=s[k]; });
+  /* ---- v2.2: settings + libraries + paddock planting fields ---- */
+  if (s.settings && typeof s.settings==="object"){ out.settings.frostLast = validMMDD(s.settings.frostLast) || "04-10"; out.settings.frostFirst = validMMDD(s.settings.frostFirst) || "11-01"; }
+  out.forageLibrary = (Array.isArray(s.forageLibrary) && s.forageLibrary.length) ? s.forageLibrary : seedForageLibrary();
+  out.cropLibrary = (Array.isArray(s.cropLibrary) && s.cropLibrary.length) ? s.cropLibrary : seedCropLibrary();
+  out.paddocks.forEach(function(p){ if (!p) return; if (p.plantingPlan === undefined) p.plantingPlan = null; if (!Array.isArray(p.plantingHistory)) p.plantingHistory = []; });
   if (s.wxCache && typeof s.wxCache==="object" && Array.isArray(s.wxCache.days)) out.wxCache = s.wxCache;
   if (s.map) { out.map.view = (s.map.view==="grid"||s.map.view==="sat") ? s.map.view : "sat"; if (Array.isArray(s.map.boundary)) out.map.boundary = s.map.boundary.filter(function(pt){ return Array.isArray(pt)&&pt.length>=2&&isFinite(pt[0])&&isFinite(pt[1]); }); out.map.boundaryLocId = String(s.map.boundaryLocId||""); out.map.baseLayer = ["esri","naip","osm"].indexOf(s.map.baseLayer)>=0 ? s.map.baseLayer : "esri"; }
   if (s.breedOverrides && typeof s.breedOverrides==="object") out.breedOverrides = s.breedOverrides;
@@ -1081,7 +1130,7 @@ function recommendMoves(){
   var basis = wxBasis(); var days = forecastDays();
   var heavyRain = days.slice(0,3).some(function(d){ return num(d.precip,0)>=0.75 || (num(d.precip,0)>=0.5 && num(d.prob,0)>=70); });
   var hot = days.slice(0,3).some(function(d){ return num(d.hi,0)>=95; });
-  var ready = state.paddocks.map(function(p){ return { p:p, st:paddockStatus(p), f:latestForage(p.id) }; }).filter(function(x){ return x.st.key==="ready"; });
+  var ready = state.paddocks.map(function(p){ return { p:p, st:paddockStatus(p), f:latestForage(p.id) }; }).filter(function(x){ return x.st.key==="ready" && !x.st.establishing && !isGarden(x.p); });
   ready.sort(function(a,b){ return num(b.f?b.f.height:0,0) - num(a.f?a.f.height:0,0); });
   var readyFor = function(locId){ return ready.filter(function(x){ return (x.p.locationId||"")===locId; }); };
   state.groups.forEach(function(g){
@@ -1200,7 +1249,7 @@ function renderToday(){ renderBriefing();
   renderWxCard(adv);
   renderMoveRecs();
   renderTodayExtras();
-  var readyList = scopedPaddocks().map(function(p){ return {p:p, st:paddockStatus(p), f:latestForage(p.id)}; }).filter(function(x){ return x.st.key==="ready"; });
+  var readyList = scopedPaddocks().map(function(p){ return {p:p, st:paddockStatus(p), f:latestForage(p.id)}; }).filter(function(x){ return x.st.key==="ready" && !x.st.establishing && !isGarden(x.p); });
   readyList.sort(function(a,b){ return num(b.f?b.f.height:0,0)-num(a.f?a.f.height:0,0); });
   $("#readyList").innerHTML = readyList.length ? readyList.map(function(x){
     return "<div class='listitem'><div class='flexline'><span class='ttl'>"+esc(x.p.name)+"</span><span class='pill ready'>Ready</span><span class='right muted'>"+fmt(paddockAcres(x.p),1)+" ac</span></div><div class='meta'>Rested "+x.st.elapsed+" days"+(x.f?(" · forage ~"+fmt(x.f.height,1)+" in ("+fmtDate(x.f.date)+")"):" · no forage reading yet")+"</div></div>";
@@ -1244,7 +1293,7 @@ function renderMoveRecs(){
   $$("[data-recordmove]", box).forEach(function(btn){ btn.addEventListener("click", function(){ var r=recs[+btn.getAttribute("data-recordmove")]; openRecordMove(r.group, r.to); }); });
 }
 function openRecordMove(group, toPaddock){
-  var padOpts = sortPaddocks(state.paddocks).map(function(p){ return "<option value='"+p.id+"'"+(toPaddock&&p.id===toPaddock.id?" selected":"")+">"+esc(padOptionLabel(p))+"</option>"; }).join("");
+  var padOpts = sortPaddocks(state.paddocks.filter(function(pp){ return !isGarden(pp); })).map(function(p){ return "<option value='"+p.id+"'"+(toPaddock&&p.id===toPaddock.id?" selected":"")+">"+esc(padOptionLabel(p))+"</option>"; }).join("");
   openModal("<h3>Record move — "+esc(group.name)+"</h3>"+
     "<label>Move to paddock</label><select id='mvTo'>"+padOpts+"</select>"+
     "<label>Date</label><input type='date' id='mvDate' value='"+todayISO()+"'>"+
@@ -1336,7 +1385,7 @@ function openGroupForm(g){
   var isNew = !g;
   g = g || { id:null, name:"", species:"cattle", head:"", avgWeight:"", paddockId:null, notes:"" };
   var spOpts = SPECIES.map(function(sp){ return "<option value='"+sp.id+"'"+(g.species===sp.id?" selected":"")+">"+sp.label+"</option>"; }).join("");
-  var padOpts = "<option value=''>— not placed —</option>" + sortPaddocks(state.paddocks).map(function(p){ return "<option value='"+p.id+"'"+(g.paddockId===p.id?" selected":"")+">"+esc(padOptionLabel(p))+"</option>"; }).join("");
+  var padOpts = "<option value=''>— not placed —</option>" + sortPaddocks(state.paddocks.filter(function(pp){ return !isGarden(pp); })).map(function(p){ return "<option value='"+p.id+"'"+(g.paddockId===p.id?" selected":"")+">"+esc(padOptionLabel(p))+"</option>"; }).join("");
   openModal("<h3>"+(isNew?"Add group":"Edit group")+"</h3>"+
     "<label>Group name</label><input type='text' id='gfName' value='"+esc(g.name)+"' placeholder='e.g., Cow Herd'>"+micBtnHTML("#gfName")+
     "<label>Species</label><select id='gfSpecies'>"+spOpts+"</select>"+
@@ -1400,7 +1449,7 @@ function statusPill(st){ return st.key==="grazed"?"<span class='pill grazed'>Gra
 function renderPaddocks(){
   var box = $("#paddockList");
   if (!state.paddocks.length){ box.innerHTML="<div class='empty'>No paddocks yet. Draw your first paddock on the Map tab — trace it over a satellite photo of your land, or on the blank grid.</div>"; return; }
-  var sorted = sortPaddocks(state.paddocks);
+  var sorted = sortPaddocks(state.paddocks.filter(function(pp){ return !isGarden(pp); }));
   box.innerHTML = sorted.map(function(p){
     var st = paddockStatus(p); var f = latestForage(p.id);
     var occAU = st.groups ? st.groups.reduce(function(a,g){ return a+groupAU(g); },0) : 0;
@@ -1412,15 +1461,19 @@ function renderPaddocks(){
     "<div class='meta'>"+esc(p.type)+(p.hasWater?" · water":" · no water marked")+(p.hasShade?" · shade":"")+(p.lowWet?" · low/wet":"")+"</div>"+
     "<div class='meta'>"+(st.key==="resting" ? ("Last grazed "+fmtDate(st.lastOut)+" · rested "+st.elapsed+" of "+st.req+" days ("+seasonLabel(seasonOf(todayISO()))+" pace)") : st.key==="ready" ? ("Rested "+st.elapsed+" days — ready when you are") : st.key==="grazed" ? (st.groups.map(function(g){return esc(g.name);}).join(", ")+" · "+fmt(occAU,1)+" AU on "+fmt(ac,1)+" ac = "+fmt(dens||0,2)+" AU/acre"+estTxt) : "No grazing recorded yet")+"</div>"+
     "<div class='meta'>Forage: "+(f?("~"+fmt(f.height,1)+" in as of "+fmtDate(f.date)):"no reading yet")+"</div>"+
+    paddockPlantLine(p)+
+    lastAmendmentLine(p)+
     "<div class='meta'><span data-spark='"+p.id+"'></span></div>"+
     (function(){ var cn = latestConditionNote(p.id); return cn ? "<p class='small' style='margin:4px 0'>⚠ <b>"+esc(cn.condition)+"</b> — noted "+fmtDate(cn.date)+": "+esc(cn.text)+"</p>" : ""; })()+
     (p.notes?"<p class='small' style='margin:4px 0'>"+esc(p.notes)+"</p>":"")+
-    "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' data-pforage='"+p.id+"'>Log forage</button><button type='button' class='btn-sm btn-ghost' data-pedit='"+p.id+"'>Edit details</button><button type='button' class='btn-sm btn-ghost' data-pmap='"+p.id+"'>See on map</button><button type='button' class='btn-sm btn-ghost' data-pheight='"+p.id+"'>Height history</button><button type='button' class='btn-sm btn-ghost' data-pphotos='"+p.id+"'>Photos</button><button type='button' class='btn-sm btn-ghost' data-pwater='"+p.id+"'>Water check</button><button type='button' class='btn-sm btn-danger' data-pdel='"+p.id+"'>Delete</button></div></div>";
+    "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' data-pforage='"+p.id+"'>Log forage</button><button type='button' class='btn-sm btn-ghost' data-pedit='"+p.id+"'>Edit details</button><button type='button' class='btn-sm btn-ghost' data-pmap='"+p.id+"'>See on map</button><button type='button' class='btn-sm btn-ghost' data-pheight='"+p.id+"'>Height history</button><button type='button' class='btn-sm btn-ghost' data-pphotos='"+p.id+"'>Photos</button><button type='button' class='btn-sm btn-ghost' data-pwater='"+p.id+"'>Water check</button><button type='button' class='btn-sm btn-ghost' data-pplant='"+p.id+"'>🌱 Planting</button><button type='button' class='btn-sm btn-ghost' data-pfert='"+p.id+"'>Fertilize</button><button type='button' class='btn-sm btn-danger' data-pdel='"+p.id+"'>Delete</button></div></div>";
   }).join("");
   $$("[data-pforage]", box).forEach(function(b){ b.addEventListener("click", function(){ openForageForm(findPaddock(b.getAttribute("data-pforage"))); }); });
   $$("[data-pedit]", box).forEach(function(b){ b.addEventListener("click", function(){ openPaddockDetails(findPaddock(b.getAttribute("data-pedit"))); }); });
   $$("[data-pmap]", box).forEach(function(b){ b.addEventListener("click", function(){ mapSel = b.getAttribute("data-pmap"); switchView("map"); }); });
   $$("[data-pdel]", box).forEach(function(b){ b.addEventListener("click", function(){ var p=findPaddock(b.getAttribute("data-pdel")); confirmModal("Delete paddock?", "Delete <b>"+esc(p.name)+"</b> from the map? Groups on it become unplaced. Past grazing records keep its name as history. This can't be undone.", "Delete paddock", function(){ state.groups.forEach(function(g){ if (g.paddockId===p.id) g.paddockId=null; }); state.paddocks = state.paddocks.filter(function(x){ return x.id!==p.id; }); if (mapSel===p.id) mapSel=null; saveState(); toast("Paddock deleted."); renderAll(); }); }); });
+  $$("[data-pplant]", box).forEach(function(b){ b.addEventListener("click", function(){ openPlantingPanel(findPaddock(b.getAttribute("data-pplant"))); }); });
+  $$("[data-pfert]", box).forEach(function(b){ b.addEventListener("click", function(){ openAmendmentForm(findPaddock(b.getAttribute("data-pfert"))); }); });
 }
 function openForageForm(p){
   if (!p) return;
@@ -2267,6 +2320,7 @@ function renderSatPanel(){
     var st = paddockStatus(p);
     panel.innerHTML = "<div class='card tight'><div class='flexline'><b style='font-size:16px'>"+esc(p.name)+"</b>"+statusPill(st)+"<span class='right muted'>"+fmt(paddockAcres(p),2)+" ac</span></div>"+
     "<p class='small muted' style='margin:4px 0'>"+esc(p.type)+(p.hasWater?" · water":"")+(p.hasShade?" · shade":"")+(p.lowWet?" · low/wet":"")+"</p>"+
+    (function(){ var lt = lastAmendmentText(p.id); return lt ? "<p class='small muted' style='margin:4px 0'>Last fertilized: "+esc(lt)+"</p>" : ""; })()+
     "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' id='mpEdit'>Edit details</button><button type='button' class='btn-sm btn-ghost' id='mpForage'>Log forage</button><button type='button' class='btn-sm btn-ghost' id='mpWater'>Water check</button><button type='button' class='btn-sm btn-ghost' id='mpPhotos'>Photos</button></div></div>";
     $("#mpEdit").addEventListener("click", function(){ openPaddockDetails(p); });
     $("#mpForage").addEventListener("click", function(){ openForageForm(p); });
@@ -3386,6 +3440,7 @@ function openQuickLog(){
     "<button type='button' data-ql='fuel' class='amb'><span class='qi'>⛽</span>Fuel trip</button>"+
     "<button type='button' data-ql='note'><span class='qi'>📝</span>Note</button>"+
     "<button type='button' data-ql='money' class='alt'><span class='qi'>💵</span>Money</button>"+
+    "<button type='button' data-ql='fertilize'><span class='qi'>🧪</span>Fertilize</button>"+
     "</div><div class='btnrow'><button type='button' class='btn-ghost' id='qlClose'>Close</button></div>");
   $("#qlClose").addEventListener("click", closeModal);
   $$("[data-ql]").forEach(function(b){ b.addEventListener("click", function(){
@@ -3400,6 +3455,7 @@ function openQuickLog(){
     else if (k==="fuel") openTripForm();
     else if (k==="note") openQuickNote();
     else if (k==="money") openFinanceForm();
+    else if (k==="fertilize") openAmendmentForm(null);
   }); });
 }
 function openQuickMove(){
@@ -3407,7 +3463,7 @@ function openQuickMove(){
   if (!placed.length){ toast("No group is on a paddock yet — place one from the Herds tab."); closeModal(); return; }
   var recs = recommendMoves();
   function recFor(g){ var r = recs.filter(function(x){ return x.group.id===g.id && x.to; })[0]; return r ? r.to : null; }
-  function fallbackDest(g){ var ready = state.paddocks.filter(function(p){ return p.id!==g.paddockId && paddockStatus(p).key==="ready"; }); return ready[0] || state.paddocks.filter(function(p){ return p.id!==g.paddockId; })[0] || null; }
+  function fallbackDest(g){ var ready = state.paddocks.filter(function(p){ return p.id!==g.paddockId && !isGarden(p) && paddockStatus(p).key==="ready"; }); return ready[0] || state.paddocks.filter(function(p){ return p.id!==g.paddockId && !isGarden(p); })[0] || null; }
   placed = placed.slice().sort(function(a,b){ var ka=padSortKey(findPaddock(a.paddockId)||{name:""}), kb=padSortKey(findPaddock(b.paddockId)||{name:""}); return ka[0]-kb[0] || (ka[1]<kb[1]?-1:1); });
   openModal("<h3>Move animals</h3><p class='muted'>Tap a group, check the destination, confirm. Done.</p><div id='qmList'>"+
     placed.map(function(g){ var cur = findPaddock(g.paddockId); var dest = recFor(g) || fallbackDest(g); return "<div class='listitem'><div class='flexline'><span class='ttl'>"+esc(g.name)+"</span><span class='right muted'>on "+esc(cur?cur.name:"?")+"</span></div>"+(dest ? "<div class='btnrow'><button type='button' data-qm='"+g.id+"' data-dest='"+dest.id+"' style='min-height:56px'>Move → "+esc(padOptionLabel(dest))+"</button></div><p class='small muted' style='margin:4px 0'>Wrong field? Use the group's Move button on the Herds tab for the full picker.</p>" : "<p class='small muted'>No other paddock to move to yet.</p>")+"</div>"; }).join("")+
@@ -3764,7 +3820,7 @@ function printExtraSections(){
 
 
 /* ================= v2: glue — map view dispatch, Today extras, settings extras, grid water tools ================= */
-var APP_VERSION = "2.1";
+var APP_VERSION = "2.2";
 function renderMapV2(){
   var view = state.map.view || "sat";
   $$("#mapViewToggle button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-mapview")===view); });
@@ -4497,6 +4553,17 @@ function tellClassify(segRaw){
   if (/\b(water|watered|watering|refill|refilled|trough|tank)\b/.test(seg)){
     if (intention){ items.push({ type:"task", title: tellTitle(segRaw), due: due }); return items; }
     if (refLoc && refLoc.res && refLoc.res.paddock){ items.push({ type:"water", paddockId: refLoc.res.paddock.id }); return items; }
+    /* v2.2 micro-fix: a numeric paddock ref that did not resolve cleanly (an ambiguous
+       number, or a young farm with no matching paddock yet) still parses as a WATER
+       check — the confirm screen asks which paddock instead of burying the segment
+       as a field note. Covers trailing imperatives like "… , water paddock two". */
+    var wRefs = tellPaddockRefs(seg);
+    for (var wi = 0; wi < wRefs.length; wi++){
+      var wr = wRefs[wi];
+      var wNum = (String(wr.raw || "").match(/(\d+)/) || [])[1];
+      if (wr.res && wr.res.ambiguous){ items.push({ type:"water", paddockId: null, paddockNum: wNum ? parseInt(wNum, 10) : null, candidates: wr.res.ambiguous.map(function(pp){ return pp.id; }) }); return items; }
+      if (!wr.res && wNum){ items.push({ type:"water", paddockId: null, paddockNum: parseInt(wNum, 10), candidates: [] }); return items; }
+    }
     items.push({ type:"note", text: segRaw.trim(), problem:"I heard a water check but couldn't tell which paddock." }); return items;
   }
   /* feed */
@@ -4545,7 +4612,7 @@ function tellSummary(it){
     return "🐄 Move " + cnt + (g ? "" : "") + what + (from ? " from " + from : "") + (to ? " → " + to : " → (destination not understood" + (it.toAmbiguous ? " — could be " + it.toAmbiguous : "") + ")");
   }
   if (it.type === "feed"){ var g2 = it.groupId ? findGroup(it.groupId) : null; return "🌾 Feed " + (it.amount !== null && it.amount !== undefined ? (it.est ? "about " : "") + it.amount + " " + it.unit + " of " : "") + it.feedType + " to " + (g2 ? g2.name : "a group (pick below)") + (it.amount === null || it.amount === undefined ? " — amount not heard, will log 1 " + it.unit : ""); }
-  if (it.type === "water"){ var p = findPaddock(it.paddockId); return "💧 Water checked — " + (p ? p.name : "?"); }
+  if (it.type === "water"){ var p = findPaddock(it.paddockId); if (p) return "💧 Water checked — " + p.name; if (it.candidates && it.candidates.length) return "💧 Water checked — paddock " + it.paddockNum + " (pick which one below)"; return "💧 Water checked — paddock " + (it.paddockNum !== null && it.paddockNum !== undefined ? it.paddockNum : "?") + " (no paddock with that number yet — pick one below, or uncheck it)"; }
   if (it.type === "rain") return "🌧 Rain — " + fmt(it.inches, 2) + " in today (your gauge log)";
   if (it.type === "height"){ var p2 = findPaddock(it.paddockId); return "📏 Forage height — " + (p2 ? p2.name : "?") + " at " + fmt(it.inches, 1) + " in"; }
   if (it.type === "task") return "✅ Task — " + it.title + (it.due ? " (due " + fmtDate(it.due) + ")" : "");
@@ -4581,7 +4648,7 @@ function applyTellItem(it, opts){
     return true;
   }
   if (it.type === "water"){
-    var p = findPaddock(it.paddockId); if (!p) return false;
+    var p = findPaddock(opts.paddockId || it.paddockId); if (!p) return false;
     var tgts = waterTargets(false).filter(function(t){ return t.targetType === "paddock" && t.targetId === p.id; });
     if (!tgts.length) state.waterChecks.push({ id: uid("wc"), targetType: "paddock", targetId: p.id, name: p.name, date: T, ts: new Date().toISOString(), state: "full", note: "Tell FarmerHelp" });
     tgts.forEach(function(t){ state.waterChecks.push({ id: uid("wc"), targetType: t.targetType, targetId: t.targetId, name: t.name, date: T, ts: new Date().toISOString(), state: "full", note: "Tell FarmerHelp" }); });
@@ -4630,9 +4697,16 @@ function openTellConfirm(items, originalText){
       if (!it.toId) extra += "<p class='small' style='color:#a33'>No destination understood — uncheck this one and use Quick Log → Move, or re-say it with the paddock name.</p>";
     }
     if (it.type === "feed" && it.candidates && it.candidates.length > 1) extra += "<label>Which group?</label><select id='tgroup" + i + "'>" + it.candidates.map(function(id){ var g = findGroup(id); return "<option value='" + id + "'>" + esc(g ? g.name : id) + "</option>"; }).join("") + "</select>";
+    if (it.type === "water" && !it.paddockId){
+      var wCands = (it.candidates && it.candidates.length) ? it.candidates.slice() : [];
+      var wAll = sortPaddocks(state.paddocks.filter(function(pp){ return !isGarden(pp); }));
+      var wOpts = wCands.map(function(id){ var pp = findPaddock(id); return pp ? "<option value='" + id + "'>" + esc(pp.name) + "</option>" : ""; }).join("") + wAll.filter(function(pp){ return wCands.indexOf(pp.id) < 0; }).map(function(pp){ return "<option value='" + pp.id + "'>" + esc(pp.name) + "</option>"; }).join("");
+      if (wAll.length) extra += "<label>Which paddock?</label><select id='twater" + i + "'>" + wOpts + "</select>";
+      else extra += "<p class='small' style='color:#a33'>No paddocks on this farm yet — uncheck this one, or draw a paddock on the Map first.</p>";
+    }
     if (it.type === "task") extra += "<label>Edit before saving</label><input type='text' id='tedit" + i + "' value='" + esc(it.title) + "'>";
     if (it.type === "note" || it.type === "observe" || it.type === "health") extra += "<label>Edit before saving</label><input type='text' id='tedit" + i + "' value='" + esc(it.text) + "'>";
-    var problem = (it.type === "move" && (!it.toId || (!it.groupId && !(it.candidates && it.candidates.length)))) || (it.type === "feed" && !it.groupId && !(it.candidates && it.candidates.length));
+    var problem = (it.type === "move" && (!it.toId || (!it.groupId && !(it.candidates && it.candidates.length)))) || (it.type === "feed" && !it.groupId && !(it.candidates && it.candidates.length)) || (it.type === "water" && !it.paddockId && !state.paddocks.length);
     return "<div class='tellitem'><label class='checkline'><input type='checkbox' id='tkeep" + i + "'" + (problem ? "" : " checked") + "> <span><b>Keep</b></span></label><div>" + esc(tellSummary(it)) + "</div>" + extra + "</div>";
   }).join("");
   openModal("<h3>Check before I save</h3>" +
@@ -4648,6 +4722,7 @@ function openTellConfirm(items, originalText){
       var keep = $("#tkeep" + i); if (!keep || !keep.checked) return;
       var opts = {};
       var sel = $("#tgroup" + i); if (sel) opts.groupId = sel.value;
+      var wsel = $("#twater" + i); if (wsel) opts.paddockId = wsel.value;
       var ed = $("#tedit" + i); if (ed) { if (it.type === "task") opts.title = ed.value.trim() || it.title; else opts.text = ed.value.trim() || it.text; }
       var radio = document.querySelector("input[name='tsplit" + i + "']:checked"); if (radio) opts.mode = radio.value;
       if (applyTellItem(it, opts)) saved++;
@@ -4733,6 +4808,973 @@ function extendSampleV2(s){
   [s.paddocks, s.waterSys.sources, s.waterSys.lines, s.waterSys.troughs, s.structures].forEach(function(coll){ coll.forEach(function(it){ it.locationId = homeLoc.id; }); });
 }
 
+
+/* ================= v2.2: forage planting planner · amendment log · garden planner · unified reminders =================
+   Everything in this section is additive: v2.1 state keys, storage, and behavior are
+   untouched. New state lives under amendments / forageLibrary / cropLibrary /
+   gardens / gardenPlantings / reminders / settings, seeded by normalizeState. */
+
+/* ---------- shared helpers ---------- */
+function validMMDD(v){
+  if (typeof v !== "string") return null;
+  var m = v.trim().match(/^(\d{1,2})-(\d{1,2})$/); if (!m) return null;
+  var mo = parseInt(m[1], 10), d = parseInt(m[2], 10);
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  return (mo < 10 ? "0" : "") + mo + "-" + (d < 10 ? "0" : "") + d;
+}
+function frostSettings(){
+  var st = state.settings || {};
+  return { last: validMMDD(st.frostLast) || "04-10", first: validMMDD(st.frostFirst) || "11-01" };
+}
+var MMDD_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtMMDD(mmdd){ var p = String(mmdd || "").split("-"); if (p.length !== 2) return mmdd || ""; return MMDD_MONTHS[parseInt(p[0], 10) - 1] + " " + parseInt(p[1], 10); }
+function mmddAdd(mmdd, days){
+  var p = String(mmdd).split("-");
+  var dt = new Date(Date.UTC(2025, parseInt(p[0], 10) - 1, parseInt(p[1], 10) + days));
+  var mo = dt.getUTCMonth() + 1, d = dt.getUTCDate();
+  return (mo < 10 ? "0" : "") + mo + "-" + (d < 10 ? "0" : "") + d;
+}
+function isoFromMMDD(mmdd, year){ return year + "-" + mmdd; }
+/* The occurrence of an MM-DD window that belongs to the current planting cycle:
+   this year's, unless it ended more than 150 days ago (then next year's). */
+function mmddCycleISO(mmdd){
+  var y = parseInt(todayISO().slice(0, 4), 10);
+  var iso = isoFromMMDD(mmdd, y);
+  if (daysBetween(iso, todayISO()) > 150) iso = isoFromMMDD(mmdd, y + 1);
+  return iso;
+}
+function isGarden(p){ return !!p && p.kind === "garden"; }
+function planOf(p){ return (p && p.plantingPlan) || null; }
+
+/* ---------- forage library (seed) ---------- */
+var FORAGE_GOALS = [["summer","Summer grazing"],["winter","Winter stockpile"],["spring","Spring flush"],["soil","Build soil"],["protein","Protein bank"],["pollinator","Pollinators"]];
+var FORAGE_ANIMALS = ["cattle","sheep","goats","pigs","poultry"];
+var BRASSICA_CAUTION = "Brassica: limit to ~\u2153 of the day's dry matter; introduce over 7–10 days (bloat / nitrate risk)";
+var CLOVER_CAUTION = "Bloat risk on lush pure stands — keep grass in the mix";
+function W(start, end, sr, er){ var w = { start: start, end: end }; if (sr) w.startRel = sr; if (er) w.endRel = er; return w; }
+function seedForageLibrary(){
+  return [
+    { id:"radish", name:"Tillage Radish", family:"brassica", deepRooted:true, windows:{ spring:W("03-15","04-15"), fall:W("08-23","09-22",{base:"firstFrost",days:-70},{base:"firstFrost",days:-40}) }, soil:"well-drained", shade:"none", animals:{cattle:"ok",sheep:"ok",goats:"ok",pigs:"good",poultry:"ok"}, purposes:["soil"], ratePure:10, rateMix:4, daysToGraze:45, seedPrice:2.50, caution:BRASSICA_CAUTION },
+    { id:"turnips", name:"Purple-Top Turnips", family:"brassica", deepRooted:false, windows:{ spring:W("03-15","04-15"), fall:W("07-15","09-01") }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"good",goats:"ok",pigs:"good",poultry:"ok"}, purposes:["winter","soil"], ratePure:4, rateMix:2, daysToGraze:60, seedPrice:3.00, caution:BRASSICA_CAUTION },
+    { id:"cerealrye", name:"Cereal Rye", family:"grass", deepRooted:false, windows:{ spring:null, fall:W("09-01","11-01",null,{base:"firstFrost",days:0}) }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"ok",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["winter","soil","spring"], ratePure:90, rateMix:45, daysToGraze:120, seedPrice:0.40, caution:"Graze or terminate before jointing if a crop follows." },
+    { id:"ryegrass", name:"Annual Ryegrass", family:"grass", deepRooted:false, windows:{ spring:null, fall:W("09-01","10-15") }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"good",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["winter","spring"], ratePure:25, rateMix:12, daysToGraze:90, seedPrice:0.90, caution:"Can crowd out spring perennials if left to seed." },
+    { id:"oats", name:"Oats", family:"grass", deepRooted:false, windows:{ spring:W("02-20","03-31"), fall:W("08-01","09-15") }, soil:"well-drained", shade:"none", animals:{cattle:"ok",sheep:"ok",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["spring","winter"], ratePure:90, rateMix:40, daysToGraze:55, seedPrice:0.45, caution:"" },
+    { id:"fescue", name:"Tall Fescue", family:"grass", deepRooted:false, windows:{ spring:null, fall:W("08-15","10-01") }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"ok",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["winter"], ratePure:20, rateMix:12, daysToGraze:90, seedPrice:1.60, caution:"Endophyte (KY-31 type) caution for broodstock — prefer novel-endophyte seed." },
+    { id:"redclover", name:"Red Clover", family:"legume", deepRooted:false, windows:{ spring:W("02-15","04-01"), fall:W("08-01","09-15") }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"good",goats:"good",pigs:"good",poultry:"good"}, purposes:["protein","soil","pollinator"], ratePure:12, rateMix:4, daysToGraze:70, seedPrice:3.50, caution:CLOVER_CAUTION },
+    { id:"whiteclover", name:"White Clover", family:"legume", deepRooted:false, windows:{ spring:W("02-15","04-01"), fall:W("08-01","09-15") }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"good",goats:"good",pigs:"good",poultry:"good"}, purposes:["protein","spring","pollinator"], ratePure:6, rateMix:2, daysToGraze:60, seedPrice:5.00, caution:CLOVER_CAUTION },
+    { id:"crimson", name:"Crimson Clover", family:"legume", deepRooted:false, windows:{ spring:null, fall:W("08-15","10-01") }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"good",goats:"good",pigs:"good",poultry:"good"}, purposes:["spring","soil","pollinator"], ratePure:18, rateMix:6, daysToGraze:75, seedPrice:1.80, caution:"Winter-kills in hard winters north of zone 7 — a spring show, not a perennial." },
+    { id:"chicory", name:"Chicory", family:"forb", deepRooted:true, windows:{ spring:W("03-15","04-30"), fall:W("08-01","09-01") }, soil:"well-drained", shade:"none", animals:{cattle:"ok",sheep:"good",goats:"good",pigs:"ok",poultry:"ok"}, purposes:["summer","protein"], ratePure:6, rateMix:2, daysToGraze:60, seedPrice:6.00, caution:"Needs a rest between grazings or it thins out." },
+    { id:"plantain", name:"Forage Plantain", family:"forb", deepRooted:false, windows:{ spring:W("03-15","04-30"), fall:W("08-01","09-01") }, soil:"wet-ok", shade:"partial", animals:{cattle:"good",sheep:"good",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["summer","protein"], ratePure:8, rateMix:3, daysToGraze:55, seedPrice:7.00, caution:"" },
+    { id:"sorghum", name:"Sorghum-Sudangrass", family:"grass", deepRooted:false, windows:{ spring:W("05-15","07-15"), fall:null }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"ok",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["summer"], ratePure:30, rateMix:20, daysToGraze:45, seedPrice:0.80, caution:"Prussic acid: do NOT graze after frost or drought-stressed regrowth under ~24 in — wait 7 days after a killing frost." },
+    { id:"cowpeas", name:"Cowpeas", family:"legume", deepRooted:false, windows:{ spring:W("05-15","07-31"), fall:null }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"good",goats:"good",pigs:"good",poultry:"good"}, purposes:["summer","protein","soil"], ratePure:60, rateMix:25, daysToGraze:60, seedPrice:1.10, caution:"Killed by first frost — a one-season protein bank." },
+    { id:"sunflowers", name:"Sunflowers", family:"forb", deepRooted:true, windows:{ spring:W("04-15","06-30"), fall:null }, soil:"well-drained", shade:"none", animals:{cattle:"ok",sheep:"ok",goats:"ok",pigs:"ok",poultry:"good"}, purposes:["pollinator","protein"], ratePure:8, rateMix:3, daysToGraze:70, seedPrice:2.20, caution:"" },
+    { id:"alfalfa", name:"Alfalfa", family:"legume", deepRooted:true, windows:{ spring:W("03-01","04-15"), fall:W("08-01","09-01") }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"good",goats:"good",pigs:"good",poultry:"good"}, purposes:["protein"], ratePure:18, rateMix:8, daysToGraze:70, seedPrice:4.50, caution:"Bloat on lush stands; needs pH ≥ 6.5 and no wet feet — fails in heavy wet clay." },
+    { id:"bermuda", name:"Bermudagrass", family:"grass", deepRooted:false, windows:{ spring:W("04-15","06-15"), fall:null }, soil:"well-drained", shade:"none", animals:{cattle:"good",sheep:"ok",goats:"ok",pigs:"ok",poultry:"ok"}, purposes:["summer"], ratePure:10, rateMix:6, daysToGraze:40, seedPrice:6.50, caution:"Slow to establish the first year; don't judge it till year two." }
+  ];
+}
+function forageLib(){ if (!Array.isArray(state.forageLibrary) || !state.forageLibrary.length) state.forageLibrary = seedForageLibrary(); return state.forageLibrary; }
+function forageById(id){ return forageLib().filter(function(s){ return s.id === id; })[0] || null; }
+/* Resolve a species' window for a season against the farm's frost settings.
+   Frost-relative rules win over the stored absolute defaults. */
+function forageWindow(sp, season){
+  var w = sp && sp.windows ? sp.windows[season] : null; if (!w) return null;
+  var fr = frostSettings();
+  function resolve(mmdd, rel){ if (rel && rel.base) return mmddAdd(rel.base === "firstFrost" ? fr.first : fr.last, rel.days || 0); return mmdd; }
+  return { start: resolve(w.start, w.startRel), end: resolve(w.end, w.endRel) };
+}
+function forageWindowISO(sp, season){
+  var w = forageWindow(sp, season); if (!w) return null;
+  return { startISO: mmddCycleISO(w.start), endISO: mmddCycleISO(w.end), start: w.start, end: w.end };
+}
+function forageSeasonAuto(){ var m = parseInt(todayISO().slice(5, 7), 10); return (m >= 8 || m <= 1) ? "fall" : "spring"; }
+function goalLabel(id){ var g = FORAGE_GOALS.filter(function(x){ return x[0] === id; })[0]; return g ? g[1] : id; }
+
+/* Score one species for a paddock + goal + animals + season. Deterministic.
+   Returns null when the species cannot be ranked (no window this season, or a
+   selected animal rates it "avoid" — a hard filter). */
+function scoreForage(sp, p, goal, animals, season){
+  var winISO = forageWindowISO(sp, season);
+  if (!winISO) return { filtered: true, why: "no " + season + " planting window" };
+  for (var i = 0; i < animals.length; i++){
+    if ((sp.animals || {})[animals[i]] === "avoid") return { filtered: true, why: "avoid for " + animals[i] };
+  }
+  var T = todayISO(), score = 0, reasons = [], demote = "";
+  if (sp.purposes.indexOf(goal) >= 0){ score += 3; reasons.push(goalLabel(goal) + " pick"); }
+  animals.forEach(function(a){ var r = (sp.animals || {})[a]; if (r === "good"){ score += 2; reasons.push("Good for " + a); } else if (r === "ok"){ score += 1; } });
+  var closed = winISO.endISO < T;
+  if (closed) score -= 3;
+  else if (winISO.startISO <= T){ score += 2; reasons.push("window is open now"); }
+  else if (daysBetween(T, winISO.startISO) <= 45){ score += 2; reasons.push("window opens " + fmtDate(winISO.startISO)); }
+  if (p.lowWet && sp.soil !== "wet-ok"){ score -= 2; demote = "Demoted: this paddock is low/wet and " + sp.name + " doesn't tolerate wet feet"; }
+  if (p.hasShade && sp.shade === "none"){ score -= 2; demote = (demote ? demote + " · " : "Demoted: ") + "this paddock has shade and " + sp.name + " wants full sun"; }
+  return { sp: sp, score: score, reasons: reasons, demote: demote, closed: closed, winISO: winISO, libIdx: forageLib().indexOf(sp) };
+}
+function rankForage(p, goal, animals, season){
+  var scored = [], filtered = [];
+  forageLib().forEach(function(sp){
+    var r = scoreForage(sp, p, goal, animals, season);
+    if (r.filtered) filtered.push({ sp: sp, why: r.why });
+    else scored.push(r);
+  });
+  scored.sort(function(a, b){
+    if (b.score !== a.score) return b.score - a.score;
+    if (a.winISO.endISO !== b.winISO.endISO) return a.winISO.endISO < b.winISO.endISO ? 1 : -1; /* longer remaining window wins ties */
+    return a.libIdx - b.libIdx;
+  });
+  return { scored: scored, filtered: filtered };
+}
+/* Build a 1–4 species mix from the ranked list: base pick, then a legume if one
+   scored well, a deep-rooted species for soil goals, a grass backbone when the
+   base is a brassica/legume, then the best remaining fit up to 3 species. */
+function buildMix(ranked, goal){
+  var open = ranked.filter(function(r){ return !r.closed; });
+  var pool = open.length ? open : ranked;
+  if (!pool.length) return [];
+  var mix = [], used = {};
+  function add(r, role){ if (r && !used[r.sp.id] && mix.length < 4){ r.mixRole = role; mix.push(r); used[r.sp.id] = true; } }
+  add(pool[0], "base");
+  var legume = pool.filter(function(r){ return r.sp.family === "legume" && r.score >= 4; })[0];
+  add(legume, "legume");
+  if (goal === "soil") add(pool.filter(function(r){ return r.sp.deepRooted; })[0], "deep");
+  var base = mix[0];
+  if (base && (base.sp.family === "brassica" || base.sp.family === "legume")) add(pool.filter(function(r){ return r.sp.family === "grass"; })[0], "structure");
+  while (mix.length < 3){
+    var cands = pool.filter(function(r){ return !used[r.sp.id] && r.score >= 4; });
+    if (!cands.length) break;
+    /* prefer a family the mix doesn't have yet — a diverse mix grazes better */
+    var diverse = cands.filter(function(r){ return mix.every(function(m){ return m.sp.family !== r.sp.family; }); });
+    add(diverse[0] || cands[0], "fit");
+  }
+  return mix;
+}
+function mixReason(r){
+  if (r.mixRole === "legume") return "Legume — fixes nitrogen for the mix";
+  if (r.mixRole === "deep") return "Deep roots — breaks up the soil";
+  if (r.mixRole === "structure") return "Grass backbone — structure and ground cover";
+  if (r.mixRole === "fit") return "Strong all-round fit for this goal";
+  return r.reasons.length ? r.reasons.join(" · ") : "Best fit for this goal";
+}
+function mixMath(mix, acres){
+  var rows = mix.map(function(r){
+    var lbs = acres * num(r.sp.rateMix, 0);
+    return { id: r.sp.id, name: r.sp.name, rate: num(r.sp.rateMix, 0), lbs: lbs, cost: lbs * num(r.sp.seedPrice, 0), daysToGraze: num(r.sp.daysToGraze, 0), caution: r.sp.caution || "" };
+  });
+  var totalLbs = rows.reduce(function(a, r){ return a + r.lbs; }, 0);
+  var totalCost = rows.reduce(function(a, r){ return a + r.cost; }, 0);
+  var totalRate = rows.reduce(function(a, r){ return a + r.rate; }, 0);
+  return { rows: rows, totalLbs: totalLbs, totalCost: totalCost, totalRate: totalRate };
+}
+
+/* ---------- planting plans ---------- */
+function planSpeciesNames(plan){ return (plan.speciesIds || []).map(function(id){ var sp = forageById(id); return sp ? sp.name : id; }).join(", "); }
+function planReadyDate(plan){
+  if (!plan || !plan.plantedDate) return null;
+  var slowest = 0;
+  (plan.speciesIds || []).forEach(function(id){ var sp = forageById(id); if (sp) slowest = Math.max(slowest, num(sp.daysToGraze, 0)); });
+  return slowest ? addDays(plan.plantedDate, slowest) : null;
+}
+function planEstablishing(p){
+  var plan = planOf(p);
+  if (!plan || plan.status !== "planted" || !plan.plantedDate) return null;
+  var rd = planReadyDate(plan);
+  if (rd && rd > todayISO()) return { plan: plan, readyDate: rd };
+  return null;
+}
+function archivePlan(p, plan, whyText){
+  p.plantingHistory = Array.isArray(p.plantingHistory) ? p.plantingHistory : [];
+  p.plantingHistory.push({ date: todayISO(), text: whyText + ": " + planSpeciesNames(plan) + " (" + plan.status + ")" });
+  state.fieldNotes.push({ id: uid("fn"), date: todayISO(), ts: new Date().toISOString(), text: whyText + " — " + planSpeciesNames(plan) + " on " + p.name, paddockId: p.id, groupId: null, condition: "" });
+}
+function paddockPlantLine(p){
+  var plan = planOf(p); if (!plan) return "";
+  var names = planSpeciesNames(plan);
+  if (plan.status === "planned") return "<div class='meta'>🌱 Planting planned: " + esc(names) + " — plant " + fmtDate(plan.windowStart) + " – " + fmtDate(plan.windowEnd) + "</div>";
+  if (plan.status === "planted"){
+    var rd = planReadyDate(plan);
+    var est = planEstablishing(p);
+    if (est) return "<div class='meta'>🌱 Planted " + fmtDate(plan.plantedDate) + " — establishing (estimate: ready ≈ " + fmtDate(est.readyDate) + ")</div>";
+    return "<div class='meta'>🌱 Planted " + fmtDate(plan.plantedDate) + (rd ? " — graze-ready ≈ " + fmtDate(rd) + " (estimate)" : "") + "</div>";
+  }
+  if (plan.status === "established") return "<div class='meta'>🌱 " + esc(names) + " — established</div>";
+  return "";
+}
+/* paddockStatus: a planted, still-establishing paddock reads as establishing,
+   not as a plain rest verdict (its key is unchanged so pills/maps stay valid;
+   the ready-list filters in renderToday/recommendMoves check .establishing). */
+var _paddockStatusV21 = paddockStatus;
+paddockStatus = function(p){
+  var st = _paddockStatusV21(p);
+  var est = planEstablishing(p);
+  if (est){ st.establishing = est; st.label = "Planted " + fmtDate(est.plan.plantedDate) + " — establishing (estimate: ready ≈ " + fmtDate(est.readyDate) + ")"; }
+  return st;
+};
+
+var planWiz = null;
+function openPlantingPanel(p){
+  if (!p) return;
+  var plan = planOf(p);
+  var html = "<h3>🌱 Planting — " + esc(p.name) + "</h3>";
+  if (!plan){
+    html += "<p class='muted'>No planting planned here yet. The planner is a built-in guide: pick a goal and the animals that will graze it, and it ranks seed from the built-in library for this paddock's size, soil, and shade — with seed amounts and cost figured from its measured acres.</p>";
+    html += "<div class='btnrow'><button type='button' id='ppPlan'>🌱 Plan a planting</button><button type='button' class='btn-ghost' id='ppClose'>Close</button></div>";
+  } else {
+    var _pac = paddockAcres(p);
+    var mm = { totalLbs: 0, totalCost: 0 };
+    (plan.speciesIds || []).forEach(function(id){ var sp = forageById(id); var rate = (plan.mixRates && plan.mixRates[id] !== undefined) ? num(plan.mixRates[id], 0) : (sp ? num(sp.rateMix, 0) : 0); var lbs = _pac * rate; mm.totalLbs += lbs; mm.totalCost += lbs * (sp ? num(sp.seedPrice, 0) : 0); });
+    html += "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(planSpeciesNames(plan)) + "</span><span class='pill blue'>" + esc(plan.status) + "</span></div>" +
+      "<div class='meta'>Goal: " + esc(goalLabel(plan.goal)) + " · for " + esc((plan.animals || []).join(", ") || "—") + "</div>" +
+      "<div class='meta'>Plant between " + fmtDate(plan.windowStart) + " and " + fmtDate(plan.windowEnd) + " (first deadline in the mix)</div>" +
+      "<div class='meta'>Seed: " + fmt(mm.totalLbs, 1) + " lb for " + fmt(paddockAcres(p), 1) + " ac · estimated seed cost " + moneyFmt(plan.seedCostTotal) + "</div>" +
+      (plan.status === "planted" ? "<div class='meta'>Planted " + fmtDate(plan.plantedDate) + " · graze-ready ≈ " + fmtDate(planReadyDate(plan)) + " (estimate)</div>" : "") +
+      "</div>";
+    html += "<div class='btnrow'>";
+    if (plan.status === "planned") html += "<button type='button' id='ppPlanted'>Mark planted</button>";
+    if (plan.status === "planted") html += "<button type='button' id='ppEstab'>Mark established</button>";
+    html += "<button type='button' class='btn-ghost' id='ppPlan'>" + (plan.status === "established" ? "Plan a new planting" : "Replace plan") + "</button>" +
+      "<button type='button' class='btn-ghost' id='ppRemove'>Remove plan</button>" +
+      "<button type='button' class='btn-ghost' id='ppClose'>Close</button></div>";
+  }
+  if (Array.isArray(p.plantingHistory) && p.plantingHistory.length){
+    html += "<h4 style='margin:14px 0 6px'>Planting history</h4>" + p.plantingHistory.slice().reverse().map(function(h){ return "<div class='listitem'><div class='meta'>" + fmtDate(h.date) + "</div><div class='small'>" + esc(h.text) + "</div></div>"; }).join("");
+  }
+  openModal(html);
+  $("#ppClose").addEventListener("click", closeModal);
+  $("#ppPlan").addEventListener("click", function(){ openPlantingPlanner(p); });
+  var bp = $("#ppPlanted"); if (bp) bp.addEventListener("click", function(){ openMarkPlanted(p); });
+  var be = $("#ppEstab"); if (be) be.addEventListener("click", function(){
+    plan.status = "established";
+    p.plantingHistory = Array.isArray(p.plantingHistory) ? p.plantingHistory : [];
+    p.plantingHistory.push({ date: todayISO(), text: "Marked established: " + planSpeciesNames(plan) });
+    saveState(); closeModal(); toast("Marked established — normal grazing advice is back on for " + p.name + "."); renderAll();
+  });
+  var br = $("#ppRemove"); if (br) br.addEventListener("click", function(){
+    confirmModal("Remove this plan?", "The plan moves to " + esc(p.name) + "'s planting history. Seed cost already posted to Finances stays as recorded.", "Remove plan", function(){
+      archivePlan(p, plan, "Plan removed"); p.plantingPlan = null; saveState(); closeModal(); toast("Plan removed to history."); renderAll();
+    });
+  });
+}
+function openMarkPlanted(p){
+  var plan = planOf(p); if (!plan) return;
+  openModal("<h3>Mark planted — " + esc(p.name) + "</h3>" +
+    "<p class='muted small'>Saving posts the seed cost to Finances once (" + moneyFmt(plan.seedCostTotal) + ", category Seed) and starts the graze-ready estimate clock.</p>" +
+    "<label>Date planted</label><input type='date' id='mpDate' value='" + todayISO() + "'>" +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='mpCancel'>Cancel</button><button type='button' id='mpSave'>Save — planted</button></div>");
+  $("#mpCancel").addEventListener("click", function(){ openPlantingPanel(p); });
+  $("#mpSave").addEventListener("click", function(){
+    var d = $("#mpDate").value || todayISO();
+    plan.status = "planted"; plan.plantedDate = d;
+    if (!plan.financePosted){
+      var fin = { id: uid("fin"), date: d, kind: "expense", category: "Seed", amount: num(plan.seedCostTotal, 0), note: "Planting — " + p.name + " (" + planSpeciesNames(plan) + ")", linkType: "planting", linkId: plan.id };
+      state.finance.push(fin); plan.financePosted = true; plan.financeId = fin.id;
+    }
+    p.plantingHistory = Array.isArray(p.plantingHistory) ? p.plantingHistory : [];
+    p.plantingHistory.push({ date: d, text: "Planted: " + planSpeciesNames(plan) });
+    saveState(); closeModal(); toast("Planted ✓ Seed cost posted to Finances."); renderAll();
+  });
+}
+function openPlantingPlanner(p){
+  if (!p) return;
+  planWiz = { paddockId: p.id, goal: "winter", animals: (state.farm.speciesKept || ["cattle"]).filter(function(a){ return FORAGE_ANIMALS.indexOf(a) >= 0; }), season: forageSeasonAuto() };
+  if (!planWiz.animals.length) planWiz.animals = ["cattle"];
+  if (planWiz.season === "fall") planWiz.goal = "winter"; else planWiz.goal = "spring";
+  renderPlantingPlanner();
+}
+function renderPlantingPlanner(){
+  var p = findPaddock(planWiz.paddockId); if (!p) return;
+  var ac = paddockAcres(p);
+  var goalChips = FORAGE_GOALS.map(function(g){ return "<button type='button' style='min-height:48px' data-pgoal='" + g[0] + "'" + (planWiz.goal === g[0] ? " class='active'" : "") + ">" + g[1] + "</button>"; }).join("");
+  var animalChips = FORAGE_ANIMALS.map(function(a){ return "<button type='button' style='min-height:48px' data-panimal='" + a + "'" + (planWiz.animals.indexOf(a) >= 0 ? " class='active'" : "") + ">" + a + "</button>"; }).join("");
+  openModal("<h3>🌱 Plan a planting — " + esc(p.name) + "</h3>" +
+    "<p class='muted small'><b>Forage planner — built-in guide.</b> Rule-based picks from the built-in seed library; not cloud AI. " + fmt(ac, 1) + " ac · " + esc(p.type) + (p.lowWet ? " · low/wet" : "") + (p.hasShade ? " · shade" : " · no shade marked") + ". Windows follow your frost dates (Settings): last frost " + fmtMMDD(frostSettings().last) + ", first frost " + fmtMMDD(frostSettings().first) + ".</p>" +
+    "<label>Goal</label><div class='seg' id='pwGoals'>" + goalChips + "</div>" +
+    "<label>Animals that will graze it</label><div class='seg' id='pwAnimals'>" + animalChips + "</div>" +
+    "<label>Season</label><div class='seg' id='pwSeason'><button type='button' style='min-height:48px' data-pseason='spring'" + (planWiz.season === "spring" ? " class='active'" : "") + ">Spring</button><button type='button' style='min-height:48px' data-pseason='fall'" + (planWiz.season === "fall" ? " class='active'" : "") + ">Fall</button></div>" +
+    "<div id='pwResults'></div>" +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='pwCancel'>Cancel</button></div>");
+  $("#pwCancel").addEventListener("click", closeModal);
+  $$("#pwGoals [data-pgoal]").forEach(function(b){ b.addEventListener("click", function(){ planWiz.goal = b.getAttribute("data-pgoal"); renderPlantingPlanner(); }); });
+  $$("#pwAnimals [data-panimal]").forEach(function(b){ b.addEventListener("click", function(){
+    var a = b.getAttribute("data-panimal"), i = planWiz.animals.indexOf(a);
+    if (i >= 0) planWiz.animals.splice(i, 1); else planWiz.animals.push(a);
+    if (!planWiz.animals.length) planWiz.animals = [a];
+    renderPlantingPlanner();
+  }); });
+  $$("#pwSeason [data-pseason]").forEach(function(b){ b.addEventListener("click", function(){ planWiz.season = b.getAttribute("data-pseason"); renderPlantingPlanner(); }); });
+  renderPlannerResults(p);
+}
+function renderPlannerResults(p){
+  var box = $("#pwResults"); if (!box) return;
+  var ac = paddockAcres(p);
+  var ranked = rankForage(p, planWiz.goal, planWiz.animals, planWiz.season);
+  var mix = buildMix(ranked.scored, planWiz.goal);
+  var mm = mixMath(mix, ac);
+  var recent = (state.amendments || []).filter(function(a){ return a.paddockId === p.id; }).sort(function(a, b){ return (b.date || "").localeCompare(a.date || ""); }).slice(0, 3);
+  var html = "";
+  if (recent.length) html += "<p class='small muted' style='margin:10px 0 0'>Recent amendments here: " + recent.map(function(a){ return fmtDate(a.date) + " " + esc(a.type) + " (" + esc(rateShort(a)) + ")"; }).join(" · ") + "</p>";
+  html += "<h4 style='margin:12px 0 6px'>Ranked for this paddock</h4>";
+  html += ranked.scored.slice(0, 8).map(function(r){
+    return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(r.sp.name) + "</span><span class='right muted'>" + fmtDate(r.winISO.startISO) + " – " + fmtDate(r.winISO.endISO) + "</span></div>" +
+      "<div class='meta'>" + esc(r.reasons.join(" · ") || "Fits this paddock") + " · " + num(r.sp.rateMix, 0) + " lb/ac in a mix" + (r.closed ? " · window closed this season" : "") + "</div>" +
+      (r.demote ? "<div class='meta'>" + esc(r.demote) + "</div>" : "") + "</div>";
+  }).join("");
+  var closedNames = ranked.scored.filter(function(r){ return r.closed; }).map(function(r){ return r.sp.name; });
+  if (closedNames.length) html += "<p class='small muted'>Too late this season: " + esc(closedNames.join(", ")) + ".</p>";
+  if (ranked.filtered.length) html += "<p class='small muted'>Not shown: " + ranked.filtered.map(function(f){ return esc(f.sp.name) + " (" + esc(f.why) + ")"; }).join(" · ") + "</p>";
+  if (mix.length){
+    html += "<div class='card' id='planMixCard' style='margin-top:12px'><h4 style='margin:0 0 6px'>Suggested mix</h4>" +
+      mix.map(function(r){ return "<div class='small'><b>" + esc(r.sp.name) + "</b> — " + esc(mixReason(r)) + "</div>"; }).join("") +
+      "<p class='small' style='margin:8px 0 0'>Plant between <b>" + fmtDate(mix.map(function(r){ return r.winISO.startISO; }).sort()[0]) + "</b> and <b>" + fmtDate(mix.map(function(r){ return r.winISO.endISO; }).sort()[0]) + "</b> (first deadline in the mix).</p>" +
+      mm.rows.map(function(r){ return "<div class='small'>" + esc(r.name) + ": " + fmt(r.lbs, 1) + " lb (" + r.rate + " lb/ac) · " + moneyFmt(r.cost) + "</div>"; }).join("") +
+      "<p style='margin:8px 0 0'><b>Total seed: " + fmt(mm.totalLbs, 1) + " lb</b> for " + fmt(ac, 1) + " ac · <b>Estimated seed cost: " + moneyFmt(mm.totalCost) + "</b></p>" +
+      mm.rows.filter(function(r){ return r.caution; }).map(function(r){ return "<p class='small' style='margin:6px 0 0'>⚠ " + esc(r.caution) + "</p>"; }).join("") +
+      "<div class='btnrow'><button type='button' id='pwMake'>Make this the plan</button></div></div>";
+  } else {
+    html += "<p class='muted'>Nothing plantable matches — try another season or goal.</p>";
+  }
+  box.innerHTML = html;
+  var mk = $("#pwMake");
+  if (mk) mk.addEventListener("click", function(){
+    var starts = mix.map(function(r){ return r.winISO.startISO; }).sort();
+    var ends = mix.map(function(r){ return r.winISO.endISO; }).sort();
+    var old = planOf(p);
+    if (old) archivePlan(p, old, "Plan replaced");
+    var plan = { id: uid("pl"), paddockId: p.id, speciesIds: mix.map(function(r){ return r.sp.id; }),
+      mixRates: {}, goal: planWiz.goal, animals: planWiz.animals.slice(), season: planWiz.season,
+      windowStart: starts[0], windowEnd: ends[0], status: "planned", plantedDate: null,
+      seedCostTotal: Math.round(mm.totalCost * 100) / 100, financePosted: false, financeId: null, createdAt: new Date().toISOString() };
+    mix.forEach(function(r){ plan.mixRates[r.sp.id] = num(r.sp.rateMix, 0); });
+    p.plantingPlan = plan;
+    p.plantingHistory = Array.isArray(p.plantingHistory) ? p.plantingHistory : [];
+    p.plantingHistory.push({ date: todayISO(), text: "Plan made: " + planSpeciesNames(plan) + " for " + goalLabel(plan.goal) });
+    saveState(); closeModal(); toast("Planting plan saved for " + p.name + " ✓"); renderAll();
+  });
+}
+
+/* ---------- fertilization / amendment log ---------- */
+var AMEND_TYPES = ["Manure","Compost","Lime","Gypsum","Mineral mix","NPK synthetic","Wood ash","Biochar","Other"];
+var AMEND_UNITS = ["tons","lbs","gallons","cubic yards","bags"];
+function amendmentRate(a, p){
+  var ac = p ? paddockAcres(p) : 0;
+  var amt = num(a.amount, 0);
+  if (!ac || !amt) return { ratePerAc: null, rateUnit: "" };
+  if (a.unit === "tons") return { ratePerAc: amt / ac, rateUnit: "t/ac" };
+  if (a.unit === "lbs") return { ratePerAc: (amt / 2000) / ac, rateUnit: "t/ac" };
+  return { ratePerAc: amt / ac, rateUnit: a.unit + "/ac" };
+}
+function rateTextFor(a, p){
+  var ac = p ? paddockAcres(p) : 0;
+  var amt = num(a.amount, 0);
+  if (!ac) return "Add the paddock's size to figure a per-acre rate.";
+  if (!amt) return "Enter an amount to see the per-acre rate.";
+  if (a.unit === "lbs") return "= " + fmt(amt / ac, 0) + " lb/ac = " + fmt((amt / 2000) / ac, 2) + " t/ac on this " + fmt(ac, 1) + " ac paddock";
+  if (a.unit === "tons") return "= " + fmt(amt / ac, 2) + " tons/ac on this " + fmt(ac, 1) + " ac paddock";
+  return "= " + fmt(amt / ac, 1) + " " + a.unit + "/ac on this " + fmt(ac, 1) + " ac paddock";
+}
+function rateShort(a){
+  if (a.ratePerAc === null || a.ratePerAc === undefined || a.ratePerAc === "") return "rate n/a";
+  if (a.rateUnit === "t/ac") return fmt(num(a.ratePerAc, 0), 2) + " t/ac";
+  return fmt(num(a.ratePerAc, 0), 1) + " " + (a.rateUnit || "");
+}
+function lastAmendment(paddockId){
+  var list = (state.amendments || []).filter(function(a){ return a.paddockId === paddockId; });
+  list.sort(function(a, b){ return (b.date || "").localeCompare(a.date || ""); });
+  return list[0] || null;
+}
+function lastAmendmentText(paddockId){
+  var a = lastAmendment(paddockId); if (!a) return "";
+  return fmtDate(a.date) + " — " + a.type + " (" + rateShort(a) + ")";
+}
+function lastAmendmentLine(p){
+  var t = lastAmendmentText(p.id);
+  return t ? "<div class='meta'>Last fertilized: " + esc(t) + "</div>" : "";
+}
+function syncAmendmentFinance(a, p){
+  var fin = a.financeId ? state.finance.filter(function(f){ return f.id === a.financeId; })[0] : null;
+  var cost = num(a.cost, 0);
+  if (cost > 0){
+    if (fin){ fin.date = a.date; fin.amount = cost; fin.note = "Fertilizing — " + (p ? p.name : "") + ": " + a.type; }
+    else {
+      fin = { id: uid("fin"), date: a.date, kind: "expense", category: "Amendments", amount: cost, note: "Fertilizing — " + (p ? p.name : "") + ": " + a.type, linkType: "amendment", linkId: a.id };
+      state.finance.push(fin); a.financeId = fin.id;
+    }
+  } else if (fin){
+    state.finance = state.finance.filter(function(f){ return f.id !== fin.id; });
+    a.financeId = null;
+  }
+}
+function openAmendmentForm(presetPaddock, existing){
+  var pads = state.paddocks.filter(function(pp){ return !isGarden(pp); });
+  if (!pads.length){ toast("Draw a paddock on the Map tab first."); return; }
+  var a = existing || null;
+  var selPad = a ? findPaddock(a.paddockId) : (presetPaddock || pads[0]);
+  var padOpts = sortPaddocks(pads).map(function(pp){ return "<option value='" + pp.id + "'" + (selPad && pp.id === selPad.id ? " selected" : "") + ">" + esc(padOptionLabel(pp)) + "</option>"; }).join("");
+  var typeOpts = AMEND_TYPES.map(function(t){ return "<option value='" + t + "'" + (a && (a.type === t || (t === "Other" && a.customType)) ? " selected" : "") + ">" + t + "</option>"; }).join("");
+  var unitOpts = AMEND_UNITS.map(function(u){ return "<option value='" + u + "'" + (a && a.unit === u ? " selected" : (!a && u === "tons" ? " selected" : "")) + ">" + u + "</option>"; }).join("");
+  openModal("<h3>" + (a ? "Edit amendment" : "Log fertilizer / amendment") + "</h3>" +
+    "<label>Paddock</label><select id='amPad'>" + padOpts + "</select>" +
+    "<label>Date</label><input type='date' id='amDate' value='" + (a ? a.date : todayISO()) + "'>" +
+    "<label>Type</label><select id='amType'>" + typeOpts + "</select>" +
+    "<label>Custom type (only when Type is Other)</label><input type='text' id='amCustom' value='" + esc(a ? (a.customType || "") : "") + "' placeholder='e.g., Chicken litter'>" + micBtnHTML("#amCustom") +
+    "<div class='row'><div><label>Amount</label><input type='number' id='amAmount' inputmode='decimal' min='0' step='any' value='" + (a ? a.amount : "") + "' placeholder='e.g., 16000'></div>" +
+    "<div><label>Unit</label><select id='amUnit'>" + unitOpts + "</select></div></div>" +
+    "<p class='small muted' id='amRate' style='margin:4px 0'></p>" +
+    "<label>Cost ($, optional — posts to Finances)</label><input type='number' id='amCost' inputmode='decimal' min='0' step='any' value='" + (a ? (a.cost || "") : "") + "' placeholder='0'>" +
+    "<label>Note (optional)</label><input type='text' id='amNote' value='" + esc(a ? (a.note || "") : "") + "' placeholder='Where it came from, spreader, weather…'>" + micBtnHTML("#amNote") +
+    "<label class='checkline'><input type='checkbox' id='amRemind'> <span>Remind me to re-check in</span></label>" +
+    "<div class='row'><div><input type='number' id='amWeeks' inputmode='numeric' min='1' step='1' value='6'></div><div class='small muted' style='align-self:center'>weeks</div></div>" +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='amCancel'>Cancel</button><button type='button' id='amSave'>" + (a ? "Save changes" : "Save amendment") + "</button></div>");
+  function updRate(){
+    var p = findPaddock($("#amPad").value);
+    $("#amRate").textContent = rateTextFor({ amount: $("#amAmount").value, unit: $("#amUnit").value }, p);
+  }
+  ["#amPad", "#amAmount", "#amUnit"].forEach(function(sel){ $(sel).addEventListener("input", updRate); $(sel).addEventListener("change", updRate); });
+  updRate();
+  $("#amCancel").addEventListener("click", closeModal);
+  $("#amSave").addEventListener("click", function(){
+    var p = findPaddock($("#amPad").value); if (!p){ toast("Pick a paddock."); return; }
+    var type = $("#amType").value;
+    var custom = $("#amCustom").value.trim();
+    if (type === "Other" && !custom){ toast("Name the custom type, or pick one from the list."); return; }
+    var amt = num($("#amAmount").value, NaN);
+    if (!isFinite(amt) || amt <= 0){ toast("Enter the amount spread."); return; }
+    var rec = a || { id: uid("am"), financeId: null };
+    rec.paddockId = p.id;
+    rec.date = $("#amDate").value || todayISO();
+    rec.type = type === "Other" ? custom : type;
+    rec.customType = type === "Other" ? custom : "";
+    rec.amount = amt;
+    rec.unit = $("#amUnit").value;
+    rec.cost = Math.max(0, num($("#amCost").value, 0));
+    rec.note = $("#amNote").value.trim();
+    var rt = amendmentRate(rec, p);
+    rec.ratePerAc = rt.ratePerAc; rec.rateUnit = rt.rateUnit;
+    if (!a) state.amendments.push(rec);
+    syncAmendmentFinance(rec, p);
+    if ($("#amRemind").checked){
+      var wks = Math.max(1, Math.round(num($("#amWeeks").value, 6)));
+      state.reminders.push({ id: uid("rem"), text: "Re-check fertility on " + p.name + " (" + rec.type + ")", date: addDays(rec.date, wks * 7), repeat: "none", done: false, createdAt: new Date().toISOString() });
+    }
+    saveState(); closeModal(); toast("Amendment saved ✓"); renderAll();
+    if (currentView === "records") renderRecords();
+  });
+}
+function renderRecordsAmendments(box){
+  var list = (state.amendments || []).slice().sort(function(a, b){ return (b.date || "").localeCompare(a.date || ""); });
+  box.innerHTML = "<div class='btnrow'><button type='button' id='amAdd'>+ Log amendment</button></div>" +
+    (list.length ? list.map(function(a){
+      var p = findPaddock(a.paddockId);
+      return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(a.type) + " — " + esc(p ? p.name : "(paddock gone)") + "</span><span class='right muted'>" + fmtDate(a.date) + "</span></div>" +
+        "<div class='meta'>" + fmt(num(a.amount, 0), num(a.amount, 0) % 1 ? 1 : 0) + " " + esc(a.unit) + " · " + esc(rateShort(a)) + (num(a.cost, 0) > 0 ? " · " + moneyFmt(a.cost) : "") + "</div>" +
+        (a.note ? "<p class='small' style='margin:4px 0'>" + esc(a.note) + "</p>" : "") +
+        "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' data-amedit='" + a.id + "'>Edit</button><button type='button' class='btn-sm btn-danger' data-amdel='" + a.id + "'>Delete</button></div></div>";
+    }).join("") : "<div class='empty'>No amendments logged yet. Lime, manure, compost — log what you spread and FarmerHelp keeps the per-acre rate and the cost.</div>");
+  $("#amAdd").addEventListener("click", function(){ openAmendmentForm(null); });
+  $$("[data-amedit]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var rec = (state.amendments || []).filter(function(x){ return x.id === b.getAttribute("data-amedit"); })[0];
+    if (rec) openAmendmentForm(null, rec);
+  }); });
+  $$("[data-amdel]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var rec = (state.amendments || []).filter(function(x){ return x.id === b.getAttribute("data-amdel"); })[0];
+    if (!rec) return;
+    confirmModal("Delete amendment?", "Delete the " + esc(rec.type) + " record from " + fmtDate(rec.date) + "? Its Finances entry (if any) is removed too.", "Delete", function(){
+      if (rec.financeId) state.finance = state.finance.filter(function(f){ return f.id !== rec.financeId; });
+      state.amendments = state.amendments.filter(function(x){ return x.id !== rec.id; });
+      saveState(); toast("Amendment deleted."); renderAll(); renderRecords();
+    });
+  }); });
+}
+var _renderRecordsV22 = renderRecords;
+renderRecords = function(){
+  if (recordTab === "amendments"){ renderRecordsAmendments($("#recordBody")); return; }
+  _renderRecordsV22();
+};
+
+/* ---------- crop library (seed) ---------- */
+function CW(rel, from, to){ return { rel: rel, fromDays: from, toDays: to }; }
+function seedCropLibrary(){
+  return [
+    { id:"tomato", name:"Tomato (transplant)", springWindow:CW("lastFrost",14,42), fallWindow:null, spacingIn:24, rowIn:36, daysLo:60, daysHi:85, successionDays:0, notes:"Transplant after frost; stake or cage." },
+    { id:"pepper", name:"Pepper (transplant)", springWindow:CW("lastFrost",21,49), fallWindow:null, spacingIn:18, rowIn:30, daysLo:60, daysHi:80, successionDays:0, notes:"Transplant into warm soil." },
+    { id:"sweetcorn", name:"Sweet corn", springWindow:CW("lastFrost",7,56), fallWindow:null, spacingIn:12, rowIn:30, daysLo:60, daysHi:90, successionDays:14, notes:"Plant in blocks for pollination." },
+    { id:"bushbeans", name:"Green beans (bush)", springWindow:CW("lastFrost",7,70), fallWindow:CW("firstFrost",-75,-60), spacingIn:4, rowIn:24, daysLo:50, daysHi:60, successionDays:14, notes:"Pick often to keep them coming." },
+    { id:"summersquash", name:"Squash (summer)", springWindow:CW("lastFrost",7,49), fallWindow:null, spacingIn:24, rowIn:48, daysLo:45, daysHi:55, successionDays:0, notes:"Harvest small and often." },
+    { id:"zucchini", name:"Zucchini", springWindow:CW("lastFrost",7,49), fallWindow:null, spacingIn:24, rowIn:48, daysLo:45, daysHi:55, successionDays:0, notes:"One plant goes a long way." },
+    { id:"cucumber", name:"Cucumber", springWindow:CW("lastFrost",14,56), fallWindow:null, spacingIn:12, rowIn:48, daysLo:50, daysHi:65, successionDays:21, notes:"Trellis to save space." },
+    { id:"okra", name:"Okra", springWindow:CW("lastFrost",21,56), fallWindow:null, spacingIn:12, rowIn:36, daysLo:55, daysHi:65, successionDays:0, notes:"Loves heat; pick pods young." },
+    { id:"potato", name:"Potato", springWindow:CW("lastFrost",-21,7), fallWindow:null, spacingIn:12, rowIn:36, daysLo:70, daysHi:100, successionDays:0, notes:"Seed pieces go in before the last frost is fine." },
+    { id:"sweetpotato", name:"Sweet potato (slips)", springWindow:CW("lastFrost",21,49), fallWindow:null, spacingIn:12, rowIn:42, daysLo:90, daysHi:120, successionDays:0, notes:"Slips into warm soil; dig before frost." },
+    { id:"onion", name:"Onion (sets/plants)", springWindow:CW("lastFrost",-28,0), fallWindow:null, spacingIn:4, rowIn:18, daysLo:90, daysHi:110, successionDays:0, notes:"Sets or plants go in early." },
+    { id:"garlic", name:"Garlic", springWindow:null, fallWindow:CW("firstFrost",-42,-14), spacingIn:6, rowIn:18, daysLo:230, daysHi:250, successionDays:0, notes:"Plant in fall; harvest the following summer (~240 days)." },
+    { id:"lettuce", name:"Lettuce", springWindow:CW("lastFrost",-21,35), fallWindow:CW("firstFrost",-56,-35), spacingIn:8, rowIn:18, daysLo:30, daysHi:50, successionDays:14, notes:"Small sowings, often." },
+    { id:"carrot", name:"Carrot", springWindow:CW("lastFrost",-21,21), fallWindow:CW("firstFrost",-70,-49), spacingIn:2, rowIn:18, daysLo:60, daysHi:80, successionDays:21, notes:"Keep the seed bed damp until up." },
+    { id:"peas", name:"Peas (snap/shell)", springWindow:CW("lastFrost",-42,-7), fallWindow:CW("firstFrost",-70,-56), spacingIn:2, rowIn:24, daysLo:55, daysHi:70, successionDays:0, notes:"Cool-season; sow early." },
+    { id:"watermelon", name:"Watermelon", springWindow:CW("lastFrost",21,49), fallWindow:null, spacingIn:36, rowIn:72, daysLo:70, daysHi:90, successionDays:0, notes:"Needs room and heat." },
+    { id:"cantaloupe", name:"Cantaloupe", springWindow:CW("lastFrost",21,49), fallWindow:null, spacingIn:24, rowIn:60, daysLo:70, daysHi:85, successionDays:0, notes:"Ripe when it slips from the vine." },
+    { id:"pumpkin", name:"Pumpkin", springWindow:CW("lastFrost",14,35), fallWindow:null, spacingIn:36, rowIn:72, daysLo:90, daysHi:120, successionDays:0, notes:"For Halloween, plant by early July." },
+    { id:"cabbage", name:"Cabbage (transplant)", springWindow:CW("lastFrost",-14,21), fallWindow:CW("firstFrost",-70,-49), spacingIn:18, rowIn:30, daysLo:60, daysHi:80, successionDays:0, notes:"Transplants handle cool weather." },
+    { id:"broccoli", name:"Broccoli (transplant)", springWindow:CW("lastFrost",-14,21), fallWindow:CW("firstFrost",-70,-49), spacingIn:18, rowIn:30, daysLo:55, daysHi:70, successionDays:0, notes:"Cut the main head; side shoots follow." }
+  ];
+}
+function cropLib(){ if (!Array.isArray(state.cropLibrary) || !state.cropLibrary.length) state.cropLibrary = seedCropLibrary(); return state.cropLibrary; }
+function cropById(id){ return cropLib().filter(function(c){ return c.id === id; })[0] || null; }
+function cropWindowISO(c, which){
+  var w = which === "fall" ? c.fallWindow : c.springWindow; if (!w) return null;
+  var fr = frostSettings();
+  var base = w.rel === "firstFrost" ? fr.first : fr.last;
+  var baseISO = mmddCycleISO(base);
+  return { startISO: addDays(baseISO, w.fromDays), endISO: addDays(baseISO, w.toDays) };
+}
+function cropWindowText(c){
+  var parts = [];
+  var s = cropWindowISO(c, "spring"); if (s) parts.push("Spring: plant " + fmtDate(s.startISO) + " – " + fmtDate(s.endISO));
+  var f = cropWindowISO(c, "fall"); if (f) parts.push("Fall: plant " + fmtDate(f.startISO) + " – " + fmtDate(f.endISO));
+  return parts.join(" · ");
+}
+
+/* ---------- gardens ---------- */
+function findGarden(id){ return (state.gardens || []).filter(function(g){ return g.id === id; })[0] || null; }
+function gardenSizeText(g){
+  if (num(g.lenFt, 0) > 0 && num(g.widFt, 0) > 0) return fmt(num(g.lenFt, 0), 0) + " × " + fmt(num(g.widFt, 0), 0) + " ft (" + fmt((num(g.lenFt, 0) * num(g.widFt, 0)) / 43560, 3) + " ac)";
+  if (num(g.acres, 0) > 0) return fmt(num(g.acres, 0), 2) + " ac";
+  return "size not set";
+}
+function gardenPlantingsOf(gid){ return (state.gardenPlantings || []).filter(function(gp){ return gp.gardenId === gid; }); }
+function renderGardens(){
+  var box = $("#gardensBody"); if (!box) return;
+  var T = todayISO();
+  var html = "";
+  if (!(state.gardens || []).length) html += "<div class='empty'>No gardens yet. Tap + New garden to add a plot — a kitchen garden, a market bed, sweet corn patch. Plantings get harvest windows from your frost dates.</div>";
+  html += (state.gardens || []).map(function(g){
+    var loc = g.locationId ? (state.locations || []).filter(function(L){ return L.id === g.locationId; })[0] : null;
+    var onMap = g.mapPaddockId ? findPaddock(g.mapPaddockId) : null;
+    var plantings = gardenPlantingsOf(g.id).slice().sort(function(a, b){ return (b.plantDate || "").localeCompare(a.plantDate || ""); });
+    var rows = plantings.map(function(gp){
+      var crop = cropById(gp.cropId);
+      var past = !gp.harvested && T > gp.harvestEnd;
+      var succ = "";
+      if (!gp.harvested && crop && num(crop.successionDays, 0) > 0){
+        var sw = cropWindowISO(crop, "spring");
+        var succDate = addDays(gp.plantDate, num(crop.successionDays, 0));
+        if (sw && T >= sw.startISO && T <= sw.endISO && succDate >= T) succ = "<div class='meta'>Plant more " + esc(gp.cropName) + " by " + fmtDate(succDate) + " for a steady supply</div>";
+      }
+      return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(gp.cropName) + "</span><span class='right muted'>planted " + fmtDate(gp.plantDate) + "</span></div>" +
+        "<div class='meta'>" + fmt(num(gp.qty, 0), num(gp.qty, 0) % 1 ? 1 : 0) + " " + esc(gp.qtyUnit) + " · Harvest ≈ " + fmtDate(gp.harvestStart) + " – " + fmtDate(gp.harvestEnd) + "</div>" + succ +
+        (past ? "<p class='small' style='margin:4px 0'>⚠ <b>Past expected harvest — check it</b></p>" : "") +
+        (gp.harvested ? "<div class='meta'>Harvested " + fmtDate(gp.harvested.date) + (gp.harvested.yieldNote ? " — " + esc(gp.harvested.yieldNote) : "") + "</div>" : "<div class='btnrow'><button type='button' class='btn-sm' data-gharv='" + gp.id + "'>Log harvest</button><button type='button' class='btn-sm btn-danger' data-gpdel='" + gp.id + "'>Delete planting</button></div>") +
+        (gp.note ? "<p class='small' style='margin:4px 0'>" + esc(gp.note) + "</p>" : "") + "</div>";
+    }).join("");
+    return "<div class='card'><div class='flexline'><span class='ttl' style='font-size:16px'>" + esc(g.name) + "</span><span class='right muted'>" + esc(gardenSizeText(g)) + (loc ? " · " + esc(loc.name) : "") + "</span></div>" +
+      (g.notes ? "<p class='small muted' style='margin:4px 0'>" + esc(g.notes) + "</p>" : "") +
+      (rows || "<p class='muted small'>Nothing planted yet.</p>") +
+      "<div class='btnrow'><button type='button' class='btn-sm' data-gplant='" + g.id + "'>+ Add planting</button>" +
+      "<button type='button' class='btn-sm btn-ghost' data-gedit='" + g.id + "'>Edit garden</button>" +
+      "<button type='button' class='btn-sm btn-ghost' data-gmap='" + g.id + "'>" + (onMap ? "On the grid map ✓ — remove" : "Show on grid map") + "</button>" +
+      "<button type='button' class='btn-sm btn-danger' data-gdel='" + g.id + "'>Delete garden</button></div></div>";
+  }).join("");
+  html += "<div class='card'><h3 style='margin-top:0'>Crop library</h3><p class='muted small'>Planting windows ride your frost dates (Settings). Your edits are saved and used for harvest windows on new plantings — windows already saved on a planting don't change.</p>" +
+    cropLib().map(function(c){
+      return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(c.name) + "</span><span class='right'><button type='button' class='btn-sm btn-ghost' data-cedit='" + c.id + "'>Edit figures</button></span></div>" +
+        "<div class='meta'>" + esc(cropWindowText(c)) + "</div>" +
+        "<div class='meta'>Spacing " + num(c.spacingIn, 0) + " in" + (num(c.rowIn, 0) > 0 ? " (rows " + num(c.rowIn, 0) + " in)" : "") + " · harvest in " + num(c.daysLo, 0) + "–" + num(c.daysHi, 0) + " days" + (num(c.successionDays, 0) > 0 ? " · succession every " + num(c.successionDays, 0) + " days" : "") + "</div>" +
+        (c.notes ? "<p class='small' style='margin:4px 0'>" + esc(c.notes) + "</p>" : "") + "</div>";
+    }).join("") + "</div>";
+  box.innerHTML = html;
+  $$("[data-gplant]", box).forEach(function(b){ b.addEventListener("click", function(){ openPlantingForm(findGarden(b.getAttribute("data-gplant"))); }); });
+  $$("[data-gedit]", box).forEach(function(b){ b.addEventListener("click", function(){ openGardenForm(findGarden(b.getAttribute("data-gedit"))); }); });
+  $$("[data-gdel]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var g = findGarden(b.getAttribute("data-gdel")); if (!g) return;
+    confirmModal("Delete garden?", "Delete <b>" + esc(g.name) + "</b> and its plantings? This can't be undone.", "Delete garden", function(){
+      if (g.mapPaddockId) state.paddocks = state.paddocks.filter(function(pp){ return pp.id !== g.mapPaddockId; });
+      state.gardenPlantings = (state.gardenPlantings || []).filter(function(gp){ return gp.gardenId !== g.id; });
+      state.gardens = state.gardens.filter(function(x){ return x.id !== g.id; });
+      saveState(); toast("Garden deleted."); renderAll();
+    });
+  }); });
+  $$("[data-gmap]", box).forEach(function(b){ b.addEventListener("click", function(){ toggleGardenMap(findGarden(b.getAttribute("data-gmap"))); }); });
+  $$("[data-gharv]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var gp = (state.gardenPlantings || []).filter(function(x){ return x.id === b.getAttribute("data-gharv"); })[0];
+    if (gp) openHarvestForm(gp);
+  }); });
+  $$("[data-gpdel]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var gp = (state.gardenPlantings || []).filter(function(x){ return x.id === b.getAttribute("data-gpdel"); })[0];
+    if (!gp) return;
+    confirmModal("Delete planting?", "Remove the " + esc(gp.cropName) + " planting from " + fmtDate(gp.plantDate) + "?", "Delete", function(){
+      state.gardenPlantings = state.gardenPlantings.filter(function(x){ return x.id !== gp.id; });
+      saveState(); toast("Planting deleted."); renderAll();
+    });
+  }); });
+  $$("[data-cedit]", box).forEach(function(b){ b.addEventListener("click", function(){ openCropEdit(cropById(b.getAttribute("data-cedit"))); }); });
+}
+function toggleGardenMap(g){
+  if (!g) return;
+  var existing = g.mapPaddockId ? findPaddock(g.mapPaddockId) : null;
+  if (existing){
+    confirmModal("Remove from map?", "Take <b>" + esc(g.name) + "</b> off the grid map? The garden and its plantings stay — only the map shape goes.", "Remove shape", function(){
+      state.paddocks = state.paddocks.filter(function(pp){ return pp.id !== existing.id; });
+      g.mapPaddockId = null; saveState(); toast("Removed from the map."); renderAll();
+    });
+    return;
+  }
+  var lenFt = num(g.lenFt, 0) || (num(g.acres, 0) > 0 ? Math.round(Math.sqrt(num(g.acres, 0) * 43560)) : 30);
+  var widFt = num(g.widFt, 0) || lenFt;
+  var fpp = num(state.map.ftPerPx, 1.97) || 1.97;
+  var wPx = Math.max(20, Math.round(lenFt / fpp)), hPx = Math.max(20, Math.round(widFt / fpp));
+  var idx = state.paddocks.filter(function(pp){ return isGarden(pp); }).length;
+  var x = 30 + (idx % 5) * 36, y = 30 + (idx % 4) * 36;
+  var pad = { id: uid("p"), name: g.name + " (garden)", type: "other", kind: "garden", gardenId: g.id,
+    points: [[x, y], [x + wPx, y], [x + wPx, y + hPx], [x, y + hPx]], geo: null,
+    hasWater: false, hasShade: false, lowWet: false,
+    notes: "Garden plot — managed under Gardens, never grazed.",
+    locationId: g.locationId || state.activeLocationId || "", plantingPlan: null, plantingHistory: [] };
+  state.paddocks.push(pad);
+  g.mapPaddockId = pad.id;
+  saveState(); toast("On the grid map — drag it into place on the Map tab (grid view)."); renderAll();
+}
+function openGardenForm(g){
+  var isNew = !g;
+  g = g || { id: "", name: "", lenFt: "", widFt: "", acres: "", notes: "", locationId: state.activeLocationId || "" };
+  var locOpts = "<option value=''>— farm-wide —</option>" + (state.locations || []).map(function(L){ return "<option value='" + L.id + "'" + (g.locationId === L.id ? " selected" : "") + ">" + esc(L.name) + "</option>"; }).join("");
+  openModal("<h3>" + (isNew ? "New garden" : "Edit garden") + "</h3>" +
+    "<label>Name</label><input type='text' id='gdName' value='" + esc(g.name) + "' placeholder='e.g., Kitchen garden'>" + micBtnHTML("#gdName") +
+    "<div class='row'><div><label>Length (ft)</label><input type='number' id='gdLen' inputmode='decimal' min='0' step='any' value='" + esc(g.lenFt || "") + "'></div>" +
+    "<div><label>Width (ft)</label><input type='number' id='gdWid' inputmode='decimal' min='0' step='any' value='" + esc(g.widFt || "") + "'></div>" +
+    "<div><label>…or size in acres</label><input type='number' id='gdAcres' inputmode='decimal' min='0' step='any' value='" + esc(g.acres || "") + "'></div></div>" +
+    "<label>Property</label><select id='gdLoc'>" + locOpts + "</select>" +
+    "<label>Notes (optional)</label><input type='text' id='gdNotes' value='" + esc(g.notes || "") + "' placeholder='Soil, water access, plans…'>" + micBtnHTML("#gdNotes") +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='gdCancel'>Cancel</button><button type='button' id='gdSave'>" + (isNew ? "Add garden" : "Save garden") + "</button></div>");
+  $("#gdCancel").addEventListener("click", closeModal);
+  $("#gdSave").addEventListener("click", function(){
+    var name = $("#gdName").value.trim(); if (!name){ toast("Give the garden a name."); return; }
+    g.name = name;
+    g.lenFt = Math.max(0, num($("#gdLen").value, 0)) || "";
+    g.widFt = Math.max(0, num($("#gdWid").value, 0)) || "";
+    g.acres = Math.max(0, num($("#gdAcres").value, 0)) || "";
+    g.locationId = $("#gdLoc").value || "";
+    g.notes = $("#gdNotes").value.trim();
+    if (isNew){ g.id = uid("gd"); g.mapPaddockId = null; state.gardens.push(g); }
+    else if (g.mapPaddockId){ var mp = findPaddock(g.mapPaddockId); if (mp) mp.name = g.name + " (garden)"; }
+    saveState(); closeModal(); toast("Garden saved ✓"); renderAll();
+  });
+}
+function openPlantingForm(g){
+  if (!g) return;
+  var cropOpts = cropLib().map(function(c){ return "<option value='" + c.id + "'>" + esc(c.name) + "</option>"; }).join("");
+  openModal("<h3>Add planting — " + esc(g.name) + "</h3>" +
+    "<label>Crop</label><select id='gpCrop'>" + cropOpts + "</select>" +
+    "<p class='small muted' id='gpInfo' style='margin:4px 0'></p>" +
+    "<label>Planting date</label><input type='date' id='gpDate' value='" + todayISO() + "'>" +
+    "<div class='row'><div><label>How much</label><input type='number' id='gpQty' inputmode='decimal' min='0' step='any' value='10'></div>" +
+    "<div><label>Unit</label><select id='gpUnit'><option value='plants'>plants</option><option value='row-ft'>row-ft</option><option value='beds'>beds</option></select></div></div>" +
+    "<label>Note (optional)</label><input type='text' id='gpNote' placeholder='Variety, bed, source…'>" + micBtnHTML("#gpNote") +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='gpCancel'>Cancel</button><button type='button' id='gpSave'>Save planting</button></div>");
+  function updInfo(){
+    var c = cropById($("#gpCrop").value); if (!c) return;
+    $("#gpInfo").textContent = cropWindowText(c) + " · spacing " + num(c.spacingIn, 0) + " in · harvest in " + num(c.daysLo, 0) + "–" + num(c.daysHi, 0) + " days";
+  }
+  $("#gpCrop").addEventListener("change", updInfo); updInfo();
+  $("#gpCancel").addEventListener("click", closeModal);
+  $("#gpSave").addEventListener("click", function(){
+    var c = cropById($("#gpCrop").value); if (!c){ toast("Pick a crop."); return; }
+    var d = $("#gpDate").value || todayISO();
+    var qty = num($("#gpQty").value, NaN);
+    if (!isFinite(qty) || qty <= 0){ toast("Enter how much you planted."); return; }
+    state.gardenPlantings.push({ id: uid("gpl"), gardenId: g.id, cropId: c.id, cropName: c.name, plantDate: d, qty: qty, qtyUnit: $("#gpUnit").value,
+      harvestStart: addDays(d, num(c.daysLo, 0)), harvestEnd: addDays(d, num(c.daysHi, 0)), harvested: null, note: $("#gpNote").value.trim() });
+    saveState(); closeModal(); toast("Planting saved ✓"); renderAll();
+  });
+}
+function openHarvestForm(gp){
+  openModal("<h3>Log harvest — " + esc(gp.cropName) + "</h3>" +
+    "<label>Harvest date</label><input type='date' id='hvDate' value='" + todayISO() + "'>" +
+    "<label>How much did you get? (rough is fine)</label><input type='text' id='hvYield' placeholder='e.g., about 20 lb, two baskets'>" + micBtnHTML("#hvYield") +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='hvCancel'>Cancel</button><button type='button' id='hvSave'>Save harvest</button></div>");
+  $("#hvCancel").addEventListener("click", closeModal);
+  $("#hvSave").addEventListener("click", function(){
+    gp.harvested = { date: $("#hvDate").value || todayISO(), yieldNote: $("#hvYield").value.trim() };
+    saveState(); closeModal(); toast("Harvest logged ✓"); renderAll();
+  });
+}
+function openCropEdit(c){
+  if (!c) return;
+  function winFields(which, w){
+    var pre = which === "spring" ? "ceS" : "ceF";
+    return "<div class='row'><div><label>" + (which === "spring" ? "Spring" : "Fall") + " window — days from " + (which === "spring" ? "last" : "first") + " frost (start)</label><input type='number' id='" + pre + "From' inputmode='numeric' step='1' value='" + (w ? w.fromDays : "") + "' placeholder='none'></div>" +
+      "<div><label>…to (days)</label><input type='number' id='" + pre + "To' inputmode='numeric' step='1' value='" + (w ? w.toDays : "") + "'></div></div>";
+  }
+  openModal("<h3>Edit figures — " + esc(c.name) + "</h3><p class='muted small'>Windows are counted from your frost dates in Settings and drive the harvest windows on new plantings.</p>" +
+    "<label>Name</label><input type='text' id='ceName' value='" + esc(c.name) + "'>" +
+    winFields("spring", c.springWindow) + winFields("fall", c.fallWindow) +
+    "<div class='row'><div><label>Spacing (inches)</label><input type='number' id='ceSpacing' inputmode='numeric' min='0' step='1' value='" + num(c.spacingIn, 0) + "'></div>" +
+    "<div><label>Days to harvest — low</label><input type='number' id='ceLo' inputmode='numeric' min='0' step='1' value='" + num(c.daysLo, 0) + "'></div>" +
+    "<div><label>Days to harvest — high</label><input type='number' id='ceHi' inputmode='numeric' min='0' step='1' value='" + num(c.daysHi, 0) + "'></div>" +
+    "<div><label>Succession (days, 0 = none)</label><input type='number' id='ceSucc' inputmode='numeric' min='0' step='1' value='" + num(c.successionDays, 0) + "'></div></div>" +
+    "<label>Notes</label><textarea id='ceNotes'>" + esc(c.notes || "") + "</textarea>" +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='ceCancel'>Cancel</button><button type='button' id='ceSave'>Save figures</button></div>");
+  $("#ceCancel").addEventListener("click", closeModal);
+  $("#ceSave").addEventListener("click", function(){
+    function readWin(pre, rel){
+      var f = $("#" + pre + "From").value, t = $("#" + pre + "To").value;
+      if (f === "" || t === "") return null;
+      return { rel: rel, fromDays: Math.round(num(f, 0)), toDays: Math.round(num(t, 0)) };
+    }
+    c.name = $("#ceName").value.trim() || c.name;
+    c.springWindow = readWin("ceS", "lastFrost");
+    c.fallWindow = readWin("ceF", "firstFrost");
+    c.spacingIn = Math.max(0, Math.round(num($("#ceSpacing").value, 0)));
+    c.daysLo = Math.max(0, Math.round(num($("#ceLo").value, 0)));
+    c.daysHi = Math.max(c.daysLo, Math.round(num($("#ceHi").value, 0)));
+    c.successionDays = Math.max(0, Math.round(num($("#ceSucc").value, 0)));
+    c.notes = $("#ceNotes").value.trim();
+    saveState(); closeModal(); toast("Crop figures saved for " + c.name + "."); renderAll();
+  });
+}
+
+/* ---------- unified reminders ----------
+   The Reminders view renders from briefingItems() — the exact generator the
+   Today panel uses — extended below with the v2.2 sources. One generator,
+   three surfaces (Today panel, Today reminder line, Reminders view). */
+var _briefingItemsV21 = briefingItems;
+briefingItems = function(){
+  var items = _briefingItemsV21();
+  var T = todayISO();
+  function pfx(sev, date){ return sev === 0 ? "Overdue: " : sev === 1 ? "Today: " : "In " + Math.max(1, daysBetween(T, date)) + " days: "; }
+  state.paddocks.forEach(function(p){
+    if (isGarden(p)) return;
+    var plan = planOf(p); if (!plan) return;
+    var names = planSpeciesNames(plan);
+    if (plan.status === "planned"){
+      var dEnd = daysBetween(T, plan.windowEnd);
+      if (dEnd < 0) items.push({ sev: 0, date: plan.windowEnd, key: "plant:" + plan.id + ":closed", text: "Overdue: 🌱 " + names + " window for " + p.name + " closed " + fmtDate(plan.windowEnd) + " — plant late or re-plan", view: "paddocks", kind: "plant" });
+      else if (dEnd <= 14) items.push({ sev: dEnd === 0 ? 1 : 2, date: plan.windowEnd, key: "plant:" + plan.id + ":close", text: pfx(dEnd === 0 ? 1 : 2, plan.windowEnd) + "🌱 " + names + " window for " + p.name + " closes in " + dEnd + " day" + (dEnd === 1 ? "" : "s") + " (plant by " + fmtDate(plan.windowEnd) + ")", view: "paddocks", kind: "plant" });
+      else if (plan.windowStart <= T) items.push({ sev: 2, date: plan.windowEnd, key: "plant:" + plan.id + ":open", text: "In " + dEnd + " days: 🌱 Planting window is OPEN for " + p.name + " (" + names + ")", view: "paddocks", kind: "plant" });
+    } else if (plan.status === "planted"){
+      var rd = planReadyDate(plan);
+      if (rd && rd <= T) items.push({ sev: 1, date: rd, key: "plant:" + plan.id + ":ready", text: "Today: 🌱 " + p.name + " planting should be graze-ready — check it and mark Established", view: "paddocks", kind: "plant" });
+    }
+  });
+  (state.gardenPlantings || []).forEach(function(gp){
+    if (gp.harvested) return;
+    var g = findGarden(gp.gardenId); var gname = g ? g.name : "garden";
+    var dStart = daysBetween(T, gp.harvestStart);
+    if (T > gp.harvestEnd) items.push({ sev: 0, date: gp.harvestEnd, key: "garden:" + gp.id + ":past", text: "Overdue: 🧺 " + gp.cropName + " in " + gname + " is past its expected harvest — check it", view: "gardens", kind: "garden" });
+    else if (dStart <= 0) items.push({ sev: 1, date: gp.harvestStart, key: "garden:" + gp.id + ":open", text: "Today: 🧺 " + gp.cropName + " in " + gname + " — harvest window is open (" + fmtDate(gp.harvestStart) + " – " + fmtDate(gp.harvestEnd) + ")", view: "gardens", kind: "garden" });
+    else if (dStart <= 3) items.push({ sev: 2, date: gp.harvestStart, key: "garden:" + gp.id + ":soon", text: "In " + dStart + " days: 🧺 " + gp.cropName + " in " + gname + " — harvest window opens " + fmtDate(gp.harvestStart), view: "gardens", kind: "garden" });
+  });
+  (state.reminders || []).forEach(function(r){
+    if (r.done || !r.date) return;
+    var d = daysBetween(T, r.date);
+    if (d > 30) return; /* same 30-day horizon the sale plans use; farther ones list in Reminders → Later */
+    var sev = d < 0 ? 0 : d === 0 ? 1 : 2;
+    items.push({ sev: sev, date: r.date, key: "rem:" + r.id + ":" + r.date, text: pfx(sev, r.date) + "🔔 " + r.text, view: "reminders", kind: "rem", reminderId: r.id });
+  });
+  items.sort(function(a, b){ return a.sev - b.sev || (a.date < b.date ? -1 : a.date > b.date ? 1 : 0); });
+  return items;
+};
+function reminderKindTag(it){
+  if (it.kind) return { plant: "Planting", garden: "Garden", rem: "Reminder" }[it.kind] || "Reminder";
+  var k = String(it.key || "");
+  if (k.indexOf("breed") === 0) return "Breeding";
+  if (k.indexOf("sale") === 0) return "Sale";
+  if (k.indexOf("task") === 0) return "Task";
+  if (k.indexOf("water") === 0) return "Water";
+  return "Farm";
+}
+function renderReminders(){
+  var box = $("#remindersBody"); if (!box) return;
+  var T = todayISO();
+  var items = briefingItems();
+  var due = items.filter(function(it){ return it.date <= T; });
+  var week = items.filter(function(it){ return it.date > T && it.date <= addDays(T, 7); });
+  var later = items.filter(function(it){ return it.date > addDays(T, 7); });
+  var farRems = (state.reminders || []).filter(function(r){ return !r.done && r.date && daysBetween(T, r.date) > 30; })
+    .map(function(r){ return { sev: 2, date: r.date, key: "rem:" + r.id + ":" + r.date, text: "In " + daysBetween(T, r.date) + " days: 🔔 " + r.text, view: "reminders", kind: "rem", reminderId: r.id }; });
+  later = later.concat(farRems).sort(function(a, b){ return a.date < b.date ? -1 : 1; });
+  function row(it){
+    var isRem = it.kind === "rem" && it.reminderId;
+    return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(it.text) + "</span><span class='pill blue'>" + esc(reminderKindTag(it)) + "</span></div>" +
+      "<div class='meta'>" + fmtDate(it.date) + "</div>" +
+      "<div class='btnrow'>" + (isRem ? "<button type='button' class='btn-sm' data-remdone='" + it.reminderId + "'>Done</button><button type='button' class='btn-sm btn-danger' data-remdel='" + it.reminderId + "'>Delete</button>" : "<button type='button' class='btn-sm btn-ghost' data-remgo='" + esc(it.view || "today") + "'>Open</button>") + "</div></div>";
+  }
+  function section(title, list){
+    return "<h3 style='margin:14px 0 6px'>" + title + "</h3>" + (list.length ? list.map(row).join("") : "<p class='muted small'>Nothing here.</p>");
+  }
+  box.innerHTML = section("Due & overdue", due) + section("This week", week) + section("Later", later);
+  $$("[data-remgo]", box).forEach(function(b){ b.addEventListener("click", function(){ switchView(b.getAttribute("data-remgo")); }); });
+  $$("[data-remdone]", box).forEach(function(b){ b.addEventListener("click", function(){ completeReminder(b.getAttribute("data-remdone")); }); });
+  $$("[data-remdel]", box).forEach(function(b){ b.addEventListener("click", function(){
+    var r = (state.reminders || []).filter(function(x){ return x.id === b.getAttribute("data-remdel"); })[0];
+    if (!r) return;
+    confirmModal("Delete reminder?", "Delete “" + esc(r.text) + "”?", "Delete", function(){
+      state.reminders = state.reminders.filter(function(x){ return x.id !== r.id; });
+      saveState(); toast("Reminder deleted."); renderAll();
+    });
+  }); });
+  var dEl = $("#remDate"); if (dEl && !dEl.value) dEl.value = T;
+}
+function rollReminderDate(r){
+  var d = r.date, guard = 0;
+  while (d <= todayISO() && guard++ < 60){
+    if (r.repeat === "weekly") d = addDays(d, 7);
+    else if (r.repeat === "monthly"){ var dt = parseISO(d); dt.setMonth(dt.getMonth() + 1); d = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2); }
+    else if (r.repeat === "yearly"){ var dt2 = parseISO(d); dt2.setFullYear(dt2.getFullYear() + 1); d = dt2.getFullYear() + "-" + ("0" + (dt2.getMonth() + 1)).slice(-2) + "-" + ("0" + dt2.getDate()).slice(-2); }
+    else break;
+  }
+  return d;
+}
+function completeReminder(id){
+  var r = (state.reminders || []).filter(function(x){ return x.id === id; })[0];
+  if (!r) return;
+  if (r.repeat && r.repeat !== "none"){ r.date = rollReminderDate(r); toast("Done — next one " + fmtDate(r.date) + "."); }
+  else { r.done = true; toast("Done ✓"); }
+  saveState(); renderAll();
+}
+function renderTodayNotices(){
+  var box = $("#todayNotices"); if (!box) return;
+  var T = todayISO();
+  var dismissed = state.briefDismiss && state.briefDismiss.date === T;
+  if (dismissed){ box.innerHTML = ""; return; }
+  var items = briefingItems();
+  var due = items.filter(function(it){ return it.date <= T; });
+  var overdue = due.filter(function(it){ return it.sev === 0; }).length;
+  var html = "";
+  if (due.length){
+    html += "<div class='alert info'><b>🔔 " + due.length + " reminder" + (due.length === 1 ? "" : "s") + " due</b>" + (overdue ? " (" + overdue + " overdue)" : "") +
+      "<div style='margin-top:6px'>" + due.slice(0, 5).map(function(it){ return "<div class='small'>" + esc(it.text) + "</div>"; }).join("") + "</div>" +
+      "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' id='todayRemAll'>See all reminders</button></div></div>";
+  }
+  var plants = items.filter(function(it){ return it.kind === "plant"; });
+  if (plants.length) html += plants.map(function(it){ return "<div class='alert info'>" + esc(it.text) + "</div>"; }).join("");
+  box.innerHTML = html;
+  var b = $("#todayRemAll"); if (b) b.addEventListener("click", function(){ switchView("reminders"); });
+}
+
+/* ---------- view + settings wiring ---------- */
+var _renderViewV21 = renderView;
+renderView = function(v){
+  if (v === "reminders"){ renderReminders(); return; }
+  if (v === "gardens"){ renderGardens(); return; }
+  _renderViewV21(v);
+};
+var _renderTodayV22 = renderToday;
+renderToday = function(){
+  _renderTodayV22();
+  renderTodayNotices();
+};
+var _renderSettingsV22 = renderSettings;
+renderSettings = function(){
+  _renderSettingsV22();
+  renderForageSettings();
+};
+function renderForageSettings(){
+  var body = $("#forageLibBody"); if (!body) return;
+  var fr = frostSettings();
+  var lf = $("#setFrostLast"), ff = $("#setFrostFirst");
+  if (lf && document.activeElement !== lf) lf.value = fr.last;
+  if (ff && document.activeElement !== ff) ff.value = fr.first;
+  var sb = $("#saveFrostBtn");
+  if (sb) sb.onclick = function(){
+    var l = validMMDD($("#setFrostLast").value), f = validMMDD($("#setFrostFirst").value);
+    if (!l || !f){ toast("Use MM-DD dates, like 04-10 and 11-01."); return; }
+    state.settings = state.settings || {};
+    state.settings.frostLast = l; state.settings.frostFirst = f;
+    saveState(); toast("Frost dates saved — planting windows updated."); renderAll();
+  };
+  body.innerHTML = forageLib().map(function(sp){
+    var sw = forageWindow(sp, "spring"), fw = forageWindow(sp, "fall");
+    var figs = [];
+    if (sw) figs.push("Spring " + fmtMMDD(sw.start) + "–" + fmtMMDD(sw.end));
+    if (fw) figs.push("Fall " + fmtMMDD(fw.start) + "–" + fmtMMDD(fw.end));
+    figs.push(num(sp.rateMix, 0) + " lb/ac in a mix");
+    figs.push("graze in ~" + num(sp.daysToGraze, 0) + " days");
+    figs.push("seed " + moneyFmt(num(sp.seedPrice, 0)) + "/lb");
+    return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(sp.name) + "</span><span class='pill blue'>" + esc(sp.family) + "</span></div>" +
+      "<div class='meta'>" + figs.join(" · ") + "</div>" +
+      (sp.caution ? "<p class='small' style='margin:4px 0'>⚠ " + esc(sp.caution) + "</p>" : "") +
+      "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' data-foredit='" + sp.id + "'>Edit figures</button></div></div>";
+  }).join("");
+  $$("[data-foredit]", body).forEach(function(b){ b.addEventListener("click", function(){ openForageEdit(forageById(b.getAttribute("data-foredit"))); }); });
+}
+function openForageEdit(sp){
+  if (!sp) return;
+  var sw = sp.windows.spring, fw = sp.windows.fall;
+  var resS = forageWindow(sp, "spring"), resF = forageWindow(sp, "fall");
+  function winRow(season, w, res){
+    var pre = season === "spring" ? "feS" : "feF";
+    return "<div class='row'><div><label>" + (season === "spring" ? "Spring" : "Fall") + " window starts (MM-DD)</label><input type='text' id='" + pre + "Start' maxlength='5' placeholder='none' value='" + (res ? res.start : "") + "'></div>" +
+      "<div><label>…ends (MM-DD)</label><input type='text' id='" + pre + "End' maxlength='5' value='" + (res ? res.end : "") + "'></div></div>";
+  }
+  var animalOpts = FORAGE_ANIMALS.map(function(a){
+    var cur = (sp.animals || {})[a] || "ok";
+    return "<div><label>" + a + "</label><select id='feAn_" + a + "'><option value='good'" + (cur === "good" ? " selected" : "") + ">Good</option><option value='ok'" + (cur === "ok" ? " selected" : "") + ">OK</option><option value='avoid'" + (cur === "avoid" ? " selected" : "") + ">Avoid</option></select></div>";
+  }).join("");
+  var purposeChecks = FORAGE_GOALS.map(function(g){
+    return "<label class='checkline'><input type='checkbox' data-fepurp='" + g[0] + "'" + (sp.purposes.indexOf(g[0]) >= 0 ? " checked" : "") + "> <span>" + g[1] + "</span></label>";
+  }).join("");
+  openModal("<h3>Edit figures — " + esc(sp.name) + "</h3><p class='muted small'>Your figures drive the planting planner. Frost-relative windows (like radish in fall) follow your frost dates automatically — if you type a window yourself it becomes fixed at what you typed.</p>" +
+    "<label>Name</label><input type='text' id='feName' value='" + esc(sp.name) + "'>" +
+    "<div class='row'><div><label>Soil fit</label><select id='feSoil'><option value='any'" + (sp.soil === "any" ? " selected" : "") + ">Any soil</option><option value='well-drained'" + (sp.soil === "well-drained" ? " selected" : "") + ">Needs well-drained</option><option value='wet-ok'" + (sp.soil === "wet-ok" ? " selected" : "") + ">Tolerates wet</option></select></div>" +
+    "<div><label>Shade</label><select id='feShade'><option value='none'" + (sp.shade === "none" ? " selected" : "") + ">Full sun</option><option value='partial'" + (sp.shade === "partial" ? " selected" : "") + ">Tolerates partial shade</option></select></div></div>" +
+    winRow("spring", sw, resS) + winRow("fall", fw, resF) +
+    "<div class='row'><div><label>Pure-stand rate (lb/ac)</label><input type='number' id='feRatePure' inputmode='decimal' min='0' step='any' value='" + num(sp.ratePure, 0) + "'></div>" +
+    "<div><label>Mix rate (lb/ac)</label><input type='number' id='feRateMix' inputmode='decimal' min='0' step='any' value='" + num(sp.rateMix, 0) + "'></div>" +
+    "<div><label>Days to graze</label><input type='number' id='feDays' inputmode='numeric' min='0' step='1' value='" + num(sp.daysToGraze, 0) + "'></div>" +
+    "<div><label>Seed price ($/lb)</label><input type='number' id='fePrice' inputmode='decimal' min='0' step='any' value='" + num(sp.seedPrice, 0) + "'></div></div>" +
+    "<label>Good for (purposes)</label><div>" + purposeChecks + "</div>" +
+    "<label>Animal suitability</label><div class='row'>" + animalOpts + "</div>" +
+    "<label>Caution (shown with ⚠ whenever this species is in a mix)</label><textarea id='feCaution'>" + esc(sp.caution || "") + "</textarea>" +
+    "<div class='btnrow'><button type='button' class='btn-ghost' id='feCancel'>Cancel</button><button type='button' id='feSave'>Save figures</button></div>");
+  $("#feCancel").addEventListener("click", closeModal);
+  $("#feSave").addEventListener("click", function(){
+    function readWin(pre, oldW, oldRes){
+      var s = $("#" + pre + "Start").value.trim(), e = $("#" + pre + "End").value.trim();
+      if (!s && !e) return null;
+      var sv = validMMDD(s), ev = validMMDD(e);
+      if (!sv || !ev){ toast("Windows need MM-DD dates (or leave both blank for none)."); return "BAD"; }
+      var w = { start: sv, end: ev };
+      /* keep the frost-relative rule when the typed window is just the resolved one */
+      if (oldW && oldRes && oldW.startRel && sv === oldRes.start) w.startRel = oldW.startRel;
+      if (oldW && oldRes && oldW.endRel && ev === oldRes.end) w.endRel = oldW.endRel;
+      if (!oldW || !oldRes || sv !== oldRes.start) { /* newly typed start stays absolute */ }
+      return w;
+    }
+    var nsw = readWin("feS", sw, resS); if (nsw === "BAD") return;
+    var nfw = readWin("feF", fw, resF); if (nfw === "BAD") return;
+    sp.name = $("#feName").value.trim() || sp.name;
+    sp.soil = $("#feSoil").value; sp.shade = $("#feShade").value;
+    sp.windows.spring = nsw; sp.windows.fall = nfw;
+    sp.ratePure = Math.max(0, num($("#feRatePure").value, 0));
+    sp.rateMix = Math.max(0, num($("#feRateMix").value, 0));
+    sp.daysToGraze = Math.max(0, Math.round(num($("#feDays").value, 0)));
+    sp.seedPrice = Math.max(0, num($("#fePrice").value, 0));
+    sp.purposes = $$("[data-fepurp]").filter(function(cb){ return cb.checked; }).map(function(cb){ return cb.getAttribute("data-fepurp"); });
+    FORAGE_ANIMALS.forEach(function(a){ sp.animals[a] = $("#feAn_" + a).value; });
+    sp.caution = $("#feCaution").value.trim();
+    saveState(); closeModal(); toast("Your figures saved for " + sp.name + "."); renderAll();
+  });
+}
+
+/* ---------- static v2.2 controls ---------- */
+(function(){
+  var ra = $("#remAddBtn");
+  if (ra) ra.addEventListener("click", function(){
+    var text = $("#remText").value.trim();
+    if (!text){ toast("Type what to remember first."); return; }
+    var d = $("#remDate").value || todayISO();
+    state.reminders.push({ id: uid("rem"), text: text, date: d, repeat: $("#remRepeat").value || "none", done: false, createdAt: new Date().toISOString() });
+    saveState(); $("#remText").value = "";
+    toast("Reminder saved ✓"); renderAll();
+  });
+  var ga = $("#gardenAddBtn");
+  if (ga) ga.addEventListener("click", function(){ openGardenForm(null); });
+  var rt = $("#remText");
+  if (rt && !$("#remTextMic")){
+    var mb = document.createElement("button");
+    mb.type = "button"; mb.id = "remTextMic"; mb.className = "btn-ghost micbtn"; mb.setAttribute("data-mic", "#remText");
+    mb.setAttribute("aria-label", "Dictate into this field"); mb.title = "Dictate"; mb.textContent = "🎤";
+    rt.parentNode.insertBefore(mb, rt.nextSibling);
+  }
+})();
+
 /* ---------- init ---------- */
 loadState();
 renderSettings();
@@ -4741,6 +5783,8 @@ maybeShowLegal();
 maybeShowOnboarding();
 maybeAutoFetchWeather();
 maybeOpenTellRoute();
+
 </script>
+
 </body>
 </html>
