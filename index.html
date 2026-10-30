@@ -462,11 +462,12 @@
   <!-- MONEY -->
   <section class="view" id="view-money">
     <h2>Farm money</h2>
-    <div class="helpblock" data-helpblock="money"><button type="button" class="helpToggle" data-helptoggle="money">How this page works <span class="hchev">▾</span></button><div class="helpBody"><p><b>The money story of the farm.</b> <b>Money in &amp; out</b> is the simple ledger. <b>Revenue &amp; sale plans</b> shows what each group or batch should make (and what it actually made). <b>Projections</b> looks 3–5 years ahead from your own records — always labelled an estimate.</p></div></div>
+    <div class="helpblock" data-helpblock="money"><button type="button" class="helpToggle" data-helptoggle="money">How this page works <span class="hchev">▾</span></button><div class="helpBody"><p><b>The money story of the farm.</b> <b>Money in &amp; out</b> is the simple ledger. <b>Revenue &amp; sale plans</b> shows what each group or batch should make (and what it actually made). <b>Projections</b> looks 3–5 years ahead from your own records — always labelled an estimate. <b>🧊 Inventory</b> is everything in your freezer &amp; fridge: sell from it and the sale posts itself to the ledger — stock, buyer, and money all in one save.</p></div></div>
     <div class="seg" id="moneyTabs">
       <button type="button" data-moneytab="ledger" class="active">Money in &amp; out</button>
       <button type="button" data-moneytab="revenue">Revenue &amp; sale plans</button>
       <button type="button" data-moneytab="proj">Projections</button>
+      <button type="button" data-moneytab="inventory">🧊 Inventory</button>
     </div>
     <div id="moneyBody"></div>
   </section>
@@ -521,6 +522,7 @@
     <div class="biglist">
       <button type="button" data-morego="chart"><b>📊 Grazing chart</b><span class="right">90-day chart &amp; season calendar</span></button>
       <button type="button" data-morego="money"><b>💵 Farm money</b><span class="right">Ledger, revenue &amp; projections</span></button>
+      <button type="button" id="moreInvBtn"><b>🧊 Freezer &amp; fridge inventory</b><span class="right">Stock on hand &amp; product sales</span></button>
       <button type="button" data-morego="paddocks"><b>🌿 Paddocks</b><span class="right">Rest clocks, forage, photos</span></button>
       <button type="button" data-morego="breeding"><b>🥚 Breeding &amp; youngstock</b><span class="right">Breed library, hatch &amp; due dates, sell-by planner</span></button>
       <button type="button" data-morego="records"><b>📋 Records</b><span class="right">Moves, rain, feed, water, trips, field notes</span></button>
@@ -538,19 +540,22 @@
           <p>1) Open the <b>Map</b> tab and draw the paddock — on the satellite picture, or with <b>Draw paddock</b> on the grid map. 2) When the shape is drawn, a save bar stays pinned at the bottom of the screen — tap <b>✓ Save paddock</b> in it. 3) The name box is already filled in with the next free paddock number; keep it, or type a name instead, then tap <b>✓ Save paddock</b>. Nothing is saved until you tap it — a drawing you leave behind is never silently kept.</p>
         </details>
         <details id="helpTopicTell"><summary>Tell FarmerHelp — things you can say</summary>
-          <p>Tap <b>🎤 Tell</b> (bottom left, on every screen), speak or type, then check the plain-words confirm screen — nothing is saved until you tap Save there. Things that work today: “I put ten cows in paddock one today” · “added 5 goats to paddock 3” · “moved the herd from paddock 1 to paddock 2” · “sold 3 steers from paddock 2” · “lost a calf in paddock 1” · “we got four inches of rain” · “water paddock two” · “the goats need minerals tomorrow”. Anything it can't place is kept as a field note in your exact words. It all runs on this device — no account, no cloud.</p>
+          <p>Tap <b>🎤 Tell</b> (bottom left, on every screen), speak or type, then check the plain-words confirm screen — nothing is saved until you tap Save there. Things that work today: “I put ten cows in paddock one today” · “added 5 goats to paddock 3” · “moved the herd from paddock 1 to paddock 2” · “sold 3 steers from paddock 2” · “lost a calf in paddock 1” · “we got four inches of rain” · “water paddock two” · “the goats need minerals tomorrow” · “put 40 whole chickens in the freezer” · “sold 10 pounds of ground beef to Mary for 80 dollars” · “sold 3 dozen eggs for 15 dollars”. Anything it can't place is kept as a field note in your exact words. It all runs on this device — no account, no cloud.</p>
         </details>
         <details id="helpTopicMove"><summary>Move animals to another paddock</summary>
           <p>Two ways: say it — tap <b>🎤 Tell</b> and say “moved the cows from paddock 1 to paddock 2”, then confirm. Or tap it out: open the <b>Animals</b> tab, tap <b>Move</b> on the group, pick the paddock they're going to, check the date, and tap <b>Save move</b>. The move lands in Records, the old paddock starts its rest clock, and Today updates its advice.</p>
         </details>
+        <details id="helpTopicInventory"><summary>Freezer &amp; fridge inventory — and selling from it</summary>
+          <p>Open <b>Money → 🧊 Inventory</b> to see everything you have stored: ground beef, whole chickens, eggs — how much, where, and how long it's been there. Tap <b>＋ Add stock</b> when you fill the freezer (or say “put 40 whole chickens in the freezer” to Tell). When you sell, tap <b>💰 Sell from stock</b>: pick the product, the amount, and the price — the app takes the oldest stock first, draws the count down, and posts the money to your ledger in the same save. Nothing to enter twice. Delete a sale there and the stock and the money both come back.</p>
+        </details>
       </div>
       <p class="small"><b>Your records live on this device</b> — nothing is uploaded. Keep a backup: <b>More → Settings → Your data → Download backup (JSON)</b>. That file is also how you move your farm to a new phone.</p>
-      <div class="btnrow"><a id="helpEmailBtn" class="btn" href="mailto:whitewolfbackoffice@gmail.com?subject=FarmerHelp%20help&amp;body=FarmerHelp%20version%3A%202.3%0A%0ATell%20us%20what%20you%20were%20trying%20to%20do%20and%20what%20happened%3A%0A%0A">✉️ Email us for help</a></div>
+      <div class="btnrow"><a id="helpEmailBtn" class="btn" href="mailto:whitewolfbackoffice@gmail.com?subject=FarmerHelp%20help&amp;body=FarmerHelp%20version%3A%202.4.0%0A%0ATell%20us%20what%20you%20were%20trying%20to%20do%20and%20what%20happened%3A%0A%0A">✉️ Email us for help</a></div>
       <p class="muted small">The button opens your own mail app with our address and the app version filled in — nothing is sent until you press send there.</p>
     </div>
     <div class="card">
       <h3 style="margin-top:0">About this app</h3>
-      <p class="small">FarmerHelp <b>v2.3</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
+      <p class="small">FarmerHelp <b>v2.4.0</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, a freezer &amp; fridge inventory whose product sales post themselves to the money ledger, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
     </div>
   </section>
 
@@ -655,7 +660,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">About &amp; legal</h3>
-      <p class="small">FarmerHelp <b>v2.3</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
+      <p class="small">FarmerHelp <b>v2.4.0</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
       <div class="btnrow"><button type="button" class="btn-ghost" id="openLegalBtn">View Legal — Terms, Disclaimer &amp; Privacy</button></div>
       <p class="small muted" id="legalRecordLine"></p>
     </div>
@@ -700,6 +705,16 @@
   <div class="legalbox">
     <h2>Where's your farm?</h2>
     <p>One more thing and you're in. Tell FarmerHelp where this property is, and the map, weather, and move advice will use your real ground. You can add more properties later in Settings → Locations.</p>
+    <div id="obAsk">
+      <p style="font-size:17px"><b>Use the spot you're standing at as your farm's location?</b></p>
+      <div class="btnrow">
+        <button type="button" id="obYesBtn" style="min-height:52px">📍 Yes — use my location</button>
+        <button type="button" class="btn-ghost" id="obNoBtn" style="min-height:52px">No — I'll type it instead</button>
+      </div>
+      <p class="muted small">Nothing is read from your phone until you tap Yes. Saying No costs nothing — the typing way works just as well.</p>
+    </div>
+    <p class="small" id="obStatus" style="min-height:20px;margin-top:10px"></p>
+    <div id="obManual" style="display:none">
     <label for="obLocName">Name this place</label>
     <input type="text" id="obLocName" value="Home Place">
     <label>Find it</label>
@@ -711,7 +726,6 @@
       <div style="flex:2 1 200px"><input type="text" id="obAddr" placeholder="e.g., 1200 County Rd 5, Hays, KS"></div>
       <div style="flex:1 1 90px"><button type="button" class="btn-ghost" id="obAddrBtn" style="width:100%">Find</button></div>
     </div>
-    <p class="small" id="obStatus" style="min-height:20px;margin-top:10px"></p>
     <div class="btnrow">
       <button type="button" id="obSaveBtn" disabled style="min-height:52px">Save property &amp; continue</button>
     </div>
@@ -720,6 +734,7 @@
       <button type="button" class="btn-ghost" id="obSkipBtn">Skip for now</button>
     </div>
     <p class="muted small">Skipping is fine — a reminder stays on the Today tab until a property has a position.</p>
+    </div>
   </div>
 </div>
 
@@ -813,6 +828,10 @@ function defaultState(){
     waterSys: { sources: [], lines: [], troughs: [], defaults: { depthIn:18, pricePerFt:1.2, fittingPrice:6 } },
     structures: [], vehicles: [], trips: [], tripLast: { vehicleId:"", fuelPrice:"", purpose:"feed run" },
     finance: [], proj: { years:5, growthPct:5, pricePoultry:25, priceCattle:1800, pricePig:350, priceSheepGoat:200, otherIncome:0, otherExpense:0 },
+    /* v2.4: freezer & fridge inventory — lots in `stock`, product sales in
+       `stockSales` (each sale owns its stock draws + its finance entry id, so
+       one record is the single writer for both stock and money). */
+    stock: [], stockSales: [], stockPrefs: { lowDefault: 5, fridgeDays: 14, lowByKey: {} },
     demoLoaded: false,
     /* v2.2 */ amendments: [], forageLibrary: null, cropLibrary: null, gardens: [], gardenPlantings: [], reminders: [],
     settings: { frostLast: "04-10", frostFirst: "11-01" }
@@ -843,7 +862,7 @@ function normalizeState(s){
   if (s.farm) { out.farm.name=String(s.farm.name||""); out.farm.totalAcres=num(s.farm.totalAcres,0); out.farm.lat=(s.farm.lat===null||s.farm.lat===""||s.farm.lat===undefined)?null:num(s.farm.lat,0); out.farm.lon=(s.farm.lon===null||s.farm.lon===""||s.farm.lon===undefined)?null:num(s.farm.lon,0); out.farm.seasonStart=String(s.farm.seasonStart||""); out.farm.seasonEnd=String(s.farm.seasonEnd||""); if (Array.isArray(s.farm.speciesKept)) out.farm.speciesKept=s.farm.speciesKept.filter(function(x){ return SPECIES.some(function(sp){return sp.id===x;}); }); }
   if (s.map) { out.map.bg = (typeof s.map.bg==="string" && s.map.bg.indexOf("data:image")===0) ? s.map.bg : null; out.map.bgOpacity = Math.min(100, Math.max(10, num(s.map.bgOpacity,85))); out.map.ftPerPx = num(s.map.ftPerPx, 1.97) || 1.97; }
   if (s.engine) { ["spring","summer","fall","dormant"].forEach(function(k){ if (s.engine.rest && s.engine.rest[k]) out.engine.rest[k]=Math.max(1, Math.round(num(s.engine.rest[k], out.engine.rest[k]))); }); out.engine.forageLbPerInch = num(s.engine.forageLbPerInch, 220) || 220; out.engine.residualIn = num(s.engine.residualIn, 3); out.engine.finishDays = Math.max(1, Math.round(num(s.engine.finishDays, 30))); }
-  ["paddocks","groups","grazings","moves","rainfall","forageObs","soilObs","tasks","manualWx","fieldNotes","breeding","cohorts","plans","feedLog","feedInv","hayBuys","waterChecks","photos","structures","vehicles","trips","finance","amendments","gardens","gardenPlantings","reminders"].forEach(function(k){ if (Array.isArray(s[k])) out[k]=s[k]; });
+  ["paddocks","groups","grazings","moves","rainfall","forageObs","soilObs","tasks","manualWx","fieldNotes","breeding","cohorts","plans","feedLog","feedInv","hayBuys","waterChecks","photos","structures","vehicles","trips","finance","amendments","gardens","gardenPlantings","reminders","stock","stockSales"].forEach(function(k){ if (Array.isArray(s[k])) out[k]=s[k]; });
   /* ---- v2.2: settings + libraries + paddock planting fields ---- */
   if (s.settings && typeof s.settings==="object"){ out.settings.frostLast = validMMDD(s.settings.frostLast) || "04-10"; out.settings.frostFirst = validMMDD(s.settings.frostFirst) || "11-01"; }
   out.forageLibrary = (Array.isArray(s.forageLibrary) && s.forageLibrary.length) ? s.forageLibrary : seedForageLibrary();
@@ -858,6 +877,8 @@ function normalizeState(s){
   if (s.tripLast && typeof s.tripLast==="object") out.tripLast = { vehicleId:String(s.tripLast.vehicleId||""), fuelPrice:(s.tripLast.fuelPrice===""||s.tripLast.fuelPrice===undefined?"":num(s.tripLast.fuelPrice,0)), purpose:String(s.tripLast.purpose||"feed run") };
   if (s.proj && typeof s.proj==="object") { ["years","growthPct","pricePoultry","priceCattle","pricePig","priceSheepGoat","otherIncome","otherExpense"].forEach(function(k){ if (s.proj[k]!==undefined) out.proj[k] = num(s.proj[k], out.proj[k]); }); }
   out.paddocks.forEach(function(p){ if (p && Array.isArray(p.geo)) p.geo = p.geo.filter(function(pt){ return Array.isArray(pt)&&pt.length>=2&&isFinite(pt[0])&&isFinite(pt[1]); }); if (p && (!p.geo || p.geo.length<3)) p.geo = null; });
+  /* ---- v2.4: freezer & fridge inventory prefs ---- */
+  if (s.stockPrefs && typeof s.stockPrefs==="object"){ out.stockPrefs.lowDefault = Math.max(0, num(s.stockPrefs.lowDefault, 5)); out.stockPrefs.fridgeDays = Math.max(1, Math.round(num(s.stockPrefs.fridgeDays, 14))); if (s.stockPrefs.lowByKey && typeof s.stockPrefs.lowByKey==="object"){ Object.keys(s.stockPrefs.lowByKey).forEach(function(k){ out.stockPrefs.lowByKey[k] = Math.max(0, num(s.stockPrefs.lowByKey[k], 0)); }); } }
   out.demoLoaded = !!s.demoLoaded;
   /* ---- v2.1: locations migration + ownership ---- */
   out.locations = [];
@@ -1740,7 +1761,12 @@ var recordTab = "moves";
 $("#recordTabs").addEventListener("click", function(e){ var b=e.target.closest("button[data-rectab]"); if (!b) return; recordTab=b.getAttribute("data-rectab"); $$("#recordTabs button").forEach(function(x){ x.classList.toggle("active", x===b); }); renderRecords(); });
 function delBtn(attr, id){ return "<button type='button' class='btn-sm btn-danger' data-"+attr+"='"+id+"'>Delete</button>"; }
 function wireDeletes(root, attr, coll, label){
-  $$("[data-"+attr+"]", root).forEach(function(b){ b.addEventListener("click", function(){ var id=b.getAttribute("data-"+attr); confirmModal("Delete record?", "Delete this "+label+"? This can't be undone.", "Delete", function(){ state[coll] = state[coll].filter(function(x){ return x.id!==id; }); saveState(); toast("Deleted."); renderAll(); }); }); });
+  $$("[data-"+attr+"]", root).forEach(function(b){ b.addEventListener("click", function(){ var id=b.getAttribute("data-"+attr); confirmModal("Delete record?", "Delete this "+label+"? This can't be undone.", "Delete", function(){
+    /* v2.4: deleting the ledger entry of a freezer/fridge product sale also
+       removes the sale itself, so its stock draws come back — one record,
+       one writer, no orphaned sale holding stock down. */
+    if (coll==="finance"){ var fe = (state.finance||[]).filter(function(x){ return x.id===id; })[0]; if (fe && fe.linkType==="stockSale" && fe.linkId) state.stockSales = (state.stockSales||[]).filter(function(x){ return x.id!==fe.linkId; }); }
+    state[coll] = state[coll].filter(function(x){ return x.id!==id; }); saveState(); toast("Deleted."); renderAll(); }); }); });
 }
 function renderRecordsV1(){
   var box = $("#recordBody");
@@ -3682,6 +3708,7 @@ function openQuickLog(){
     "<button type='button' data-ql='fuel' class='amb'><span class='qi'>⛽</span>Fuel trip</button>"+
     "<button type='button' data-ql='note'><span class='qi'>📝</span>Note</button>"+
     "<button type='button' data-ql='money' class='alt'><span class='qi'>💵</span>Money</button>"+
+    "<button type='button' data-ql='freezer' class='alt'><span class='qi'>🧊</span>Freezer stock</button>"+
     "<button type='button' data-ql='fertilize'><span class='qi'>🧪</span>Fertilize</button>"+
     "</div><div class='btnrow'><button type='button' class='btn-ghost' id='qlClose'>Close</button></div>");
   $("#qlClose").addEventListener("click", closeModal);
@@ -3697,6 +3724,7 @@ function openQuickLog(){
     else if (k==="fuel") openTripForm();
     else if (k==="note") openQuickNote();
     else if (k==="money") openFinanceForm();
+    else if (k==="freezer") openStockForm(null);
     else if (k==="fertilize") openAmendmentForm(null);
   }); });
 }
@@ -3836,6 +3864,275 @@ function openFinanceForm(){
   });
 }
 
+/* ================= v2.4: freezer & fridge inventory + product sales =================
+   Stock lives in `state.stock` as lots (what went in, when, where). What is
+   still on hand is always COMPUTED: lot qty minus what sales drew — never a
+   second stored number that can drift (§10). A product sale in
+   `state.stockSales` owns its draws and its finance-entry id, so one save
+   moves stock AND posts the money, and deleting the sale hands both back. */
+var STOCK_UNITS = ["packages", "lbs", "dozen", "each"];
+var STOCK_PRODUCTS = [
+  { sp:"cattle", name:"Ground beef" }, { sp:"cattle", name:"Beef roasts" }, { sp:"cattle", name:"Steaks" }, { sp:"cattle", name:"Brisket" }, { sp:"cattle", name:"Beef stew meat" },
+  { sp:"pigs", name:"Pork chops" }, { sp:"pigs", name:"Ground pork" }, { sp:"pigs", name:"Sausage" }, { sp:"pigs", name:"Bacon" }, { sp:"pigs", name:"Ham" }, { sp:"pigs", name:"Pork roasts" },
+  { sp:"sheep", name:"Lamb chops" }, { sp:"sheep", name:"Ground lamb" }, { sp:"sheep", name:"Leg of lamb" },
+  { sp:"goats", name:"Goat stew meat" }, { sp:"goats", name:"Ground goat" }, { sp:"goats", name:"Goat chops" },
+  { sp:"poultry", name:"Whole chickens" }, { sp:"poultry", name:"Whole turkeys" }, { sp:"poultry", name:"Chicken pieces" }, { sp:"poultry", name:"Eggs" },
+  { sp:"other", name:"Honey" }, { sp:"other", name:"Milk" }, { sp:"other", name:"Cheese" }
+];
+function stockKey(product, unit){ return String(product || "").trim().toLowerCase() + "|" + String(unit || "").trim().toLowerCase(); }
+function findStockLot(id){ return (state.stock || []).filter(function(l){ return l.id === id; })[0] || null; }
+function findStockSale(id){ return (state.stockSales || []).filter(function(s){ return s.id === id; })[0] || null; }
+function stockDrawnByLot(ignoreSaleId){
+  var m = {};
+  (state.stockSales || []).forEach(function(s){ if (ignoreSaleId && s.id === ignoreSaleId) return; (s.draws || []).forEach(function(d){ m[d.lotId] = (m[d.lotId] || 0) + num(d.qty, 0); }); });
+  return m;
+}
+function stockRemaining(lot, drawnMap){ var d = drawnMap || stockDrawnByLot(); return Math.max(0, num(lot.qty, 0) - (d[lot.id] || 0)); }
+function stockQtyOnHand(product, unit){ var g = stockOnHand().filter(function(x){ return x.key === stockKey(product, unit); })[0]; return g ? g.qty : 0; }
+function stockOnHand(){
+  var drawn = stockDrawnByLot(); var byKey = {};
+  (state.stock || []).forEach(function(l){
+    var rem = stockRemaining(l, drawn); if (rem <= 0) return;
+    var k = stockKey(l.product, l.unit);
+    if (!byKey[k]) byKey[k] = { key: k, product: l.product, unit: l.unit, species: l.species || "", qty: 0, value: 0, oldest: l.dateStored || "", lots: 0 };
+    var g = byKey[k]; g.qty += rem; g.lots++; if ((l.dateStored || "") < g.oldest) g.oldest = l.dateStored || g.oldest;
+    if (num(l.price, 0) > 0) g.value += rem * num(l.price, 0);
+  });
+  return Object.keys(byKey).map(function(k){ return byKey[k]; }).sort(function(a, b){ return a.product.localeCompare(b.product) || a.unit.localeCompare(b.unit); });
+}
+function stockLowLine(key){ var p = state.stockPrefs || {}; var v = (p.lowByKey || {})[key]; return (v === undefined || v === null) ? num(p.lowDefault, 5) : num(v, 0); }
+function stockAgeDays(lot){ return Math.max(0, daysBetween(lot.dateStored || todayISO(), todayISO())); }
+function stockAgeText(lot){
+  var d = stockAgeDays(lot);
+  if (d <= 0) return "stored today";
+  if (d < 30) return d + " day" + (d === 1 ? "" : "s") + " in storage";
+  var m = Math.floor(d / 30); return m + " mo in storage (" + d + " days)";
+}
+function stockLotFlag(lot, rem){
+  if (rem === undefined) rem = stockRemaining(lot);
+  if (rem <= 0) return "";
+  if (/fridge/i.test(lot.location || "") && stockAgeDays(lot) > num((state.stockPrefs || {}).fridgeDays, 14)) return "In the fridge " + stockAgeDays(lot) + " days — use it soon, or move it to the freezer";
+  return "";
+}
+function planStockDraw(product, unit, qty, ignoreSaleId){
+  var drawn = stockDrawnByLot(ignoreSaleId); var want = num(qty, 0); var draws = []; var avail = 0;
+  var lots = (state.stock || []).filter(function(l){ return stockKey(l.product, l.unit) === stockKey(product, unit); }).sort(function(a, b){ return String(a.dateStored || "").localeCompare(String(b.dateStored || "")); });
+  lots.forEach(function(l){ var rem = stockRemaining(l, drawn); avail += rem; if (want > 0 && rem > 0){ var take = Math.min(rem, want); draws.push({ lotId: l.id, qty: take }); want -= take; } });
+  var drawnQty = draws.reduce(function(a, d){ return a + d.qty; }, 0);
+  return { draws: draws, available: avail, drawnQty: drawnQty, shortage: Math.max(0, num(qty, 0) - drawnQty) };
+}
+function addStockLot(f){
+  var lot = { id: uid("stk"), product: String(f.product || "").trim(), species: f.species || "", qty: Math.max(0, num(f.qty, 0)), unit: f.unit || "packages", pkgSize: String(f.pkgSize || "").trim(),
+    dateStored: f.dateStored || todayISO(), location: String(f.location || "Freezer").trim() || "Freezer", price: Math.max(0, num(f.price, 0)),
+    sourceType: f.sourceType || "", sourceId: f.sourceId || "", note: String(f.note || "").trim() };
+  state.stock.push(lot); return lot;
+}
+function stockSaleCategory(product){ return /egg/i.test(product || "") ? "eggs" : "livestock sales"; }
+function recordStockSale(f){
+  var total = (f.total === null || f.total === undefined || f.total === "") ? num(f.qty, 0) * num(f.unitPrice, 0) : num(f.total, 0);
+  var sale = { id: uid("ssale"), date: f.date || todayISO(), product: f.product, unit: f.unit, qty: num(f.qty, 0),
+    unitPrice: num(f.qty, 0) > 0 ? Math.round((total / num(f.qty, 0)) * 100) / 100 : num(f.unitPrice, 0), total: Math.round(total * 100) / 100,
+    buyer: String(f.buyer || "").trim(), note: String(f.note || "").trim(), draws: f.draws || [], finId: "" };
+  var fin = { id: uid("fin"), date: sale.date, kind: "income", category: stockSaleCategory(sale.product), amount: sale.total,
+    note: "Sold " + fmt(sale.qty, sale.qty % 1 ? 1 : 0) + " " + sale.unit + " " + sale.product + (sale.buyer ? " to " + sale.buyer : "") + " (freezer & fridge stock)", linkType: "stockSale", linkId: sale.id };
+  sale.finId = fin.id;
+  state.stockSales.push(sale); state.finance.push(fin);
+  return sale;
+}
+function deleteStockSale(id){
+  var s = findStockSale(id); if (!s) return false;
+  state.stockSales = state.stockSales.filter(function(x){ return x.id !== id; });
+  if (s.finId) state.finance = state.finance.filter(function(x){ return x.id !== s.finId; });
+  return true;
+}
+function stockSalesTotals(){
+  var T = todayISO(), mo = T.slice(0, 7), yr = T.slice(0, 4); var t = { month: 0, year: 0, all: 0, count: 0 };
+  var byProd = {};
+  (state.stockSales || []).forEach(function(s){ t.all += num(s.total, 0); t.count++; if ((s.date || "").slice(0, 7) === mo) t.month += num(s.total, 0); if ((s.date || "").slice(0, 4) === yr) t.year += num(s.total, 0);
+    var k = stockKey(s.product, s.unit); if (!byProd[k]) byProd[k] = { product: s.product, unit: s.unit, qty: 0, revenue: 0 }; byProd[k].qty += num(s.qty, 0); byProd[k].revenue += num(s.total, 0); });
+  return { totals: t, byProduct: Object.keys(byProd).map(function(k){ return byProd[k]; }).sort(function(a, b){ return b.revenue - a.revenue; }) };
+}
+function stockSourceName(lot){
+  if (!lot.sourceId) return "";
+  if (lot.sourceType === "group"){ var g = findGroup(lot.sourceId); return g ? "from " + g.name : ""; }
+  if (lot.sourceType === "cohort"){ var c = findCohort(lot.sourceId); return c ? "from " + c.name : ""; }
+  return "";
+}
+
+/* ---------- Inventory view (Money → 🧊 Inventory) ---------- */
+function renderMoneyInventory(box){
+  var onHand = stockOnHand();
+  var drawn = stockDrawnByLot();
+  var st = stockSalesTotals();
+  var totalValue = onHand.reduce(function(a, g){ return a + g.value; }, 0);
+  var totalUnits = onHand.reduce(function(a, g){ return a + g.qty; }, 0);
+  var html = "<div class='card'><h3 style='margin-top:0'>🧊 Freezer &amp; fridge inventory</h3>" +
+    "<div class='row'><div class='stat'><b>" + onHand.length + "</b><span>product" + (onHand.length === 1 ? "" : "s") + " on hand</span></div>" +
+    "<div class='stat'><b>" + fmt(totalUnits, totalUnits % 1 ? 1 : 0) + "</b><span>units stored (all kinds)</span></div>" +
+    "<div class='stat'><b>" + (totalValue > 0 ? moneyFmt(totalValue) : "—") + "</b><span>est. retail value on hand" + (totalValue > 0 ? "" : " (add prices to lots to see it)") + "</span></div></div>" +
+    "<div class='btnrow'><button type='button' id='stkAdd'>＋ Add stock</button><button type='button' id='stkSell'" + (onHand.length ? "" : " disabled") + ">💰 Sell from stock</button><button type='button' class='btn-ghost' id='stkPrint'>🖨 Print list</button></div>" +
+    "<p class='muted small'>Selling from stock draws the oldest packages first and posts the money to your ledger in the same save — nothing to enter twice.</p></div>";
+
+  html += "<div class='card'><h3 style='margin-top:0'>What you have</h3>";
+  if (!onHand.length) html += "<div class='empty'>Nothing stored yet. When you fill the freezer after a processing day, tap ＋ Add stock — or tell FarmerHelp “put 40 whole chickens in the freezer”.</div>";
+  else html += onHand.map(function(g){
+    var low = stockLowLine(g.key); var isLow = low > 0 && g.qty <= low;
+    return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(g.product) + "</span><span class='right'><b>" + fmt(g.qty, g.qty % 1 ? 1 : 0) + " " + esc(g.unit) + "</b></span></div>" +
+      "<div class='meta'>" + (g.value > 0 ? "worth ≈ " + moneyFmt(g.value) + " · " : "") + "oldest stored " + fmtDate(g.oldest) + " · " + g.lots + " lot" + (g.lots === 1 ? "" : "s") + "</div>" +
+      (isLow ? "<p class='small' style='margin:4px 0;color:#a33'><b>⚠ Running low</b> — at or under your line of " + fmt(low, low % 1 ? 1 : 0) + " " + esc(g.unit) + ".</p>" : "") +
+      "<div class='row' style='align-items:end'><div><label>Flag me when down to</label><input type='number' data-lowkey='" + esc(g.key) + "' inputmode='decimal' min='0' step='any' value='" + low + "'></div><div><button type='button' class='btn-sm' data-sellkey='" + esc(g.key) + "'>Sell " + esc(g.product) + "</button></div></div></div>";
+  }).join("");
+  html += "</div>";
+
+  var lots = (state.stock || []).slice().sort(function(a, b){ return String(b.dateStored || "").localeCompare(String(a.dateStored || "")); });
+  html += "<div class='card'><h3 style='margin-top:0'>Lots — oldest is sold first</h3>";
+  if (!lots.length) html += "<div class='empty'>No lots yet.</div>";
+  else html += lots.map(function(l){
+    var rem = stockRemaining(l, drawn); var dQty = num(l.qty, 0) - rem; var flag = stockLotFlag(l, rem);
+    return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(l.product) + "</span><span class='right muted'>" + esc(l.location || "Freezer") + "</span></div>" +
+      "<div class='meta'><b>" + fmt(rem, rem % 1 ? 1 : 0) + " of " + fmt(num(l.qty, 0), num(l.qty, 0) % 1 ? 1 : 0) + " " + esc(l.unit) + "</b> left" + (dQty > 0 ? " · " + fmt(dQty, dQty % 1 ? 1 : 0) + " sold" : "") + (l.pkgSize ? " · " + esc(l.pkgSize) : "") + " · stored " + fmtDate(l.dateStored) + " · " + stockAgeText(l) + (num(l.price, 0) > 0 ? " · " + moneyFmt(num(l.price, 0)) + " / " + esc(l.unit) : "") + (stockSourceName(l) ? " · " + esc(stockSourceName(l)) : "") + "</div>" +
+      (flag ? "<p class='small' style='margin:4px 0;color:#a33'><b>⚠ " + esc(flag) + "</b></p>" : "") +
+      (l.note ? "<p class='small' style='margin:4px 0'>" + esc(l.note) + "</p>" : "") +
+      "<div class='btnrow'>" + (rem > 0 ? "<button type='button' class='btn-sm' data-lotsell='" + l.id + "'>Sell</button>" : "") + "<button type='button' class='btn-sm btn-ghost' data-lotedit='" + l.id + "'>Edit</button><button type='button' class='btn-sm btn-danger' data-lotdel='" + l.id + "'>Delete</button></div></div>";
+  }).join("");
+  html += "</div>";
+
+  var sales = (state.stockSales || []).slice().sort(function(a, b){ return String(b.date).localeCompare(String(a.date)); });
+  html += "<div class='card'><h3 style='margin-top:0'>Product sales — the money takes care of itself</h3>" +
+    "<div class='row'><div class='stat'><b>" + moneyFmt(st.totals.month) + "</b><span>this month</span></div><div class='stat'><b>" + moneyFmt(st.totals.year) + "</b><span>this year</span></div><div class='stat'><b>" + moneyFmt(st.totals.all) + "</b><span>all time · " + st.totals.count + " sale" + (st.totals.count === 1 ? "" : "s") + "</span></div></div>" +
+    (st.byProduct.length ? "<div class='tablewrap'><table><tr><th>Product</th><th>Sold</th><th>Revenue</th></tr>" + st.byProduct.map(function(r){ return "<tr><td><b>" + esc(r.product) + "</b></td><td>" + fmt(r.qty, r.qty % 1 ? 1 : 0) + " " + esc(r.unit) + "</td><td>" + moneyFmt(r.revenue) + "</td></tr>"; }).join("") + "</table></div>" : "<p class='muted small'>No product sales yet. Sales you record here (or by telling FarmerHelp) land in the money ledger automatically, under “" + "livestock sales" + "” — eggs under “eggs”.</p>") +
+    "</div>";
+  if (sales.length){
+    html += "<div class='card'><h3 style='margin-top:0'>Recent product sales</h3>" + sales.slice(0, 30).map(function(s){
+      return "<div class='listitem'><div class='flexline'><span class='ttl'>" + esc(s.product) + "</span><span class='moneypos'>+" + moneyFmt(num(s.total, 0)).replace(/^\$/, "$") + "</span><span class='right muted'>" + fmtDate(s.date) + "</span></div>" +
+        "<div class='meta'>" + fmt(num(s.qty, 0), num(s.qty, 0) % 1 ? 1 : 0) + " " + esc(s.unit) + " at " + moneyFmt(num(s.unitPrice, 0)) + (s.buyer ? " · to " + esc(s.buyer) : "") + "</div>" +
+        (s.note ? "<p class='small' style='margin:4px 0'>" + esc(s.note) + "</p>" : "") +
+        "<div class='btnrow'><button type='button' class='btn-sm btn-ghost' data-saleedit='" + s.id + "'>Edit</button><button type='button' class='btn-sm btn-danger' data-saledel='" + s.id + "'>Delete — gives the stock back</button></div></div>";
+    }).join("") + "</div>";
+  }
+
+  var prefs = state.stockPrefs || { lowDefault: 5, fridgeDays: 14 };
+  html += "<div class='card'><h3 style='margin-top:0'>Inventory settings</h3>" +
+    "<div class='row'><div><label>“Running low” line (units, when a product has no line of its own)</label><input type='number' id='stkLowDefault' inputmode='decimal' min='0' step='any' value='" + num(prefs.lowDefault, 5) + "'></div>" +
+    "<div><label>Flag fridge items after (days)</label><input type='number' id='stkFridgeDays' inputmode='numeric' min='1' step='1' value='" + num(prefs.fridgeDays, 14) + "'></div></div>" +
+    "<div class='btnrow'><button type='button' id='stkPrefsSave'>Save settings</button></div>" +
+    "<p class='muted small'>Freezer lots simply show how many months they've been stored — frozen keeps. Fridge items get the flag above so nothing quietly goes bad.</p></div>";
+
+  box.innerHTML = html;
+  $("#stkAdd").addEventListener("click", function(){ openStockForm(null); });
+  var sellBtn = $("#stkSell"); if (sellBtn) sellBtn.addEventListener("click", function(){ openStockSaleForm(null, null); });
+  $("#stkPrint").addEventListener("click", printInventory);
+  $$("[data-sellkey]", box).forEach(function(b){ b.addEventListener("click", function(){ var g = stockOnHand().filter(function(x){ return x.key === b.getAttribute("data-sellkey"); })[0]; if (g) openStockSaleForm(null, g); }); });
+  $$("[data-lowkey]", box).forEach(function(inp){ inp.addEventListener("change", function(){ var k = inp.getAttribute("data-lowkey"); state.stockPrefs = state.stockPrefs || { lowDefault: 5, fridgeDays: 14, lowByKey: {} }; state.stockPrefs.lowByKey = state.stockPrefs.lowByKey || {}; state.stockPrefs.lowByKey[k] = Math.max(0, num(inp.value, 0)); saveState(); toast("Low-stock line saved."); renderMoney(); }); });
+  $$("[data-lotsell]", box).forEach(function(b){ b.addEventListener("click", function(){ var l = findStockLot(b.getAttribute("data-lotsell")); if (l) openStockSaleForm(null, { key: stockKey(l.product, l.unit), product: l.product, unit: l.unit }); }); });
+  $$("[data-lotedit]", box).forEach(function(b){ b.addEventListener("click", function(){ var l = findStockLot(b.getAttribute("data-lotedit")); if (l) openStockForm(l); }); });
+  $$("[data-lotdel]", box).forEach(function(b){ b.addEventListener("click", function(){ var l = findStockLot(b.getAttribute("data-lotdel")); if (!l) return; var d = stockDrawnByLot(); if ((d[l.id] || 0) > 0){ toast("This lot has sales recorded against it — delete the sale (below) first, so the books stay straight."); return; } confirmModal("Delete this lot?", fmt(num(l.qty, 0), 1) + " " + l.unit + " of " + l.product + " stored " + fmtDate(l.dateStored) + " will be removed from inventory. This can't be undone.", "Delete lot", function(){ state.stock = state.stock.filter(function(x){ return x.id !== l.id; }); saveState(); toast("Lot deleted."); renderAll(); }); }); });
+  $$("[data-saleedit]", box).forEach(function(b){ b.addEventListener("click", function(){ var s = findStockSale(b.getAttribute("data-saleedit")); if (s) openStockSaleForm(s, null); }); });
+  $$("[data-saledel]", box).forEach(function(b){ b.addEventListener("click", function(){ var s = findStockSale(b.getAttribute("data-saledel")); if (!s) return; confirmModal("Delete this sale?", "The " + moneyFmt(num(s.total, 0)) + " comes back out of the money ledger, and the " + fmt(num(s.qty, 0), 1) + " " + s.unit + " of " + s.product + " go back into stock. This can't be undone.", "Delete sale", function(){ deleteStockSale(s.id); saveState(); toast("Sale deleted — stock and money restored."); renderAll(); }); }); });
+  $("#stkPrefsSave").addEventListener("click", function(){ state.stockPrefs = state.stockPrefs || { lowDefault: 5, fridgeDays: 14, lowByKey: {} }; state.stockPrefs.lowDefault = Math.max(0, num($("#stkLowDefault").value, 5)); state.stockPrefs.fridgeDays = Math.max(1, Math.round(num($("#stkFridgeDays").value, 14))); saveState(); toast("Inventory settings saved."); renderMoney(); });
+}
+function printInventory(){
+  var onHand = stockOnHand(); var drawn = stockDrawnByLot(); var st = stockSalesTotals();
+  var rows = onHand.map(function(g){ return "<tr><td><b>" + esc(g.product) + "</b></td><td>" + fmt(g.qty, g.qty % 1 ? 1 : 0) + " " + esc(g.unit) + "</td><td>" + (g.value > 0 ? moneyFmt(g.value) : "—") + "</td><td>" + fmtDate(g.oldest) + "</td></tr>"; }).join("");
+  var lotRows = (state.stock || []).map(function(l){ var rem = stockRemaining(l, drawn); if (rem <= 0) return ""; return "<tr><td>" + esc(l.product) + "</td><td>" + fmt(rem, rem % 1 ? 1 : 0) + " " + esc(l.unit) + "</td><td>" + esc(l.location || "Freezer") + "</td><td>" + fmtDate(l.dateStored) + "</td><td>" + stockAgeText(l) + "</td></tr>"; }).join("");
+  $("#printArea").innerHTML = "<h1>" + esc(state.farm.name || "Farm") + " — Freezer &amp; fridge inventory</h1><p>Printed " + fmtDate(todayISO()) + " · every figure from your own stock records.</p>" +
+    "<h2>On hand by product</h2><table><tr><th>Product</th><th>On hand</th><th>Est. value</th><th>Oldest stored</th></tr>" + (rows || "<tr><td colspan='4'>Nothing stored</td></tr>") + "</table>" +
+    "<h2>Lots</h2><table><tr><th>Product</th><th>Left</th><th>Where</th><th>Stored</th><th>Age</th></tr>" + (lotRows || "<tr><td colspan='5'>No lots</td></tr>") + "</table>" +
+    "<h2>Product sales</h2><p>This month " + moneyFmt(st.totals.month) + " · this year " + moneyFmt(st.totals.year) + " · all time " + moneyFmt(st.totals.all) + " (" + st.totals.count + " sales). These sales also appear in the money ledger.</p>" +
+    "<p style='margin-top:14px'>Generated by FarmerHelp.</p>";
+  window.print();
+}
+
+/* ---------- stock forms ---------- */
+function stockProductListHTML(){
+  var seen = {}; var opts = [];
+  STOCK_PRODUCTS.forEach(function(p){ if (!seen[p.name]){ seen[p.name] = 1; opts.push("<option value='" + esc(p.name) + "'>"); } });
+  (state.stock || []).forEach(function(l){ if (l.product && !seen[l.product]){ seen[l.product] = 1; opts.push("<option value='" + esc(l.product) + "'>"); } });
+  return opts.join("");
+}
+function openStockForm(lot){
+  var isEdit = !!lot; lot = lot || {};
+  var srcVal = lot.sourceType && lot.sourceId ? lot.sourceType + ":" + lot.sourceId : "";
+  openModal("<h3>" + (isEdit ? "Edit stock lot" : "Add to the freezer / fridge") + "</h3>" +
+    "<p class='muted small'>What went in, how much, and where it lives. The date is the day it was stored — age and sell-first order count from it.</p>" +
+    "<label>Product</label><input type='text' id='stkProduct' list='stkProductList' placeholder='e.g., Ground beef' value='" + esc(lot.product || "") + "'>" + micBtnHTML("#stkProduct") + "<datalist id='stkProductList'>" + stockProductListHTML() + "</datalist>" +
+    "<label>From (species)</label><select id='stkSpecies'><option value=''>— not from an animal / not sure —</option>" + SPECIES.map(function(sp){ return "<option value='" + sp.id + "'" + (lot.species === sp.id ? " selected" : "") + ">" + sp.label + "</option>"; }).join("") + "</select>" +
+    "<div class='row'><div><label>How many</label><input type='number' id='stkQty' inputmode='decimal' min='0' step='any' value='" + (isEdit ? num(lot.qty, 0) : "") + "'></div>" +
+    "<div><label>Unit</label><select id='stkUnit'>" + STOCK_UNITS.map(function(u){ return "<option value='" + u + "'" + ((lot.unit || "packages") === u ? " selected" : "") + ">" + u + "</option>"; }).join("") + "</select></div></div>" +
+    "<label>Package size (optional)</label><input type='text' id='stkPkg' placeholder='e.g., 1 lb packs' value='" + esc(lot.pkgSize || "") + "'>" + micBtnHTML("#stkPkg") +
+    "<div class='row'><div><label>Date stored</label><input type='date' id='stkDate' value='" + (lot.dateStored || todayISO()) + "'></div>" +
+    "<div><label>Stored in</label><input type='text' id='stkLoc' list='stkLocList' value='" + esc(lot.location || "Freezer") + "'><datalist id='stkLocList'><option value='Freezer'><option value='Fridge'><option value='Pantry'><option value='Cooler'></datalist></div></div>" +
+    "<label>Retail price per unit $ (optional — powers the value-on-hand)</label><input type='number' id='stkPrice' inputmode='decimal' min='0' step='0.01' value='" + (isEdit && num(lot.price, 0) > 0 ? num(lot.price, 0) : "") + "'>" +
+    "<label>Came from (optional)</label><select id='stkSource'><option value=''>— not linked —</option>" +
+    state.groups.map(function(g){ return "<option value='group:" + g.id + "'" + (srcVal === "group:" + g.id ? " selected" : "") + ">Group: " + esc(g.name) + "</option>"; }).join("") +
+    state.cohorts.map(function(c){ return "<option value='cohort:" + c.id + "'" + (srcVal === "cohort:" + c.id ? " selected" : "") + ">Batch: " + esc(c.name) + "</option>"; }).join("") + "</select>" +
+    "<label>Note</label><input type='text' id='stkNote' placeholder='Anything worth remembering' value='" + esc(lot.note || "") + "'>" + micBtnHTML("#stkNote") +
+    "<div class='fieldsave'><div class='btnrow'><button type='button' class='btn-ghost' id='stkCancel'>Cancel</button><button type='button' id='stkSave' style='min-height:56px'>" + (isEdit ? "Save changes" : "Add stock") + "</button></div></div>");
+  $("#stkProduct").addEventListener("change", function(){
+    var v = $("#stkProduct").value.trim().toLowerCase();
+    var hit = STOCK_PRODUCTS.filter(function(p){ return p.name.toLowerCase() === v; })[0];
+    if (hit && !$("#stkSpecies").value) $("#stkSpecies").value = hit.sp;
+  });
+  $("#stkCancel").addEventListener("click", closeModal);
+  $("#stkSave").addEventListener("click", function(){
+    var product = $("#stkProduct").value.trim();
+    if (!product){ toast("Name the product first (e.g., Ground beef)."); return; }
+    var qty = num($("#stkQty").value, NaN);
+    if (!isFinite(qty) || qty <= 0){ toast("Enter how many went in."); return; }
+    var src = $("#stkSource").value.split(":");
+    var f = { product: product, species: $("#stkSpecies").value, qty: qty, unit: $("#stkUnit").value, pkgSize: $("#stkPkg").value, dateStored: $("#stkDate").value || todayISO(), location: $("#stkLoc").value, price: num($("#stkPrice").value, 0), sourceType: src[0] || "", sourceId: src[1] || "", note: $("#stkNote").value };
+    if (isEdit){ Object.keys(f).forEach(function(k){ lot[k] = f[k]; }); toast("Lot updated."); }
+    else { addStockLot(f); toast("Added " + fmt(qty, qty % 1 ? 1 : 0) + " " + f.unit + " of " + product + " to stock."); }
+    saveState(); closeModal(); renderAll();
+  });
+}
+function openStockSaleForm(editSale, presetGroup){
+  var onHand = stockOnHand();
+  if (!editSale && !onHand.length){ toast("Nothing in stock to sell yet — add stock first."); return; }
+  var selKey = editSale ? stockKey(editSale.product, editSale.unit) : (presetGroup ? presetGroup.key : (onHand[0] ? onHand[0].key : ""));
+  openModal("<h3>" + (editSale ? "Edit product sale" : "Sell from stock") + "</h3>" +
+    "<p class='muted small'>One save does it all: the stock count drops (oldest packages first) and the money posts to your ledger. Delete the sale later and both come back.</p>" +
+    "<label>Product</label><select id='ssProduct'>" + onHand.map(function(g){ return "<option value='" + esc(g.key) + "'" + (g.key === selKey ? " selected" : "") + ">" + esc(g.product) + " — " + fmt(g.qty, g.qty % 1 ? 1 : 0) + " " + esc(g.unit) + " on hand</option>"; }).join("") +
+    (editSale && !onHand.some(function(g){ return g.key === selKey; }) ? "<option value='" + esc(selKey) + "' selected>" + esc(editSale.product) + " — 0 " + esc(editSale.unit) + " on hand now</option>" : "") + "</select>" +
+    "<div class='row'><div><label>How many</label><input type='number' id='ssQty' inputmode='decimal' min='0' step='any' value='" + (editSale ? num(editSale.qty, 0) : "") + "'></div>" +
+    "<div><label>Price per unit $</label><input type='number' id='ssPrice' inputmode='decimal' min='0' step='0.01' value='" + (editSale ? num(editSale.unitPrice, 0) : "") + "'></div></div>" +
+    "<label>Total $</label><input type='number' id='ssTotal' inputmode='decimal' min='0' step='0.01' value='" + (editSale ? num(editSale.total, 0) : "") + "'>" +
+    "<p class='small muted' id='ssPlan'></p>" +
+    "<label>Buyer (optional)</label><input type='text' id='ssBuyer' placeholder='e.g., Mary, farmers market' value='" + esc(editSale ? editSale.buyer || "" : "") + "'>" + micBtnHTML("#ssBuyer") +
+    "<div class='row'><div><label>Date</label><input type='date' id='ssDate' value='" + (editSale ? editSale.date : todayISO()) + "'></div></div>" +
+    "<label>Note</label><input type='text' id='ssNote' value='" + esc(editSale ? editSale.note || "" : "") + "'>" + micBtnHTML("#ssNote") +
+    "<div class='fieldsave'><div class='btnrow'><button type='button' class='btn-ghost' id='ssCancel'>Cancel</button><button type='button' id='ssSave' style='min-height:56px'>" + (editSale ? "Save changes" : "Record sale") + "</button></div></div>");
+  function curGroup(){ var k = $("#ssProduct").value; return stockOnHand().filter(function(g){ return g.key === k; })[0] || (editSale && k === selKey ? { product: editSale.product, unit: editSale.unit, qty: 0 } : null); }
+  function refreshPlan(){
+    var g = curGroup(); var q = num($("#ssQty").value, 0); var planEl = $("#ssPlan");
+    if (!g){ planEl.textContent = ""; return; }
+    var plan = planStockDraw(g.product, g.unit, q, editSale ? editSale.id : null);
+    var price = num($("#ssPrice").value, 0);
+    if (price > 0 && document.activeElement !== $("#ssTotal")) $("#ssTotal").value = (q * price).toFixed(2);
+    planEl.textContent = q > 0 ? ("On hand: " + fmt(plan.available, plan.available % 1 ? 1 : 0) + " " + g.unit + " · this sale takes " + plan.draws.map(function(d){ var l = findStockLot(d.lotId); return fmt(d.qty, d.qty % 1 ? 1 : 0) + " from the lot stored " + (l ? fmtDate(l.dateStored) : "?"); }).join(", ") + (plan.shortage > 0 ? " — that's " + fmt(plan.shortage, plan.shortage % 1 ? 1 : 0) + " more than you have; only what's on hand can come out of stock." : "")) : ("On hand: " + fmt(plan.available, plan.available % 1 ? 1 : 0) + " " + g.unit + ".");
+  }
+  ["#ssProduct", "#ssQty", "#ssPrice"].forEach(function(sel){ $(sel).addEventListener("input", refreshPlan); $(sel).addEventListener("change", refreshPlan); });
+  (function(){ var g = curGroup(); if (!editSale && g && !$("#ssPrice").value){ /* prefill the on-hand average price */ var lots = (state.stock || []).filter(function(l){ return stockKey(l.product, l.unit) === g.key && num(l.price, 0) > 0; }); if (lots.length) $("#ssPrice").value = lots[0].price; } refreshPlan(); })();
+  $("#ssCancel").addEventListener("click", closeModal);
+  $("#ssSave").addEventListener("click", function(){
+    var g = curGroup(); if (!g){ toast("Pick a product first."); return; }
+    var qty = num($("#ssQty").value, NaN);
+    if (!isFinite(qty) || qty <= 0){ toast("Enter how many you sold."); return; }
+    var total = num($("#ssTotal").value, NaN); var price = num($("#ssPrice").value, 0);
+    if (!isFinite(total)) total = qty * price;
+    var plan = planStockDraw(g.product, g.unit, qty, editSale ? editSale.id : null);
+    function commit(){
+      if (editSale) deleteStockSale(editSale.id);
+      var plan2 = planStockDraw(g.product, g.unit, qty, null);
+      if (!plan2.draws.length){ toast("No stock left to draw from."); return; }
+      var sale = recordStockSale({ date: $("#ssDate").value || todayISO(), product: g.product, unit: g.unit, qty: plan2.drawnQty, unitPrice: plan2.drawnQty > 0 ? total / plan2.drawnQty : 0, total: total, buyer: $("#ssBuyer").value, note: $("#ssNote").value, draws: plan2.draws });
+      saveState(); closeModal(); toast("Sold — " + moneyFmt(sale.total) + " posted to your ledger, stock updated."); renderAll();
+    }
+    if (plan.shortage > 0){ confirmModal("More than you have?", "You have " + fmt(plan.available, 1) + " " + g.unit + " of " + g.product + " in stock, and this sale says " + fmt(qty, 1) + ". The sale can still be recorded for the full amount — it will draw what's on hand (" + fmt(plan.drawnQty, 1) + ").", "Record it anyway", commit); return; }
+    commit();
+  });
+}
+
 /* ================= v2.1: sale plans & revenue ================= */
 var PROC_HEAD_DEFAULT = { cattle:90, pigs:70, sheep:55, goats:55, poultry:4, other:25 };
 function salePlanOf(e){ return (e && e.salePlan && typeof e.salePlan==="object") ? e.salePlan : null; }
@@ -3948,7 +4245,7 @@ var moneyTab = "ledger";
 $("#moneyTabs").addEventListener("click", function(e){ var b=e.target.closest("button[data-moneytab]"); if (!b) return; moneyTab=b.getAttribute("data-moneytab"); $$("#moneyTabs button").forEach(function(x){ x.classList.toggle("active", x===b); }); renderMoney(); });
 function renderMoney(){
   var box = $("#moneyBody"); if (!box) return;
-  if (moneyTab==="ledger") renderMoneyLedger(box); else if (moneyTab==="revenue") renderMoneyRevenue(box); else renderProjections(box);
+  if (moneyTab==="ledger") renderMoneyLedger(box); else if (moneyTab==="revenue") renderMoneyRevenue(box); else if (moneyTab==="inventory") renderMoneyInventory(box); else renderProjections(box);
 }
 function moneyFmt(n){ return (n<0?"−$":"$")+fmt(Math.abs(n),2); }
 function renderMoneyLedger(box){
@@ -4056,14 +4353,17 @@ function printExtraSections(){
   var t = financeTotals();
   var r = computeProjections();
   var prows = r.rows.map(function(row){ return "<tr><td>"+esc(row.label)+"</td><td>"+moneyFmt(row.income)+"</td><td>"+moneyFmt(row.expense)+"</td><td>"+moneyFmt(row.net)+"</td></tr>"; }).join("");
+  var inv = stockOnHand();
+  var invRows = inv.map(function(g){ return "<tr><td>" + esc(g.product) + "</td><td>" + fmt(g.qty, g.qty % 1 ? 1 : 0) + " " + esc(g.unit) + "</td><td>" + (g.value > 0 ? moneyFmt(g.value) : "—") + "</td><td>" + fmtDate(g.oldest) + "</td></tr>"; }).join("");
   return "<h2>Breeding &amp; sales schedule</h2><table><tr><th>Date</th><th>Item</th></tr>"+(brows||"<tr><td colspan='2'>Nothing scheduled</td></tr>")+"</table>"+
+  "<h2>Freezer &amp; fridge inventory</h2>" + (inv.length ? "<table><tr><th>Product</th><th>On hand</th><th>Est. value</th><th>Oldest stored</th></tr>" + invRows + "</table>" : "<p>Nothing stored right now.</p>") +
   "<h2>Finances</h2><p>This month: in "+moneyFmt(t.month.inc)+", out "+moneyFmt(t.month.exp)+", net "+moneyFmt(t.month.net)+". This year: in "+moneyFmt(t.year.inc)+", out "+moneyFmt(t.year.exp)+", net "+moneyFmt(t.year.net)+".</p>"+
   "<h2>Projection (estimate — from your records &amp; assumptions in Money → Projections)</h2><table><tr><th>Year</th><th>Income</th><th>Expenses</th><th>Net</th></tr>"+prows+"</table>";
 }
 
 
 /* ================= v2: glue — map view dispatch, Today extras, settings extras, grid water tools ================= */
-var APP_VERSION = "2.3";
+var APP_VERSION = "2.4.0";
 function renderMapV2(){
   var view = state.map.view || "sat";
   $$("#mapViewToggle button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-mapview")===view); });
@@ -4187,6 +4487,17 @@ function briefingItems(){
   waterTargets(true).forEach(function(tg){
     if (!waterCheckedOn(tg.targetId, T)) out.push({ sev: 1, date: T, key: "water:" + tg.targetId, text: "Today: water check — " + tg.name, view: "today" });
   });
+  /* v2.4: freezer & fridge stock — running low, and fridge items getting old.
+     Same single records the Inventory view reads, so the numbers can't drift. */
+  stockOnHand().forEach(function(g){
+    var low = stockLowLine(g.key);
+    if (low > 0 && g.qty <= low) out.push({ sev: 2, date: T, key: "stocklow:" + g.key, text: "Heads up: 🧊 " + g.product + " is running low — " + fmt(g.qty, g.qty % 1 ? 1 : 0) + " " + g.unit + " left in the freezer & fridge", view: "money" });
+  });
+  (state.stock || []).forEach(function(l){
+    if (!/fridge/i.test(l.location || "")) return;
+    var age = stockAgeDays(l);
+    if (stockRemaining(l) > 0 && age > num((state.stockPrefs || {}).fridgeDays, 14)) out.push({ sev: 2, date: T, key: "stockfridge:" + l.id, text: "Heads up: 🧊 " + l.product + " has been in the fridge " + age + " days — use it soon or move it to the freezer", view: "money" });
+  });
   out.sort(function(a, b){ return (a.sev - b.sev) || (a.date < b.date ? -1 : a.date > b.date ? 1 : 0); });
   return out;
 }
@@ -4283,6 +4594,8 @@ function syncHelpEmail(){
 syncHelpEmail();
 /* ---------- More hub ---------- */
 $$("[data-morego]").forEach(function(b){ b.addEventListener("click", function(){ switchView(b.getAttribute("data-morego")); }); });
+/* v2.4: More → Freezer & fridge inventory lands on the Money view's Inventory tab */
+(function(){ var b = $("#moreInvBtn"); if (b) b.addEventListener("click", function(){ moneyTab = "inventory"; $$("#moneyTabs button").forEach(function(x){ x.classList.toggle("active", x.getAttribute("data-moneytab")==="inventory"); }); switchView("money"); }); })();
 $$("[data-viewgo]").forEach(function(b){ b.addEventListener("click", function(){ switchView(b.getAttribute("data-viewgo")); }); });
 /* ---------- Quick Log button ---------- */
 $("#quickLogBtn").addEventListener("click", openQuickLog);
@@ -4531,6 +4844,39 @@ $("#obSkipBtn").addEventListener("click", function(){
   maybeOpenTellRoute();
 });
 
+/* ---------- v2.3.1: first-run location ask — one question, one tap (Travis, 2026-10-30) ----------
+   The overlay opens on the plain Yes/No question. Yes runs the one standard
+   location prompt, then saves through the exact #obSaveBtn sequence (same
+   record, same flags, same renders) — no manual field is shown. No, or any
+   failure of the Yes path, reveals the manual fields below with no penalty.
+   Nothing is read from the device before the Yes tap. */
+function obShowManual(){
+  var m = $("#obManual"); if (m) m.style.display = "";
+  var a = $("#obAsk"); if (a) a.style.display = "none";
+}
+$("#obNoBtn").addEventListener("click", function(){
+  obShowManual();
+  obSetStatus("No problem — type the address below, or tap 📍 Use my location there if you'd rather.");
+});
+$("#obYesBtn").addEventListener("click", function(){
+  if (location.protocol === "file:" || !navigator.geolocation){
+    obShowManual();
+    obSetStatus("Location isn't available on this copy of the app, so type the address instead — it works just as well. (On the hosted version, Yes can use your phone's location.)");
+    return;
+  }
+  obSetStatus("Finding your location… GPS can take up to ~20 seconds — best outside with a clear view of the sky.");
+  geolocatePos(function(res, err){
+    if (!res){
+      obShowManual();
+      obSetStatus(esc(err || "Location wasn't available.") + " You can type the address instead — no rush, and nothing was saved.");
+      return;
+    }
+    obPending = { lat:Math.round(res.lat*1000000)/1000000, lon:Math.round(res.lon*1000000)/1000000 };
+    $("#obSaveBtn").disabled = false;
+    $("#obSaveBtn").click();
+  });
+});
+
 /* ---------- v2.1: weather settings ---------- */
 function renderWxSettings(){
   var box = $("#wxSettingsBody"); if (!box) return;
@@ -4765,6 +5111,37 @@ function tellNewGroupName(sp, hint){
   while (state.groups.some(function(g){ return g.name.toLowerCase() === name.toLowerCase(); })) name = base + " " + (k++);
   return name;
 }
+/* ---------- v2.4: freezer & fridge stock phrases ---------- */
+function tellStockProductOf(seg){
+  var best = null;
+  STOCK_PRODUCTS.forEach(function(p){
+    var forms = [p.name.toLowerCase(), p.name.toLowerCase().replace(/s$/, "")];
+    forms.forEach(function(f){
+      var idx = seg.indexOf(f);
+      if (idx >= 0 && (!best || f.length > best.len)) best = { product: p.name, species: p.sp, len: f.length, idx: idx };
+    });
+  });
+  return best;
+}
+function tellStockParse(seg, hit){
+  var qty = null, unit = null, uw = false; /* uw: the unit was actually spoken as a word (not implied by "whole") */
+  if (hit && hit.product === "Eggs"){
+    var dm = seg.match(/(\d+(?:\.\d+)?)\s+12\s+eggs?\b/); /* tellNumbers turns "dozen" into 12: "3 dozen eggs" arrives as "3 12 eggs" */
+    if (dm){ qty = parseFloat(dm[1]); unit = "dozen"; uw = true; }
+  }
+  if (qty === null){
+    var um = seg.match(/(\d+(?:\.\d+)?)\s*(pounds?|lbs?|packages?|packs?|dozen)\b/);
+    if (um){ qty = parseFloat(um[1]); var u = um[2]; unit = (u === "pound" || u === "pounds" || u === "lbs" || u === "lb") ? "lbs" : (u === "dozen" ? "dozen" : "packages"); uw = true; }
+  }
+  if (qty === null){ var wm = seg.match(/(\d+(?:\.\d+)?)\s+whole\s/); if (wm){ qty = parseFloat(wm[1]); unit = "each"; } }
+  if (qty === null && hit){
+    var before = seg.slice(Math.max(0, hit.idx - 14), hit.idx);
+    var nm = before.match(/(\d+(?:\.\d+)?)\s*(?:of\s+)?$/);
+    if (nm) qty = parseFloat(nm[1]);
+  }
+  if (hit && hit.product === "Eggs" && unit === null && qty !== null && qty >= 12 && qty % 12 === 0){ qty = qty / 12; unit = "dozen"; }
+  return { qty: qty, unit: unit, uw: uw };
+}
 /* ---------- segment classification ---------- */
 var TELL_CONDITIONS = [
   [/flood/, "Flooded"], [/muddy|\bmud\b/, "Muddy"], [/\bdry\b|dried up|drying up/, "Very dry"],
@@ -4806,6 +5183,42 @@ function tellClassify(segRaw){
     if (!g){ var named = state.groups.filter(function(x){ return seg.indexOf(x.name.toLowerCase()) >= 0; }); if (named.length === 1) g = named[0]; }
     items.push({ type:"health", groupId: g ? g.id : null, text: segRaw.trim() });
     return items;
+  }
+  /* v2.4: freezer & fridge stock — "put 40 whole chickens in the freezer",
+     "added 25 pounds of ground beef to the freezer". Runs before sold/lost
+     and before put/place: a freezer/fridge destination with an add verb is
+     stock going in, never a paddock placement. */
+  var stockLocW = /\bfreezer\b/.test(seg) ? "Freezer" : (/\bfridge\b/.test(seg) ? "Fridge" : null);
+  if (stockLocW && /\b(put|added|adds|adding|add|stocked|froze|stored)\b/.test(seg) && !/\bsold\b/.test(seg)){
+    if (intention){ items.push({ type:"task", title: tellTitle(segRaw), due: due }); return items; }
+    var hitA = tellStockProductOf(seg);
+    if (!hitA){ items.push({ type:"note", text: segRaw.trim(), problem: "I heard stock going into the " + stockLocW.toLowerCase() + " but couldn't tell what it was — kept your exact words." }); return items; }
+    var pa = tellStockParse(seg, hitA);
+    if (!pa.qty){ items.push({ type:"note", text: segRaw.trim(), problem: "I heard " + hitA.product.toLowerCase() + " going into the " + stockLocW.toLowerCase() + " but no amount — kept your exact words." }); return items; }
+    items.push({ type:"stockAdd", product: hitA.product, species: hitA.species, qty: pa.qty, unit: pa.unit || "packages", location: stockLocW, date: tellDateOf(seg) });
+    return items;
+  }
+  /* v2.4: sell from stock — "sold 10 pounds of ground beef to Mary for 80
+     dollars", "sold 3 dozen eggs for 15 dollars". A named farm product plus
+     a unit, a price, or eggs makes it a product sale; live-animal sentences
+     (no product phrase) fall through to the group sale below, untouched.
+     Whole birds need a unit or a freezer/frozen word — "sold 3 whole
+     chickens" on its own still reads as live birds. */
+  if (/\bsold\b/.test(seg) && !intention){
+    var hitS = tellStockProductOf(seg);
+    if (hitS){
+      var ps = tellStockParse(seg, hitS);
+      var moneyS = seg.match(/\bfor\s+\$?\s*(\d+(?:\.\d+)?)/);
+      var wholeBird = hitS.product === "Whole chickens" || hitS.product === "Whole turkeys";
+      var stockSignal = !!ps.unit || !!moneyS || hitS.product === "Eggs";
+      if (wholeBird) stockSignal = !!ps.uw || /\b(freezer|fridge|frozen|dressed)\b/.test(seg);
+      if (stockSignal){
+        var buyerS = ""; var bmS = seg.match(/\bto\s+([a-z][a-z' -]*?)(?:\s+for\s+\$?\s*\d|\s*$)/);
+        if (bmS){ buyerS = bmS[1].trim().replace(/^the\s+/, ""); if (/freezer|fridge/.test(buyerS)) buyerS = ""; if (buyerS) buyerS = buyerS.charAt(0).toUpperCase() + buyerS.slice(1); }
+        items.push({ type:"stockSell", product: hitS.product, species: hitS.species, qty: ps.qty, unit: ps.unit || (hitS.product === "Eggs" ? "dozen" : "packages"), total: moneyS ? parseFloat(moneyS[1]) : null, buyer: buyerS, date: tellDateOf(seg) });
+        return items;
+      }
+    }
   }
   /* v2.3: sold / lost — a count comes OFF a group. The confirm line shows the
      before → after head count and the change is also kept as a field note. */
@@ -5009,6 +5422,13 @@ function tellSummary(it){
     var beforeR2 = num(gr.head, 0); var afterR2 = Math.max(0, beforeR2 - (it.count || 0));
     return verbR + (it.count !== null && it.count !== undefined ? (it.est ? "about " : "") + it.count + " " + it.word + " from " : "animals from ") + gr.name + " — " + beforeR2 + " → " + afterR2 + " head" + (afterR2 === 0 && it.count ? " (the group ends up unplaced at 0 head)" : "") + " — also kept as a field note";
   }
+  if (it.type === "stockAdd") return "🧊 Add to the " + it.location + " — " + it.qty + " " + it.unit + " of " + it.product + (it.date && it.date !== todayISO() ? " — dated " + fmtDate(it.date) : "");
+  if (it.type === "stockSell"){
+    var availSS = stockQtyOnHand(it.product, it.unit);
+    var planSS = it.qty ? planStockDraw(it.product, it.unit, it.qty) : null;
+    var dateTxtS = it.date && it.date !== todayISO() ? " — dated " + fmtDate(it.date) : "";
+    return "💰 Sell from stock — " + (it.qty ? it.qty + " " + it.unit + " of " : "") + it.product + (it.buyer ? " to " + it.buyer : "") + ((it.total !== null && it.total !== undefined) ? " for " + moneyFmt(it.total) : " (no price heard — edit the amount in Money → Inventory)") + " · " + fmt(availSS, availSS % 1 ? 1 : 0) + " " + it.unit + " on hand" + (planSS && planSS.shortage > 0 ? " — only what's on hand comes out of stock" : " — oldest stock first") + dateTxtS;
+  }
   return "📝 Field note (your exact words): “" + it.text + "”" + (it.problem ? " — " + it.problem : "");
 }
 /* ---------- apply ---------- */
@@ -5098,6 +5518,19 @@ function applyTellItem(it, opts){
     state.fieldNotes.push({ id: uid("fn"), date: it.date || T, ts: new Date().toISOString(), text: (it.kind === "sold" ? "Sold " : "Lost ") + it.count + " " + (it.word || "animals") + " from " + gR.name + " — " + beforeR + " → " + afterR + " head (Tell FarmerHelp)", paddockId: it.fromId || null, groupId: gR.id, condition: "" });
     return true;
   }
+  if (it.type === "stockAdd"){
+    addStockLot({ product: it.product, species: it.species || "", qty: it.qty, unit: it.unit || "packages", pkgSize: "", dateStored: it.date || T, location: it.location || "Freezer", price: 0, sourceType: "", sourceId: "", note: "Tell FarmerHelp" });
+    return true;
+  }
+  if (it.type === "stockSell"){
+    if (!it.qty) return false;
+    var planT = planStockDraw(it.product, it.unit, it.qty);
+    if (!planT.draws.length) return false;
+    var firstLotT = findStockLot(planT.draws[0].lotId);
+    var totT = (it.total !== null && it.total !== undefined) ? it.total : planT.drawnQty * (firstLotT ? num(firstLotT.price, 0) : 0);
+    recordStockSale({ date: it.date || T, product: it.product, unit: it.unit, qty: planT.drawnQty, unitPrice: planT.drawnQty > 0 ? totT / planT.drawnQty : 0, total: totT, buyer: it.buyer || "", note: "Tell FarmerHelp", draws: planT.draws });
+    return true;
+  }
   state.fieldNotes.push({ id: uid("fn"), date: T, ts: new Date().toISOString(), text: opts.text || it.text || "", paddockId: null, groupId: null, condition: "" });
   return true;
 }
@@ -5108,7 +5541,7 @@ function openTell(){
     "<label for='tellText'>What happened?</label><textarea id='tellText' rows='4' placeholder='e.g., I moved the 30 pigs and chickens and maybe four cows to paddock five out of paddock four'></textarea>" +
     "<div class='btnrow'><button type='button' class='btn-ghost micbtn' data-mic='#tellText' aria-label='Dictate'>🎤 Dictate</button><button type='button' id='tellGo' style='flex:1'>Understand →</button></div>" +
     (FH_SR ? "" : "<p class='muted small'>Voice recognition isn't available in this browser, so the mic can't listen here — typing works exactly the same (on the installed app over HTTPS, dictation works where the browser supports it).</p>") +
-    "<p class='muted small'>Try: “We got four inches of rain, it's a little flooded in paddock three, we need to move paddock five animals, water paddock two.” Say \u201cI put ten cows in paddock one today\u201d and the animals are recorded as placed — a herd you don't have yet is started for you. Anything I can't place is kept as a field note in your exact words — nothing gets lost.</p>" +
+    "<p class='muted small'>Try: “We got four inches of rain, it's a little flooded in paddock three, we need to move paddock five animals, water paddock two.” Say \u201cI put ten cows in paddock one today\u201d and the animals are recorded as placed — a herd you don't have yet is started for you. Say \u201cput 40 whole chickens in the freezer\u201d or \u201csold 10 pounds of ground beef to Mary for 80 dollars\u201d and the freezer stock and the money ledger take care of themselves. Anything I can't place is kept as a field note in your exact words — nothing gets lost.</p>" +
     "<div class='btnrow'><button type='button' class='btn-ghost' id='tellCancel'>Cancel</button></div>");
   $("#tellCancel").addEventListener("click", closeModal);
   $("#tellGo").addEventListener("click", function(){
@@ -5162,9 +5595,15 @@ function openTellConfirm(items, originalText){
       if (wAll.length) extra += "<label>Which paddock?</label><select id='twater" + i + "'>" + wOpts + "</select>";
       else extra += "<p class='small' style='color:#a33'>No paddocks on this farm yet — uncheck this one, or draw a paddock on the Map first.</p>";
     }
+    if (it.type === "stockSell"){
+      var avE = stockQtyOnHand(it.product, it.unit);
+      if (it.qty === null || it.qty === undefined) extra += "<p class='small' style='color:#a33'>I didn't hear how much — uncheck this one, or re-say it with an amount (“sold 10 pounds of ground beef…”).</p>";
+      else if (avE <= 0) extra += "<p class='small' style='color:#a33'>No " + esc(it.product) + " (" + esc(it.unit) + ") on hand in the app — uncheck this one, or add the stock first (Money → Inventory).</p>";
+      else if (it.qty > avE) extra += "<p class='small' style='color:#a33'>You said " + it.qty + " " + esc(it.unit) + " but only " + avE + " " + esc(it.unit) + " on hand — confirming sells what's there and posts the money you named.</p>";
+    }
     if (it.type === "task") extra += "<label>Edit before saving</label><input type='text' id='tedit" + i + "' value='" + esc(it.title) + "'>";
     if (it.type === "note" || it.type === "observe" || it.type === "health") extra += "<label>Edit before saving</label><input type='text' id='tedit" + i + "' value='" + esc(it.text) + "'>";
-    var problem = (it.type === "move" && (!it.toId || (!it.groupId && !(it.candidates && it.candidates.length)))) || (it.type === "feed" && !it.groupId && !(it.candidates && it.candidates.length)) || (it.type === "water" && !it.paddockId && !state.paddocks.length) || (it.type === "place" && (it.mode === "already" || (it.newGroup && !it.count) || (!it.toId && !state.paddocks.length) || (!it.groupId && !it.newGroup && !(it.candidates && it.candidates.length)))) || (it.type === "reduce" && ((it.count === null || it.count === undefined) || (!it.groupId && !(it.candidates && it.candidates.length))));
+    var problem = (it.type === "move" && (!it.toId || (!it.groupId && !(it.candidates && it.candidates.length)))) || (it.type === "feed" && !it.groupId && !(it.candidates && it.candidates.length)) || (it.type === "water" && !it.paddockId && !state.paddocks.length) || (it.type === "place" && (it.mode === "already" || (it.newGroup && !it.count) || (!it.toId && !state.paddocks.length) || (!it.groupId && !it.newGroup && !(it.candidates && it.candidates.length)))) || (it.type === "reduce" && ((it.count === null || it.count === undefined) || (!it.groupId && !(it.candidates && it.candidates.length)))) || (it.type === "stockSell" && ((it.qty === null || it.qty === undefined) || stockQtyOnHand(it.product, it.unit) <= 0));
     return "<div class='tellitem'><label class='checkline'><input type='checkbox' id='tkeep" + i + "'" + (problem ? "" : " checked") + "> <span><b>Keep</b></span></label><div>" + esc(tellSummary(it)) + "</div>" + extra + "</div>";
   }).join("");
   openModal("<h3>Check before I save</h3>" +
@@ -6237,6 +6676,17 @@ function openForageEdit(sp){
 
 /* ---------- init ---------- */
 loadState();
+/* v2.4 (§10): a second open tab is the same farm — when another tab saves,
+   reload the one shared record set and re-render, so no view anywhere can
+   show a stale copy. The storage event only fires in OTHER tabs, never in
+   the tab that saved, so this can't loop. If a modal is open here, the
+   re-render is skipped (your in-progress form wins) and the next render
+   picks the shared state up. */
+window.addEventListener("storage", function(e){
+  if (!e || e.key !== STORE_KEY || !e.newValue) return;
+  if ($("#modalOverlay") && $("#modalOverlay").classList.contains("open")) return;
+  try { state = normalizeState(JSON.parse(e.newValue)); renderAll(); } catch (err) {}
+});
 renderSettings();
 renderAll();
 maybeShowLegal();
