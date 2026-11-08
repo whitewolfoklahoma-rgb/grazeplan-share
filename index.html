@@ -229,6 +229,8 @@
   </div>
   <div class="wxchip" id="wxChip" title="Weather data source"><b>—</b><br><span id="wxChipSub">no weather yet</span></div>
 </header>
+<div style="text-align:center;padding:12px 16px;background:#fff8e6;border-bottom:2px solid #e8a13a;"><a href="https://travisbriggs.gumroad.com/l/xvnoim" target="_blank" rel="noopener" style="display:inline-block;background:#e8a13a;color:#1d2b2e;font-weight:800;font-size:17px;padding:10px 22px;border-radius:8px;text-decoration:none;">Get the full version — $79</a></div>
+
 
 <main id="appMain">
 
@@ -550,12 +552,12 @@
         </details>
       </div>
       <p class="small"><b>Your records live on this device</b> — nothing is uploaded. Keep a backup: <b>More → Settings → Your data → Download backup (JSON)</b>. That file is also how you move your farm to a new phone.</p>
-      <div class="btnrow"><a id="helpEmailBtn" class="btn" href="mailto:whitewolfbackoffice@gmail.com?subject=FarmerHelp%20help&amp;body=FarmerHelp%20version%3A%202.4.0%0A%0ATell%20us%20what%20you%20were%20trying%20to%20do%20and%20what%20happened%3A%0A%0A">✉️ Email us for help</a></div>
+      <div class="btnrow"><a id="helpEmailBtn" class="btn" href="mailto:whitewolfbackoffice@gmail.com?subject=FarmerHelp%20help&amp;body=FarmerHelp%20version%3A%202.4.2%0A%0ATell%20us%20what%20you%20were%20trying%20to%20do%20and%20what%20happened%3A%0A%0A">✉️ Email us for help</a></div>
       <p class="muted small">The button opens your own mail app with our address and the app version filled in — nothing is sent until you press send there.</p>
     </div>
     <div class="card">
       <h3 style="margin-top:0">About this app</h3>
-      <p class="small">FarmerHelp <b>v2.4.0</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, a freezer &amp; fridge inventory whose product sales post themselves to the money ledger, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
+      <p class="small">FarmerHelp <b>v2.4.2</b> — satellite mapping with NAIP farm imagery, multiple properties, breeding &amp; breed library, feed / hay / water tracking, photos, water &amp; structure planning, trip costs, farm finances, sale plans &amp; revenue, a freezer &amp; fridge inventory whose product sales post themselves to the money ledger, farm reports, a forage planting planner, a fertilizer &amp; amendment log, a garden planner, a unified Reminders page, and Tell FarmerHelp voice commands (on-device). Everything is stored on this device. <b>Tip:</b> long-press the FarmerHelp icon on your home screen → <b>Tell FarmerHelp</b> opens voice capture directly.</p>
     </div>
   </section>
 
@@ -660,7 +662,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">About &amp; legal</h3>
-      <p class="small">FarmerHelp <b>v2.4.0</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
+      <p class="small">FarmerHelp <b>v2.4.2</b> — a planning aid for rotational grazing. Grazing, weather, and stocking outputs are estimates from the information you enter; animal care decisions are yours.</p>
       <div class="btnrow"><button type="button" class="btn-ghost" id="openLegalBtn">View Legal — Terms, Disclaimer &amp; Privacy</button></div>
       <p class="small muted" id="legalRecordLine"></p>
     </div>
@@ -748,10 +750,12 @@
 /* ================= FarmerHelp ================= */
 var TERMS_VERSION = "1.0";
 var STORE_KEY = "grazeplan_v1";
+var BACKUP_KEY = STORE_KEY + "_backup";
+var CORRUPT_KEY = STORE_KEY + "_corrupt";
 var APP_NAME = "FarmerHelp";
 
 var TERMS_TEXT =
-"TERMS OF USE — White Wolf Digital Apps\nVersion 1.0\nSeller: White Wolf Tree Service LLC, selling digital products under the name \"White Wolf Digital\"\nContact: whitewolfoklahoma@gmail.com\n\n" +
+"TERMS OF USE — White Wolf Apps\nVersion 1.0\nSeller: White Wolf Apps\nContact: whitewolfbackoffice@gmail.com\n\n" +
 "1. What you're buying\nOur apps are single-file software tools. When you buy one, you are buying a license to use the file, not ownership of the software itself.\n\n" +
 "2. Your license\n- You may use the app for your own personal or business work.\n- You may open it on your own devices (phone, tablet, computer) and move your own data between them using the app's built-in backup/export tools.\n- You may not resell, redistribute, give away, upload, or share the app file (or a copy of it) with anyone else — including posting it online, bundling it with other products, or selling access to it.\n- You may not claim the app as your own work, remove its branding or notices, or use it to build a competing product for resale.\n- One purchase = one buyer. A business purchase covers the buyer and their own employees using it for that business's work; it does not cover other businesses.\n\n" +
 "3. Your data stays yours — and stays on your device\n- The current versions of our apps run entirely on your device. They have no accounts, no sign-in, no analytics, and they collect, transmit, and store none of your information on any server. We never see your data. (The one exception is weather: if you ask FarmerHelp to update the forecast, it sends only your farm's latitude/longitude to Open-Meteo to fetch weather. Nothing else ever leaves your device.)\n- Your records are stored in your browser/app storage on your device. You are responsible for backing them up using the app's export tools. If you clear your browser data, lose your device, or uninstall the app, your records may be permanently lost, and we cannot recover them — we never had a copy.\n- Files you export (backups, printouts) are under your control. Where you store or send them is up to you.\n\n" +
@@ -759,10 +763,10 @@ var TERMS_TEXT =
 "5. Acceptable use\nDon't use the apps to break the law, infringe anyone's rights, or misrepresent records to others.\n\n" +
 "6. Provided \"as is\"\nThe apps are provided \"as is\" and \"as available,\" without warranties of any kind, express or implied — including merchantability, fitness for a particular purpose, accuracy of calculations, and uninterrupted or error-free operation — to the maximum extent allowed by law. Software has bugs; browsers change; we work to fix problems but do not promise any app is error-free or will work on every device or browser forever.\n\n" +
 "7. Limitation of liability\nTo the maximum extent allowed by law:\n- We are not liable for indirect, incidental, special, or consequential damages — including lost profits, lost livestock, lost forage, or business interruption — arising from use of the apps.\n- Our total liability for any claim connected to an app is limited to the amount you paid for that app.\n- Nothing in these terms limits liability that cannot legally be limited.\n\n" +
-"8. Refunds\nRefunds are handled by the storefront you bought from, under that storefront's policy — Gumroad's refund policy for Gumroad purchases, and Google Play's refund policy for Play purchases. These terms do not add to, replace, or override the storefront's refund rules. If a file is defective and won't open, contact us at whitewolfoklahoma@gmail.com and we'll fix or replace the file.\n\n" +
+"8. Refunds\nRefunds are handled by the storefront you bought from, under that storefront's policy — Gumroad's refund policy for Gumroad purchases, and Google Play's refund policy for Play purchases. These terms do not add to, replace, or override the storefront's refund rules. If a file is defective and won't open, contact us at whitewolfbackoffice@gmail.com and we'll fix or replace the file.\n\n" +
 "9. Updates and changes to these terms\n- We may release updated versions of an app. Updates may add, change, or remove features.\n- We may update these terms. The version you agreed to is recorded in the app (version number and date) at first-run acceptance. If terms change, the app may ask you to accept the new version once on next open. Updated terms apply going forward, not retroactively.\n- If you don't agree to an updated version of the terms, stop using the app.\n\n" +
 "10. Governing law\nThese terms are governed by the laws of the State of Oklahoma, USA.\n\n" +
-"11. Contact\nWhite Wolf Tree Service LLC (White Wolf Digital) — whitewolfoklahoma@gmail.com.";
+"11. Contact\nWhite Wolf Apps — whitewolfbackoffice@gmail.com.";
 
 var DISCLAIMER_TEXT =
 "PLANNING DISCLAIMER — FarmerHelp\n\n" +
@@ -838,9 +842,10 @@ function defaultState(){
   };
 }
 var state = defaultState();
+var RECOVERY_NOTICE = "";
 var lastSaveOk = true, lastSaveAt = null, _saveFailToastAt = 0;
 function saveState(){
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); lastSaveOk = true; lastSaveAt = new Date(); }
+  try { var __raw = JSON.stringify(state); localStorage.setItem(STORE_KEY, __raw); localStorage.setItem(BACKUP_KEY, __raw); lastSaveOk = true; lastSaveAt = new Date(); }
   catch(e){ lastSaveOk = false; if (typeof toast==="function" && Date.now()-_saveFailToastAt>10000){ _saveFailToastAt = Date.now(); toast("Couldn't save on this device — storage may be full. Your changes are on screen but NOT stored; download a backup (Settings → Your data)."); } }
   updateSaveIndicator();
 }
@@ -935,9 +940,49 @@ function normalizeState(s){
   }
   return out;
 }
+function validStored(s){ return !!(s && typeof s === "object" && !Array.isArray(s) && Array.isArray(s.paddocks) && Array.isArray(s.groups)); }
 function loadState(){
-  try { var raw = localStorage.getItem(STORE_KEY); if (raw) state = normalizeState(JSON.parse(raw)); } catch(e){ state = defaultState(); }
+  var raw = null;
+  try { raw = localStorage.getItem(STORE_KEY); } catch(e){}
+  if (!raw) return;
+  var parsed = null;
+  try { parsed = JSON.parse(raw); } catch(e){ parsed = null; }
+  if (validStored(parsed)) {
+    state = normalizeState(parsed);
+    try { localStorage.setItem(BACKUP_KEY, raw); } catch(e){}
+    return;
+  }
+  /* Damaged data: preserve the raw copy under its own key, restore the last
+     good backup if there is one, and say so out loud — never silently
+     reset the whole farm. */
+  try { localStorage.setItem(CORRUPT_KEY, raw); } catch(e){}
+  var braw = null;
+  try { braw = localStorage.getItem(BACKUP_KEY); } catch(e){}
+  if (braw) {
+    var bp = null;
+    try { bp = JSON.parse(braw); } catch(e){ bp = null; }
+    if (validStored(bp)) {
+      state = normalizeState(bp);
+      RECOVERY_NOTICE = "Your saved GrazeGuide farm data couldn't be read, so your last good backup was restored. The damaged copy was preserved under the storage key \"" + CORRUPT_KEY + "\" — nothing was deleted.";
+      saveState();
+      return;
+    }
+  }
+  state = defaultState();
+  RECOVERY_NOTICE = "Your saved GrazeGuide farm data couldn't be read and no good backup was found, so a fresh farm was started so you can keep working. The damaged copy was preserved under the storage key \"" + CORRUPT_KEY + "\" — nothing was deleted.";
 }
+function showRecoveryBanner(){
+  if (!RECOVERY_NOTICE || document.getElementById("recoveryBanner")) return;
+  var d = document.createElement("div");
+  d.id = "recoveryBanner"; d.setAttribute("role", "alert");
+  d.style.cssText = "background:#fff3cd;border-bottom:3px solid #e8a13a;color:#5b4300;padding:12px 16px;font:600 15px/1.45 system-ui,sans-serif;text-align:center;position:relative;z-index:9999";
+  var span = document.createElement("span"); span.textContent = RECOVERY_NOTICE + " ";
+  var b = document.createElement("button"); b.textContent = "OK — got it"; b.style.cssText = "margin-left:8px;padding:6px 14px;font-weight:700;cursor:pointer";
+  b.onclick = function(){ d.remove(); };
+  d.appendChild(span); d.appendChild(b);
+  document.body.insertBefore(d, document.body.firstChild);
+}
+(function(){ var tries = 0; function attempt(){ if (RECOVERY_NOTICE){ showRecoveryBanner(); return; } if (++tries <= 20) setTimeout(attempt, 150); } if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", attempt); attempt(); })();
 
 /* ================= v2.1: locations (properties) ================= */
 function findLocation(id){ return state.locations.filter(function(L){ return L.id===id; })[0]||null; }
@@ -2165,7 +2210,7 @@ $("#legalAgreeBtn").addEventListener("click", function(){
 });
 function openLegalPage(){
   openModal("<h3>Legal — Terms, Disclaimer &amp; Privacy</h3>"+
-    "<p class='small muted'>Sold by White Wolf Tree Service LLC (White Wolf Digital) — whitewolfoklahoma@gmail.com</p>"+
+    "<p class='small muted'>Sold by White Wolf Apps — whitewolfbackoffice@gmail.com</p>"+
     "<p class='small'>"+(state.legal?("You agreed to Terms v"+esc(state.legal.termsVersion)+" on "+esc(state.legal.acceptedDate)+"."):"Terms not yet accepted on this device.")+"</p>"+
     "<div class='seg'><button type='button' data-legalpg='terms' class='active'>Terms of Use</button><button type='button' data-legalpg='disc'>Planning Disclaimer</button><button type='button' data-legalpg='priv'>Privacy</button></div>"+
     "<div class='legaltext' id='legalPageText' style='max-height:52vh'></div>"+
@@ -4363,7 +4408,7 @@ function printExtraSections(){
 
 
 /* ================= v2: glue — map view dispatch, Today extras, settings extras, grid water tools ================= */
-var APP_VERSION = "2.4.0";
+var APP_VERSION = "2.4.2";
 function renderMapV2(){
   var view = state.map.view || "sat";
   $$("#mapViewToggle button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-mapview")===view); });
@@ -6685,7 +6730,7 @@ loadState();
 window.addEventListener("storage", function(e){
   if (!e || e.key !== STORE_KEY || !e.newValue) return;
   if ($("#modalOverlay") && $("#modalOverlay").classList.contains("open")) return;
-  try { state = normalizeState(JSON.parse(e.newValue)); renderAll(); } catch (err) {}
+  try { var p = JSON.parse(e.newValue); if (validStored(p)) { state = normalizeState(p); renderAll(); } } catch (err) {}
 });
 renderSettings();
 renderAll();
